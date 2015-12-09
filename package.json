@@ -1,0 +1,27 @@
+{
+  "name": "run",
+  "version": "1.0.0",
+  "description": "Run or walk for your transport?",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "path-to-git-repo"
+  },
+  "keywords": [
+    "tfl",
+    "transport",
+    "journey"
+  ],
+  "author": "minaorangina",
+  "license": "MIT",
+  "dependencies": {
+    "router": "^1.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  }
+}
