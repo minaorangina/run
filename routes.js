@@ -1,26 +1,18 @@
-var https = require('https');
-var url = require('url');
-var router = require('routes')();
-
+var Wreck = require('wreck');
 
 var busstop = 'https://api.tfl.gov.uk/StopPoint/490012632K?app_id='+ process.env.APP_ID +'&app_key=' + process.env.APP_KEY;
 
-function routes (request, response) {
+var routes = [
+    {
+        method: 'GET',
+        path: '/',
+        handler: function (request, reply) {
+            console.log("inside handler");
+            Wreck.get(busstop, function (err, response, payload) {
 
-    https.get(busstop, function (response) {
-
-        response.on('data', function () {
-
-            response.write(response);
-        });
-        response.on('err', function (err) {
-
-            console.log(err);
-            response.writeHead(500);
-            response.write("There was an error.");
-            response.end();
-        });
-    });
-}
-
+                reply(payload.toString());
+            });
+        }
+    }
+];
 module.exports = routes;

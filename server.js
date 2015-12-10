@@ -1,7 +1,10 @@
-var http = require('http');
+var Hapi = require('hapi');
 var routes = require('./routes.js');
+var server = new Hapi.Server();
 
-http.createServer(routes).listen(8080, function () {
+server.connection({port: 8080});
+server.route(routes);
+server.start(function () {
 
-    console.log("Listening on port 8080");
+    console.log("Server running at port:", server.info.uri);
 });

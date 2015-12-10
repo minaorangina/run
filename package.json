@@ -19,7 +19,8 @@
   "author": "minaorangina",
   "license": "MIT",
   "dependencies": {
-    "routes": "^2.1.0"
+    "hapi": "^11.1.2",
+    "wreck": "^7.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"
