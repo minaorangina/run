@@ -1,7 +1,8 @@
 var Wreck = require('wreck');
 
 var stBarnabasChurch = '490012633S';
-var arrivals = 'https://api.tfl.gov.uk/Line/277/Arrivals?stopPointId='+ stBarnabasChurch +'&app_id=' + process.env.APP_ID + '&app_key=' + process.env.APP_KEY;
+var busNumber = '277';
+var arrivals = 'https://api.tfl.gov.uk/Line/'+ busNumber +'/Arrivals?stopPointId='+ stBarnabasChurch +'&app_id=' + process.env.APP_ID + '&app_key=' + process.env.APP_KEY;
 
 var handlers = {
 
@@ -23,6 +24,7 @@ var handlers = {
                 });
 
                 console.log(nextTwoDepartures);
+                
                 reply(nextTwoDepartures);
             });
         });
