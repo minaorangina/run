@@ -18,7 +18,19 @@ var handlers = {
 
         tfl.get(allBusArrivals, function (err, response, body) {
 
-            reply(body);
+
+            var sorted = JSON.parse(body).sort(function (a, b) {
+
+                if (a.expectedArrival < b.expectedArrival) {
+                    return -1;
+                } else if (a.expectedArrival > b.expectedArrival) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+
+            reply(sorted);
         });
 
 

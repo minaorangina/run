@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "hapi": "^11.1.2",
-    "wreck": "^7.0.0"
+    "request": "^2.67.0"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"
