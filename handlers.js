@@ -8,19 +8,23 @@ var allBusArrivals = 'StopPoint/' + stBarnabasChurch + '/Arrivals';
 
 var options  = {
 
-    baseUrl: 'https://api.tfl.gov.uk/'
+    baseUrl: 'https://api.tfl.gov.uk'
 };
+
+
 
 var handlers = {
 
     getBusArrivals: function (request, reply) {
 
-        Wreck.request('GET', allBusArrivals + credentials, options, function (err, res) {
-            console.log("res");
+        var thing = Wreck.request('GET', allBusArrivals + credentials, options, function optionalCallback (err, res) {
+            console.log(res.statusCode);
             if (err) {
-                reply(err);
+                return reply(err);
+            } else if (res.statusCode >= 400 && res.statusCode < 500) {
+                return reply("Whoops");
             }
-            Wreck.read(res, {json: 'smart'}, function (err, body) {
+            Wreck.read(res, null, function (err, body) {
 
                 var nextArrivals = body.sort(function (a, b) {
 
@@ -32,7 +36,6 @@ var handlers = {
                         return 0;
                     }
                 });
-
 
                 reply(nextArrivals);
             });
