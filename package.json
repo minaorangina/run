@@ -5,8 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "testing": "./node_modules/.bin/enzyme ./test/test.js",
     "start": "nodemon server.js",
-    "build": "browserify -t [ babelify --presets [ react ] ] app.jsx -o public/bundle.js"
+    "build": "browserify -t [ babelify --presets [ react ] ] app.jsx -o public/bundle.js",
+    "build-test": "browserify test/test.jsx -o test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "babel": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "hapi": "^11.1.2",
@@ -33,6 +36,7 @@
   "devDependencies": {
     "browserify": "^12.0.1",
     "enzyme": "^1.2.0",
-    "nodemon": "^1.8.1"
+    "nodemon": "^1.8.1",
+    "react-addons-test-utils": "^0.14.3"
   }
 }
