@@ -1,7 +1,5 @@
 var handlers = require('./handlers.js');
 
-
-
 var routes = [
     {
         method: 'GET',
@@ -20,6 +18,11 @@ var routes = [
                 index: true
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/getBusArrivals',
+        handler: handlers.getBusArrivals
     }
 ];
 module.exports = routes;

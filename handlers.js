@@ -30,7 +30,7 @@ var handlers = {
                 }
             });
 
-            reply(sorted);
+            reply(sorted.slice(0, 3));
         });
     }
 };
