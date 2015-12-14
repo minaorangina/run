@@ -43,7 +43,7 @@ var AppContainer = React.createClass({
                         {
                             busArrivals.map(function (arrival, i) {
                                 console.log(arrival);
-                                return <div key={ i }>{ arrival.timeToStation }</div>
+                                return <div key={ i }>Bus { arrival.lineName } -> { arrival.destinationName } { arrival.timeToStation }</div>
                             })
                         }
                     </ul>
