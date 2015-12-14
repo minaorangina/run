@@ -11,7 +11,7 @@ var tfl = request.defaults({
     baseUrl: 'https://api.tfl.gov.uk',
     qs: credentials
 });
-// npm install --save babel-preset-react
+
 
 var handlers = {
 

@@ -6,7 +6,20 @@ var routes = [
     {
         method: 'GET',
         path: '/',
-        handler: handlers.getBusArrivals
+        handler: {
+            file: 'index.html'
+        }
+    },
+    {
+        method: 'GET',
+        path: '/{someFile*}',
+        handler: {
+            directory: {
+                path: '.',
+                redirectToSlash: false,
+                index: true
+            }
+        }
     }
 ];
 module.exports = routes;

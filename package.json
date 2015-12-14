@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "build": "browserify -t [ babelify --presets [ react ] ] main.js -o bundle.js"
+    "build": "browserify -t [ babelify --presets [ react ] ] app.jsx -o public/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,10 @@
   "license": "MIT",
   "dependencies": {
     "babel": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "hapi": "^11.1.2",
+    "inert": "^3.2.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "request": "^2.67.0"

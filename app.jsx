@@ -4,5 +4,5 @@ var ReactDOM = require('react-dom');
 ReactDOM.render(
 
     <h1>Hello, World!</h1>,
-    document.getElementsByClassName("bus")[0];
+    document.getElementsByClassName("bus")[0]
 );
