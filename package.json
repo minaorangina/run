@@ -4,15 +4,15 @@
   "description": "Run or walk for your transport?",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "testing": "./node_modules/.bin/enzyme ./test/test.js",
-    "start": "nodemon server.js",
-    "build": "browserify -t [ babelify --presets [ react ] ] app.jsx -o public/bundle.js",
-    "build-test": "browserify test/test.jsx -o test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]"
+    "start": "npm run build & nodemon server.js",
+    "build": "watchify app.jsx -t [ babelify --presets [ react ] ] -o public/bundle.js -v",
+    "build-test": "browserify test/test.jsx -o test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "test": "echo \"You ain't wrote no tests!\" && exit 1",
+    "testing": "./node_modules/.bin/enzyme ./test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "path-to-git-repo"
+    "url": "https://github.com/minaorangina/run.git"
   },
   "keywords": [
     "tfl",
@@ -37,6 +37,7 @@
     "browserify": "^12.0.1",
     "enzyme": "^1.2.0",
     "nodemon": "^1.8.1",
-    "react-addons-test-utils": "^0.14.3"
+    "react-addons-test-utils": "^0.14.3",
+    "watchify": "^3.6.1"
   }
 }
