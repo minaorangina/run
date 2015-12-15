@@ -15,7 +15,7 @@ var AppContainer = React.createClass({
 
     componentDidMount: function () {
 
-        var buses = setInterval(this.getBusArrivals, 10000);
+        this.getBusArrivals();
     },
 
     getBusArrivals: function () {
@@ -29,6 +29,7 @@ var AppContainer = React.createClass({
                     busArrivals: data
                 }, function () {
                     console.log(self.state);
+                    setTimeout(self.getBusArrivals, 10000);
                 });
             }
         });

@@ -1,9 +1,8 @@
 "use strict";
 var React = require('react');
+var moment = require('moment');
 
 var BusArrivals = React.createClass({
-
-
 
     render: function () {
 
@@ -23,7 +22,10 @@ var BusArrivals = React.createClass({
                         })
                         .map(function (arrival, i) {
 
-                            return <div key={ i }>Bus { arrival.lineName } to { arrival.destinationName } -> { arrival.timeToStation }</div>
+                            var time = moment.duration(arrival.timeToStation, 'seconds').humanize();
+                            console.log(time);
+
+                            return <div key={ i }>Bus { arrival.lineName } to { arrival.destinationName } -> { time }</div>
                         })
                     }
                 </ul>
