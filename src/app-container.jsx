@@ -1,6 +1,8 @@
 "use strict";
 var React = require('react');
 var $ = require('jquery');
+var BusArrivals = require('./bus-arrivals.jsx')
+
 
 var AppContainer = React.createClass({
 
@@ -13,7 +15,7 @@ var AppContainer = React.createClass({
 
     componentDidMount: function () {
 
-        this.getBusArrivals();
+        var buses = setInterval(this.getBusArrivals, 10000);
     },
 
     getBusArrivals: function () {
@@ -38,17 +40,8 @@ var AppContainer = React.createClass({
 
         return (
             <div>
-                <div className='bus'>
-                    <ul>
-                        {
-                            busArrivals.map(function (arrival, i) {
-                                console.log(arrival);
-                                return <div key={ i }>Bus { arrival.lineName } -> { arrival.destinationName } { arrival.timeToStation }</div>
-                            })
-                        }
-                    </ul>
-
-                </div>
+                <h3>The buses</h3>
+                <BusArrivals arrivals={ busArrivals }/>
             </div>
         );
     }
