@@ -22,10 +22,9 @@ var BusArrivals = React.createClass({
                         })
                         .map(function (arrival, i) {
 
-                            var time = moment.duration(arrival.timeToStation, 'seconds').humanize();
-                            console.log(time);
+                            var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
-                            return <div key={ i }>Bus { arrival.lineName } to { arrival.destinationName } -> { time }</div>
+                            return <div key={ i }>{ arrival.lineName } to { arrival.destinationName } -> { time }</div>
                         })
                     }
                 </ul>

@@ -19,8 +19,8 @@ var AppContainer = React.createClass({
     },
 
     getBusArrivals: function () {
-
         var self = this;
+        
         $.ajax({
             url: '/getBusArrivals',
             success: function (data) {
@@ -28,7 +28,7 @@ var AppContainer = React.createClass({
                 self.setState({
                     busArrivals: data
                 }, function () {
-                    console.log(self.state);
+
                     setTimeout(self.getBusArrivals, 10000);
                 });
             }
