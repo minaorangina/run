@@ -23,6 +23,11 @@ var routes = [
         method: 'GET',
         path: '/getBusArrivals',
         handler: handlers.getBusArrivals
+    },
+    {
+        method: 'GET',
+        path: '/getDLRArrivals',
+        handler: handlers.getDLRArrivals
     }
 ];
 module.exports = routes;

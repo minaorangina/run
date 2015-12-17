@@ -1,8 +1,38 @@
 "use strict";
 var React = require('react');
 var moment = require('moment');
+var $ = require('jquery');
 
 var BusArrivals = React.createClass({
+
+    getInitialState: function () {
+
+        return {
+            busArrivals: []
+        };
+    },
+
+    componentDidMount: function () {
+
+        this.getBusArrivals();
+    },
+
+    getBusArrivals: function () {
+        var self = this;
+
+        $.ajax({
+            url: '/getBusArrivals',
+            success: function (data) {
+
+                self.setState({
+                    busArrivals: data
+                }, function () {
+
+                    setTimeout(self.getBusArrivals, 10000);
+                });
+            }
+        });
+    },
 
     render: function () {
 
@@ -10,7 +40,7 @@ var BusArrivals = React.createClass({
             <div className='bus'>
                 <ul>
                     {
-                        this.props.arrivals.sort(function (a, b) {
+                        this.state.busArrivals.sort(function (a, b) {
 
                             if (a.expectedArrival < b.expectedArrival) {
                                 return -1;

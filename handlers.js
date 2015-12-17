@@ -30,8 +30,14 @@ var handlers = {
                 }
             });
 
-            reply(sorted.slice(0, 3));
+            reply(sorted.slice(0, 5));
         });
+    },
+
+    getDLRArrivals: function (request, reply) {
+
+
+        reply (["dlr arrivals!"]);
     }
 };
 
