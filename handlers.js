@@ -12,7 +12,7 @@ var woolwichDLR = '940GZZDLWLA';
 var handlers = {
 
     getBusArrivals: function (request, reply) {
-        
+
         var stBarnabasChurch = '490012633S';
         var allBusArrivals = 'StopPoint/' + stBarnabasChurch + '/Arrivals';
 
@@ -44,6 +44,10 @@ var handlers = {
 
                 return arrival.destinationNaptanId === woolwichDLR;
             })
+            .filter(function (arrival) {
+
+                return arrival.timeToStation !== 0;
+            })
             .sort(function (a, b) {
 
                 if (a.expectedArrival < b.expectedArrival) {
@@ -55,7 +59,7 @@ var handlers = {
                 }
             });
 
-            reply(results.slice(0, 1));
+            reply(results.slice(0, 2));
         });
     }
 };
