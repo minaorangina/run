@@ -10,7 +10,6 @@ var AppContainer = React.createClass({
 
         return (
             <div>
-                <h3>The buses</h3>
                 <BusArrivals />
                 <DLRArrivals />
             </div>

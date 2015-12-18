@@ -38,6 +38,7 @@ var BusArrivals = React.createClass({
 
         return (
             <div className='bus'>
+                <h3>St Barnabas Church</h3>
                 <ul>
                     {
                         this.state.busArrivals.sort(function (a, b) {

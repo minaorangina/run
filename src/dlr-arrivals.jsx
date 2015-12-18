@@ -28,7 +28,6 @@ var DLRArrivals = React.createClass({
                     DLRArrivals: data
                 }, function () {
 
-                    console.log(self.state.DLRArrivals);
                     setTimeout(self.getDLRArrivals, 10000);
                 });
             }
@@ -39,6 +38,7 @@ var DLRArrivals = React.createClass({
 
         return (
             <div className='dlr'>
+                <h3>West Ham</h3>
                 <ul>
                     {
                         this.state.DLRArrivals.map(function (arrival, i) {
