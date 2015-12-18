@@ -12,13 +12,13 @@ var woolwichDLR = '940GZZDLWLA';
 var handlers = {
 
     getBusArrivals: function (request, reply) {
-
+        
         var stBarnabasChurch = '490012633S';
         var allBusArrivals = 'StopPoint/' + stBarnabasChurch + '/Arrivals';
 
         tfl.get(allBusArrivals, function (err, response, body) {
 
-            var sorted = JSON.parse(body).sort(function (a, b) {
+            var results = JSON.parse(body).sort(function (a, b) {
 
                 if (a.expectedArrival < b.expectedArrival) {
                     return -1;
@@ -29,7 +29,7 @@ var handlers = {
                 }
             });
 
-            reply(sorted.slice(0, 5));
+            reply(results.slice(0, 5));
         });
     },
 
@@ -55,8 +55,7 @@ var handlers = {
                 }
             });
 
-            console.log(results.slice(0, 5));
-            // reply(sorted.slice(0, 5));
+            reply(results.slice(0, 1));
         });
     }
 };
