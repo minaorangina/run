@@ -47,7 +47,7 @@ var DLRArrivals = React.createClass({
 
                             var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
-                            return <div key={ i }>{ arrival.lineName } to { arrival.destinationName } -> { time }</div>
+                            return <div key={ i }><img src="static/dlr.jpg" width="20px"></img>{ arrival.lineName } to { arrival.destinationName } -> { time }</div>
                         })
                     }
                 </ul>
