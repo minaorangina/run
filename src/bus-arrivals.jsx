@@ -24,8 +24,10 @@ var BusArrivals = React.createClass({
             url: '/getBusArrivals',
             success: function (data) {
 
+                var newData = data || [];
+
                 self.setState({
-                    busArrivals: data
+                    busArrivals: newData
                 }, function () {
 
                     setTimeout(self.getBusArrivals, 10000);

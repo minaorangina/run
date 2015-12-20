@@ -24,8 +24,10 @@ var TrainArrivals = React.createClass({
             url: '/getTrainArrivals',
             success: function (data) {
 
+                var newData = data || [];
+
                 self.setState({
-                    trainArrivals: data
+                    trainArrivals: newData
                 }, function () {
 
                     setTimeout(self.getTrainArrivals, 10000);

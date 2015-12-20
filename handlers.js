@@ -14,54 +14,67 @@ var handlers = {
     getBusArrivals: function (request, reply) {
 
         var stBarnabasChurch = '490012633S';
-        var allBusArrivals = 'StopPoint/' + stBarnabasChurch + '/Arrivals';
 
-        tfl.get(allBusArrivals, function (err, response, body) {
+        tfl.get('StopPoint/' + stBarnabasChurch + '/Arrivals', function (err, response, body) {
 
-            var results = JSON.parse(body).sort(function (a, b) {
+            var results = body;
 
-                if (a.expectedArrival < b.expectedArrival) {
-                    return -1;
-                } else if (a.expectedArrival > b.expectedArrival) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
+            if (results) {
 
-            reply(results.slice(0, 5));
+                var results = JSON.parse(body).sort(function (a, b) {
+
+                    if (a.expectedArrival < b.expectedArrival) {
+                        return -1;
+                    } else if (a.expectedArrival > b.expectedArrival) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
+                .slice(0, 5);
+            }
+
+            reply(results);
         });
     },
 
     getDLRArrivals: function (request, reply) {
 
         var westHamDLR = '940GZZDLWHM';
-        var westHamDLRArrivals = 'StopPoint/' + westHamDLR + '/Arrivals';
 
-        tfl.get(westHamDLRArrivals, function (err, response, body) {
+        tfl.get('StopPoint/' + westHamDLR + '/Arrivals', function (err, response, body) {
 
-            var results = JSON.parse(body).filter(function (arrival) {
+            var results = body;
 
-                return arrival.destinationNaptanId === woolwichDLR;
-            })
-            .filter(function (arrival) {
+            if (results) {
 
-                return arrival.timeToStation !== 0;
-            })
-            .sort(function (a, b) {
+                results = JSON.parse(body).filter(function (arrival) {
 
-                if (a.expectedArrival < b.expectedArrival) {
-                    return -1;
-                } else if (a.expectedArrival > b.expectedArrival) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
+                    return arrival.destinationNaptanId === woolwichDLR;
+                })
+                .filter(function (arrival) {
 
-            reply(results.slice(0, 2));
+                    return arrival.timeToStation !== 0;
+                })
+                .sort(function (a, b) {
+
+                    if (a.expectedArrival < b.expectedArrival) {
+                        return -1;
+                    } else if (a.expectedArrival > b.expectedArrival) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
+                .slice(0, 2);
+            }
+
+
+            reply(results);
         });
-    }
+    },
+
+    getTrainArrivals: require('./lib/getTrainArrivals.js')
 };
 
 module.exports = handlers;

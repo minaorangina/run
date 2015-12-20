@@ -24,8 +24,10 @@ var DLRArrivals = React.createClass({
             url: '/getDLRArrivals',
             success: function (data) {
 
+                var newData = data || [];
+
                 self.setState({
-                    DLRArrivals: data
+                    DLRArrivals: newData
                 }, function () {
 
                     setTimeout(self.getDLRArrivals, 10000);
