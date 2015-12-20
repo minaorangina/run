@@ -23,14 +23,14 @@ var TrainArrivals = React.createClass({
         $.ajax({
             url: '/getTrainArrivals',
             success: function (data) {
-
+                console.log(data[0]);
                 var newData = data || [];
 
                 self.setState({
                     trainArrivals: newData
                 }, function () {
 
-                    setTimeout(self.getTrainArrivals, 10000);
+                    setTimeout(self.getTrainArrivals, 30000);
                 });
             }
         });
@@ -38,16 +38,20 @@ var TrainArrivals = React.createClass({
 
     render: function () {
 
+        var trainArrivals = this.state.trainArrivals;
+
         return (
             <div className='train'>
                 <h3>Woolwich</h3>
                 <ul>
                     {
-                        this.state.trainArrivals.map(function (arrival, i) {
 
+                        trainArrivals.map(function (arrival, i) {
+
+                            var destination = arrival.destination.location[0].locationName;
                             var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
-                            return <div key={ i }>{ arrival.lineName } to { arrival.destinationName } -> { time }</div>
+                            return <div key={ i }>🚅 to { destination } -> { arrival.std }</div>
                         })
                     }
                 </ul>
