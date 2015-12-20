@@ -38,12 +38,17 @@ var BusArrivals = React.createClass({
 
     render: function () {
 
+        var busArrivals = this.state.busArrivals;
+
         return (
             <div className='bus'>
                 <h3>St Barnabas Church</h3>
+                <div className={ busArrivals.length === 0 ? "" : "display-none" }>
+                    Ain't got no departures!
+                </div>
                 <ul>
                     {
-                        this.state.busArrivals.sort(function (a, b) {
+                        busArrivals.sort(function (a, b) {
 
                             if (a.expectedArrival < b.expectedArrival) {
                                 return -1;

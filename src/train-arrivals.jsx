@@ -23,7 +23,8 @@ var TrainArrivals = React.createClass({
         $.ajax({
             url: '/getTrainArrivals',
             success: function (data) {
-                console.log(data[0]);
+                
+                console.log(new Date().toISOString());
                 var newData = data || [];
 
                 self.setState({
@@ -43,15 +44,17 @@ var TrainArrivals = React.createClass({
         return (
             <div className='train'>
                 <h3>Woolwich</h3>
+                <div className={ trainArrivals.length === 0 ? "" : "display-none" }>
+                    Ain't got no departures!
+                </div>
                 <ul>
                     {
-
                         trainArrivals.map(function (arrival, i) {
 
                             var destination = arrival.destination.location[0].locationName;
                             var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
-                            return <div key={ i }><img src="static/rail.png" width="20px"></img> { destination } -> { arrival.std }</div>
+                            return <div key={ i }><img src="static/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>
                         })
                     }
                 </ul>

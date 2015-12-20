@@ -23,7 +23,7 @@ var DLRArrivals = React.createClass({
         $.ajax({
             url: '/getDLRArrivals',
             success: function (data) {
-
+                
                 var newData = data || [];
 
                 self.setState({
@@ -38,12 +38,17 @@ var DLRArrivals = React.createClass({
 
     render: function () {
 
+        var DLRArrivals = this.state.DLRArrivals;
+
         return (
             <div className='dlr'>
                 <h3>West Ham</h3>
+                <div className={ DLRArrivals.length === 0 ? "" : "display-none" }>
+                    Ain't got no departures!
+                </div>
                 <ul>
                     {
-                        this.state.DLRArrivals.map(function (arrival, i) {
+                        DLRArrivals.map(function (arrival, i) {
 
                             var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
