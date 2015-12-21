@@ -24,7 +24,6 @@ var TrainArrivals = React.createClass({
             url: '/getTrainArrivals',
             success: function (data) {
                 
-                console.log(new Date().toISOString());
                 var newData = data || [];
 
                 self.setState({
