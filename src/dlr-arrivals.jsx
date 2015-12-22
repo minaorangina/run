@@ -23,22 +23,19 @@ var DLRArrivals = React.createClass({
         $.ajax({
             url: '/getDLRArrivals',
             success: function (data) {
-                
+
                 var newData = data || [];
 
-                self.setState({
-                    DLRArrivals: newData
-                }, function () {
+                self.props.updateState('DLRArrivals', newData);
 
-                    setTimeout(self.getDLRArrivals, 10000);
-                });
+                setTimeout(self.getDLRArrivals, 10000);
             }
         });
     },
 
     render: function () {
 
-        var DLRArrivals = this.state.DLRArrivals;
+        var DLRArrivals = this.props.arrivals;
 
         return (
             <div className='dlr'>

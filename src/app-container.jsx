@@ -6,13 +6,31 @@ var TrainArrivals = require('./train-arrivals.jsx');
 
 var AppContainer = React.createClass({
 
+    getInitialState: function () {
+
+        return {
+            busArrivals: [],
+            DLRArrivals: [],
+            trainArrivals: []
+        };
+    },
+
+    updateState: function (transport, data) {
+
+        this.setState({
+            [transport]: data
+        }, function () {
+            console.log(this.state);
+        });
+    },
+
     render: function () {
 
         return (
             <div>
-                <BusArrivals />
-                <DLRArrivals />
-                <TrainArrivals />
+                <BusArrivals arrivals={ this.state.busArrivals } updateState={ this.updateState } />
+                <DLRArrivals arrivals={ this.state.DLRArrivals } updateState={ this.updateState } />
+                <TrainArrivals arrivals={ this.state.trainArrivals } updateState={ this.updateState } />
             </div>
         );
     }

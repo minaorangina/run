@@ -5,12 +5,6 @@ var $ = require('jquery');
 
 var BusArrivals = React.createClass({
 
-    getInitialState: function () {
-
-        return {
-            busArrivals: []
-        };
-    },
 
     componentDidMount: function () {
 
@@ -26,19 +20,17 @@ var BusArrivals = React.createClass({
 
                 var newData = data || [];
 
-                self.setState({
-                    busArrivals: newData
-                }, function () {
+                self.props.updateState('busArrivals', newData)
 
-                    setTimeout(self.getBusArrivals, 10000);
-                });
+                setTimeout(self.getBusArrivals, 10000);
             }
         });
     },
 
     render: function () {
 
-        var busArrivals = this.state.busArrivals;
+        var busArrivals = this.props.arrivals;
+        console.log("busArrivals",busArrivals);
 
         return (
             <div className='bus'>

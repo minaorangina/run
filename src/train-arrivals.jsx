@@ -23,22 +23,19 @@ var TrainArrivals = React.createClass({
         $.ajax({
             url: '/getTrainArrivals',
             success: function (data) {
-                
+
                 var newData = data || [];
 
-                self.setState({
-                    trainArrivals: newData
-                }, function () {
+                self.props.updateState('trainArrivals', newData);
 
-                    setTimeout(self.getTrainArrivals, 30000);
-                });
+                setTimeout(self.getTrainArrivals, 30000);
             }
         });
     },
 
     render: function () {
 
-        var trainArrivals = this.state.trainArrivals;
+        var trainArrivals = this.props.arrivals;
 
         return (
             <div className='train'>
