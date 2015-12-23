@@ -30,7 +30,7 @@ var BusArrivals = React.createClass({
     render: function () {
 
         var busArrivals = this.props.arrivals;
-        console.log("busArrivals",busArrivals);
+        console.log("busArrivals");
 
         return (
             <div className='bus'>
