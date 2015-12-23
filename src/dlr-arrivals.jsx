@@ -36,6 +36,7 @@ var DLRArrivals = React.createClass({
     render: function () {
 
         var DLRArrivals = this.props.arrivals;
+        console.log('DLRArrivals');
 
         return (
             <div className='dlr'>
