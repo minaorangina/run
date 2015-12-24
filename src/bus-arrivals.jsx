@@ -15,7 +15,7 @@ var BusArrivals = React.createClass({
         var self = this;
 
         $.ajax({
-            url: '/getBusArrivals',
+            url: '/getTfLArrivals?mode=bus',
             success: function (data) {
 
                 var newData = data || [];

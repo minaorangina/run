@@ -36,7 +36,7 @@ var TrainArrivals = React.createClass({
     render: function () {
 
         var trainArrivals = this.props.arrivals;
-
+        console.log('trainArrivals');
         return (
             <div className='train'>
                 <h3>Woolwich</h3>

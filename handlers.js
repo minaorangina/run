@@ -7,21 +7,47 @@ var tfl = request.defaults({
     qs: credentials
 });
 
+var stBarnabasChurch = '490012633S';
+var westHamDLR = '940GZZDLWHM';
 var woolwichDLR = '940GZZDLWLA';
 
 var handlers = {
 
-    getBusArrivals: function (request, reply) {
+    getTfLArrivals: function (request, reply) {
 
-        var stBarnabasChurch = '490012633S';
+        var query = request.query;
+        var stopPoint = '';
 
-        tfl.get('StopPoint/' + stBarnabasChurch + '/Arrivals', function (err, response, body) {
+        if (query.mode === 'dlr') {
 
-            var results = body;
+            stopPoint = westHamDLR;
 
-            if (results) {
+        } else if (query.mode === 'bus') {
 
-                var results = JSON.parse(body).sort(function (a, b) {
+            stopPoint = stBarnabasChurch;
+
+        }
+
+
+        tfl.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
+
+            var results = JSON.parse(body);
+
+            if (!results) {
+
+                throw new Error("Could not get arrivals from TfL");
+
+            } else {
+
+                if (stopPoint === westHamDLR) {
+
+                    results = results.filter(function (arrival) {
+
+                        return arrival.destinationNaptanId === woolwichDLR;
+                    });
+                }
+
+                results = results.sort(function (a, b) {
 
                     if (a.expectedArrival < b.expectedArrival) {
                         return -1;
@@ -31,16 +57,16 @@ var handlers = {
                         return 0;
                     }
                 })
-                .slice(0, 5);
-            }
+                .slice(0, 5)
 
-            reply(results);
+                reply(results);
+            }
         });
     },
 
     getDLRArrivals: function (request, reply) {
 
-        var westHamDLR = '940GZZDLWHM';
+
 
         tfl.get('StopPoint/' + westHamDLR + '/Arrivals', function (err, response, body) {
 
