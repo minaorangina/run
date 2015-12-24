@@ -16,7 +16,7 @@ var handlers = {
     getTfLArrivals: function (request, reply) {
 
         var query = request.query;
-        var stopPoint = '';
+        var stopPoint;
 
         if (query.mode === 'dlr') {
 
