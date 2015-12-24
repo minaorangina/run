@@ -21,7 +21,7 @@ var DLRArrivals = React.createClass({
         var self = this;
 
         $.ajax({
-            url: '/getDLRArrivals',
+            url: '/getTfLArrivals?mode=dlr',
             success: function (data) {
 
                 var newData = data || [];

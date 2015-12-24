@@ -21,13 +21,8 @@ var routes = [
     },
     {
         method: 'GET',
-        path: '/getBusArrivals',
-        handler: handlers.getBusArrivals
-    },
-    {
-        method: 'GET',
-        path: '/getDLRArrivals',
-        handler: handlers.getDLRArrivals
+        path: '/getTfLArrivals',
+        handler: handlers.getTfLArrivals
     },
     {
         method: 'GET',
