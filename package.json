@@ -5,10 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build & nodemon server.js",
-    "build": "watchify app.jsx -t [ babelify --presets [ react ] ] -o public/bundle.js -v",
-    "build-test": "browserify test/test.jsx -o test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]",
-    "test": "echo \"You ain't wrote no tests!\" && exit 1",
-    "testing": "./node_modules/.bin/enzyme ./test/test.js"
+    "build": "watchify src/app.jsx -t [ babelify --presets [ react ] ] -o public/bundle.js -v",
+    "build-test": "browserify src/test/test.jsx -o src/test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "test": "echo \"You ain't wrote no tests!\" && exit 1"
   },
   "repository": {
     "type": "git",
