@@ -2,3 +2,4 @@ node_modules/
 public/bundle.js
 npm-debug.log
 src/test/testing-dom.js
+src/test/utils/dom.js
