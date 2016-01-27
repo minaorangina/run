@@ -5,14 +5,7 @@ var $ = require('jquery');
 
 var TrainArrivals = React.createClass({
 
-    getInitialState: function () {
-
-        return {
-            trainArrivals: []
-        };
-    },
-
-    componentDidMount: function () {
+    componentWillMount: function () {
 
         this.getTrainArrivals();
     },
@@ -25,7 +18,6 @@ var TrainArrivals = React.createClass({
             success: function (data) {
 
                 var newData = data || [];
-
                 self.props.updateState('trainArrivals', newData);
 
                 setTimeout(self.getTrainArrivals, 30000);
@@ -36,12 +28,12 @@ var TrainArrivals = React.createClass({
     render: function () {
 
         var trainArrivals = this.props.arrivals;
-        console.log('trainArrivals');
+        console.log(trainArrivals);
         return (
             <div className='train'>
                 <h3>Woolwich</h3>
                 <div className={ trainArrivals.length === 0 ? "" : "display-none" }>
-                    Ain't got no departures!
+                    No trains to Erith
                 </div>
                 <ul>
                     {
@@ -51,6 +43,7 @@ var TrainArrivals = React.createClass({
                             var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
                             return <div key={ i }><img src="static/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>
+
                         })
                     }
                 </ul>
