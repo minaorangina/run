@@ -19,8 +19,6 @@ var AppContainer = React.createClass({
 
         this.setState({
             [transport]: data
-        }, function () {
-            console.log(this.state);
         });
     },
 

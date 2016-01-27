@@ -5,14 +5,7 @@ var $ = require('jquery');
 
 var DLRArrivals = React.createClass({
 
-    getInitialState: function () {
-
-        return {
-            DLRArrivals: []
-        };
-    },
-
-    componentDidMount: function () {
+    componentWillMount: function () {
 
         this.getDLRArrivals();
     },

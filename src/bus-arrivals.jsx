@@ -5,8 +5,7 @@ var $ = require('jquery');
 
 var BusArrivals = React.createClass({
 
-
-    componentDidMount: function () {
+    componentWillMount: function () {
 
         this.getBusArrivals();
     },
