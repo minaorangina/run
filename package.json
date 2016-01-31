@@ -7,8 +7,8 @@
     "start": "node server.js",
     "start:dev": "npm run build & nodemon server.js",
     "build": "watchify src/app.jsx -t [ babelify --presets [ react ] ] -o public/bundle.js -v",
-    "build-test": "browserify src/test/test.js -o src/test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]",
-    "test": "node_modules/mocha/bin/mocha --compilers js:babel/register src/test/test.js --reporter nyan"
+    "build-test": "browserify test/test.js -o test/test-bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel/register test/test.js --reporter nyan"
   },
   "repository": {
     "type": "git",
