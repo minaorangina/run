@@ -15,7 +15,9 @@ var server = new Hapi.Server({
 
 server.register(inert, function () {});
 
-server.connection({port: 8000});
+server.connection({
+    port: Number(process.env.PORT || 8000)
+});
 server.route(routes);
 server.start(function () {
 
