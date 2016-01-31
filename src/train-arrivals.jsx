@@ -10,6 +10,25 @@ var TrainArrivals = React.createClass({
         this.getTrainArrivals();
     },
 
+    shouldComponentUpdate: function (nextProps) {
+
+        var props = this.props;
+
+        if (nextProps.arrivals.length > props.arrivals.length) {
+
+            return true;
+        } else {
+
+            return nextProps.arrivals.every( function (arrival, i) {
+
+                if (props.arrivals[i]) {
+
+                    return arrival.std !== props.arrivals[i].std;
+                }
+            });
+        }
+    },
+
     getTrainArrivals: function () {
         var self = this;
 
@@ -26,9 +45,9 @@ var TrainArrivals = React.createClass({
     },
 
     render: function () {
-
+                
         var trainArrivals = this.props.arrivals;
-        console.log(trainArrivals);
+
         return (
             <div className='train'>
                 <h3>Woolwich</h3>
