@@ -1,3 +1,8 @@
 .display-none {
     display: none;
 }
+
+body {
+    font-size: 30px;
+    font-family: sans-serif;
+}
