@@ -47,13 +47,13 @@ var TrainArrivals = React.createClass({
     },
 
     render: function () {
-    
+
         return (
             <div className='train'>
-                <h3>{ this.props.arrivals.destination }</h3>
             {
-                this.props.arrivals.arrivals.length > 0 ?
+                this.props.arrivals.arrivals.length > 0?
                 <div>
+                    <h3>{ this.props.arrivals.destination }</h3>
                     <ul>
                         {
                             this.props.arrivals.arrivals.map(function (arrival, i) {
@@ -69,7 +69,7 @@ var TrainArrivals = React.createClass({
 
                 </div> :
                 <div>
-                    <h3>No trains</h3>
+                    <h3> No trains to { this.props.arrivals.destination || "anywhere" }</h3>
                 </div>
             }
             </div>
