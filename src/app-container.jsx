@@ -11,7 +11,8 @@ var AppContainer = React.createClass({
         return {
             busArrivals: [],
             DLRArrivals: [],
-            trainArrivals: []
+            trainArrivals: {arrivals: []},
+            toHome: true
         };
     },
 
@@ -22,13 +23,23 @@ var AppContainer = React.createClass({
         });
     },
 
+    changeDirection: function () {
+
+        this.setState({
+            toHome: !this.state.toHome
+        });
+    },
+
     render: function () {
 
         return (
             <div>
-                <BusArrivals arrivals={ this.state.busArrivals } updateState={ this.updateState } />
-                <DLRArrivals arrivals={ this.state.DLRArrivals } updateState={ this.updateState } />
-                <TrainArrivals arrivals={ this.state.trainArrivals } updateState={ this.updateState } />
+                <BusArrivals arrivals={ this.state.busArrivals } updateState={ this.updateState } toHome={ this.state.toHome } />
+                <DLRArrivals arrivals={ this.state.DLRArrivals } updateState={ this.updateState } toHome={ this.state.toHome } />
+                <TrainArrivals arrivals={ this.state.trainArrivals } updateState={ this.updateState } toHome={ this.state.toHome } />
+                <button onClick={ this.changeDirection }>
+                    Switch direction
+                </button>
             </div>
         );
     }

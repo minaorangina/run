@@ -19653,12 +19653,14 @@
 	var AppContainer = React.createClass({
 	    displayName: 'AppContainer',
 
+
 	    getInitialState: function () {
 
 	        return {
 	            busArrivals: [],
 	            DLRArrivals: [],
-	            trainArrivals: []
+	            trainArrivals: { arrivals: [] },
+	            toHome: true
 	        };
 	    },
 
@@ -19669,14 +19671,26 @@
 	        });
 	    },
 
+	    changeDirection: function () {
+
+	        this.setState({
+	            toHome: !this.state.toHome
+	        });
+	    },
+
 	    render: function () {
 
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(BusArrivals, { arrivals: this.state.busArrivals, updateState: this.updateState }),
-	            React.createElement(DLRArrivals, { arrivals: this.state.DLRArrivals, updateState: this.updateState }),
-	            React.createElement(TrainArrivals, { arrivals: this.state.trainArrivals, updateState: this.updateState })
+	            React.createElement(BusArrivals, { arrivals: this.state.busArrivals, updateState: this.updateState, toHome: this.state.toHome }),
+	            React.createElement(DLRArrivals, { arrivals: this.state.DLRArrivals, updateState: this.updateState, toHome: this.state.toHome }),
+	            React.createElement(TrainArrivals, { arrivals: this.state.trainArrivals, updateState: this.updateState, toHome: this.state.toHome }),
+	            React.createElement(
+	                'button',
+	                { onClick: this.changeDirection },
+	                'Switch direction'
+	            )
 	        );
 	    }
 	});
@@ -19695,6 +19709,7 @@
 
 	var BusArrivals = React.createClass({
 	    displayName: 'BusArrivals',
+
 
 	    componentWillMount: function () {
 
@@ -40457,6 +40472,7 @@
 	var DLRArrivals = React.createClass({
 	    displayName: 'DLRArrivals',
 
+
 	    componentWillMount: function () {
 
 	        this.getDLRArrivals();
@@ -40533,25 +40549,27 @@
 	var TrainArrivals = React.createClass({
 	    displayName: 'TrainArrivals',
 
+
 	    componentWillMount: function () {
 
 	        this.getTrainArrivals();
 	    },
 
 	    shouldComponentUpdate: function (nextProps) {
+	        console.log("kkkkkk", nextProps);
+	        var currentTrains = this.props.arrivals;
+	        var nextTrains = nextProps.arrivals.arrivals;
 
-	        var props = this.props;
-
-	        if (nextProps.arrivals.length > props.arrivals.length) {
+	        if (nextTrains.length > currentTrains.length) {
 
 	            return true;
 	        } else {
 
-	            return nextProps.arrivals.every(function (arrival, i) {
+	            return nextTrains.every(function (arrival, i) {
 
-	                if (props.arrivals[i]) {
+	                if (currentTrains[i]) {
 
-	                    return arrival.std !== props.arrivals[i].std;
+	                    return arrival.std !== currentTrains[i].std;
 	                }
 	            });
 	        }
@@ -40559,12 +40577,13 @@
 
 	    getTrainArrivals: function () {
 	        var self = this;
-
+	        var direction = this.props.toHome ? 'toHome' : 'fromHome';
+	        console.log(direction);
 	        $.ajax({
-	            url: '/getTrainArrivals',
+	            url: '/getTrainArrivals?direction=' + direction,
 	            success: function (data) {
-
-	                var newData = data || [];
+	                console.log(">>>>>>", data);
+	                var newData = data || {};
 	                self.props.updateState('trainArrivals', newData);
 
 	                setTimeout(self.getTrainArrivals, 30000);
@@ -40573,41 +40592,46 @@
 	    },
 
 	    render: function () {
-
-	        var trainArrivals = this.props.arrivals;
-
+	        console.log("*******", this.props.arrivals);
 	        return React.createElement(
 	            'div',
 	            { className: 'train' },
 	            React.createElement(
 	                'h3',
 	                null,
-	                'Woolwich'
+	                this.props.arrivals.destination
 	            ),
-	            React.createElement(
+	            this.props.arrivals.arrivals.length > 0 ? React.createElement(
 	                'div',
-	                { className: trainArrivals.length === 0 ? "" : "display-none" },
-	                'No trains to Erith'
-	            ),
-	            React.createElement(
-	                'ul',
 	                null,
-	                trainArrivals.map(function (arrival, i) {
+	                React.createElement(
+	                    'ul',
+	                    null,
+	                    this.props.arrivals.arrivals.map(function (arrival, i) {
 
-	                    var destination = arrival.destination.location[0].locationName;
-	                    var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
+	                        var destination = arrival.destination.location[0].locationName;
+	                        var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
-	                    return React.createElement(
-	                        'div',
-	                        { key: i },
-	                        React.createElement('img', { src: 'static/rail.png', width: '20px' }),
-	                        ' ',
-	                        destination,
-	                        ' @ ',
-	                        arrival.std,
-	                        ' -> '
-	                    );
-	                })
+	                        return React.createElement(
+	                            'div',
+	                            { key: i },
+	                            React.createElement('img', { src: 'static/rail.png', width: '20px' }),
+	                            ' ',
+	                            destination,
+	                            ' @ ',
+	                            arrival.std,
+	                            ' -> '
+	                        );
+	                    })
+	                )
+	            ) : React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    'h3',
+	                    null,
+	                    'No trains'
+	                )
 	            )
 	        );
 	    }

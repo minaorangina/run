@@ -5,9 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "see": "webpack",
-    "start:dev": "npm run build & nodemon server.js",
-    "build": "webpack",
+    "start:dev": "npm run build & node server.js",
+    "build": "webpack --watch",
     "build-test": "echo 'cannot build tests'",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel/register test/test.js --reporter nyan"
   },
@@ -40,6 +39,7 @@
     "babel-preset-react": "^6.5.0",
     "chai": "^3.4.1",
     "css-loader": "^0.23.1",
+    "dotenv": "^2.0.0",
     "jsdom": "^7.2.1",
     "mocha": "^2.3.4",
     "node-sass": "^3.4.2",
