@@ -40596,14 +40596,14 @@
 	        return React.createElement(
 	            'div',
 	            { className: 'train' },
-	            React.createElement(
-	                'h3',
-	                null,
-	                this.props.arrivals.destination
-	            ),
 	            this.props.arrivals.arrivals.length > 0 ? React.createElement(
 	                'div',
 	                null,
+	                React.createElement(
+	                    'h3',
+	                    null,
+	                    this.props.arrivals.destination
+	                ),
 	                React.createElement(
 	                    'ul',
 	                    null,
@@ -40630,7 +40630,8 @@
 	                React.createElement(
 	                    'h3',
 	                    null,
-	                    'No trains'
+	                    ' No trains to ',
+	                    this.props.arrivals.destination || "anywhere"
 	                )
 	            )
 	        );
