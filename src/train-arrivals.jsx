@@ -11,19 +11,20 @@ var TrainArrivals = React.createClass({
     },
 
     shouldComponentUpdate: function (nextProps) {
+        console.log("kkkkkk",nextProps);
+        var currentTrains = this.props.arrivals;
+        var nextTrains = nextProps.arrivals.arrivals;
 
-        var props = this.props;
-
-        if (nextProps.arrivals.length > props.arrivals.length) {
+        if (nextTrains.length > currentTrains.length) {
 
             return true;
         } else {
 
-            return nextProps.arrivals.every( function (arrival, i) {
+            return nextTrains.every( function (arrival, i) {
 
-                if (props.arrivals[i]) {
+                if (currentTrains[i]) {
 
-                    return arrival.std !== props.arrivals[i].std;
+                    return arrival.std !== currentTrains[i].std;
                 }
             });
         }
@@ -31,12 +32,13 @@ var TrainArrivals = React.createClass({
 
     getTrainArrivals: function () {
         var self = this;
-
+        var direction = this.props.toHome ? 'toHome' : 'fromHome';
+        console.log(direction);
         $.ajax({
-            url: '/getTrainArrivals',
+            url: '/getTrainArrivals?direction=' + direction,
             success: function (data) {
-
-                var newData = data || [];
+                console.log(">>>>>>",data);
+                var newData = data || {};
                 self.props.updateState('trainArrivals', newData);
 
                 setTimeout(self.getTrainArrivals, 30000);
@@ -45,27 +47,31 @@ var TrainArrivals = React.createClass({
     },
 
     render: function () {
-                
-        var trainArrivals = this.props.arrivals;
-
+        console.log("*******", this.props.arrivals);
         return (
             <div className='train'>
-                <h3>Woolwich</h3>
-                <div className={ trainArrivals.length === 0 ? "" : "display-none" }>
-                    No trains to Erith
+                <h3>{ this.props.arrivals.destination }</h3>
+            {
+                this.props.arrivals.arrivals.length > 0 ?
+                <div>
+                    <ul>
+                        {
+                            this.props.arrivals.arrivals.map(function (arrival, i) {
+
+                                var destination = arrival.destination.location[0].locationName;
+                                var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
+
+                                return <div key={ i }><img src="static/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>
+
+                            })
+                        }
+                    </ul>
+
+                </div> :
+                <div>
+                    <h3>No trains</h3>
                 </div>
-                <ul>
-                    {
-                        trainArrivals.map(function (arrival, i) {
-
-                            var destination = arrival.destination.location[0].locationName;
-                            var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
-
-                            return <div key={ i }><img src="static/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>
-
-                        })
-                    }
-                </ul>
+            }
             </div>
         );
     }
