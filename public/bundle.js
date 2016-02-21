@@ -40556,20 +40556,20 @@
 	    },
 
 	    shouldComponentUpdate: function (nextProps) {
-	        console.log("kkkkkk", nextProps);
-	        var currentTrains = this.props.arrivals;
-	        var nextTrains = nextProps.arrivals.arrivals;
 
-	        if (nextTrains.length > currentTrains.length) {
+	        var currentTrains = this.props.arrivals;
+	        var nextTrains = nextProps.arrivals;
+
+	        if (nextTrains.arrivals.length > currentTrains.arrivals.length) {
 
 	            return true;
 	        } else {
 
-	            return nextTrains.every(function (arrival, i) {
+	            return nextTrains.arrivals.every(function (arrival, i) {
 
-	                if (currentTrains[i]) {
+	                if (currentTrains.arrivals[i]) {
 
-	                    return arrival.std !== currentTrains[i].std;
+	                    return arrival.std !== currentTrains.arrivals[i].std;
 	                }
 	            });
 	        }
@@ -40578,11 +40578,11 @@
 	    getTrainArrivals: function () {
 	        var self = this;
 	        var direction = this.props.toHome ? 'toHome' : 'fromHome';
-	        console.log(direction);
+
 	        $.ajax({
 	            url: '/getTrainArrivals?direction=' + direction,
 	            success: function (data) {
-	                console.log(">>>>>>", data);
+
 	                var newData = data || {};
 	                self.props.updateState('trainArrivals', newData);
 
@@ -40592,7 +40592,7 @@
 	    },
 
 	    render: function () {
-	        console.log("*******", this.props.arrivals);
+
 	        return React.createElement(
 	            'div',
 	            { className: 'train' },
