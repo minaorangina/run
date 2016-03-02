@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    entry: "./src/app.jsx",
+    entry: "public/src/app.jsx",
     output: {
         path: __dirname,
         filename: "public/bundle.js"
@@ -13,7 +13,7 @@ module.exports = {
                 loader: "babel-loader",
                 exclude: /node_modules/,
                 query: {
-                    presets: ['react']
+                    presets: ['react', 'es2015']
                 }
             },
             {

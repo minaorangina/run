@@ -44,6 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var AppContainer = __webpack_require__(159);
@@ -19645,6 +19647,8 @@
 
 	"use strict";
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var React = __webpack_require__(1);
 	var BusArrivals = __webpack_require__(160);
 	var DLRArrivals = __webpack_require__(250);
@@ -19654,7 +19658,7 @@
 	    displayName: 'AppContainer',
 
 
-	    getInitialState: function () {
+	    getInitialState: function getInitialState() {
 
 	        return {
 	            busArrivals: [],
@@ -19664,21 +19668,19 @@
 	        };
 	    },
 
-	    updateState: function (transport, data) {
+	    updateState: function updateState(transport, data) {
 
-	        this.setState({
-	            [transport]: data
-	        });
+	        this.setState(_defineProperty({}, transport, data));
 	    },
 
-	    changeDirection: function () {
+	    changeDirection: function changeDirection() {
 
 	        this.setState({
 	            toHome: !this.state.toHome
 	        });
 	    },
 
-	    render: function () {
+	    render: function render() {
 
 	        return React.createElement(
 	            'div',
@@ -19711,17 +19713,17 @@
 	    displayName: 'BusArrivals',
 
 
-	    componentWillMount: function () {
+	    componentWillMount: function componentWillMount() {
 
 	        this.getBusArrivals();
 	    },
 
-	    getBusArrivals: function () {
+	    getBusArrivals: function getBusArrivals() {
 	        var self = this;
 
 	        $.ajax({
 	            url: '/getTfLArrivals?mode=bus',
-	            success: function (data) {
+	            success: function success(data) {
 
 	                var newData = data || [];
 
@@ -19732,7 +19734,7 @@
 	        });
 	    },
 
-	    render: function () {
+	    render: function render() {
 
 	        var busArrivals = this.props.arrivals;
 
@@ -40473,17 +40475,17 @@
 	    displayName: 'DLRArrivals',
 
 
-	    componentWillMount: function () {
+	    componentWillMount: function componentWillMount() {
 
 	        this.getDLRArrivals();
 	    },
 
-	    getDLRArrivals: function () {
+	    getDLRArrivals: function getDLRArrivals() {
 	        var self = this;
 
 	        $.ajax({
 	            url: '/getTfLArrivals?mode=dlr',
-	            success: function (data) {
+	            success: function success(data) {
 
 	                var newData = data || [];
 
@@ -40494,7 +40496,7 @@
 	        });
 	    },
 
-	    render: function () {
+	    render: function render() {
 
 	        var DLRArrivals = this.props.arrivals;
 
@@ -40550,12 +40552,12 @@
 	    displayName: 'TrainArrivals',
 
 
-	    componentWillMount: function () {
+	    componentWillMount: function componentWillMount() {
 
 	        this.getTrainArrivals();
 	    },
 
-	    shouldComponentUpdate: function (nextProps) {
+	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
 
 	        var currentTrains = this.props.arrivals;
 	        var nextTrains = nextProps.arrivals;
@@ -40575,13 +40577,13 @@
 	        }
 	    },
 
-	    getTrainArrivals: function () {
+	    getTrainArrivals: function getTrainArrivals() {
 	        var self = this;
 	        var direction = this.props.toHome ? 'toHome' : 'fromHome';
 
 	        $.ajax({
 	            url: '/getTrainArrivals?direction=' + direction,
-	            success: function (data) {
+	            success: function success(data) {
 
 	                var newData = data || {};
 	                self.props.updateState('trainArrivals', newData);
@@ -40591,7 +40593,7 @@
 	        });
 	    },
 
-	    render: function () {
+	    render: function render() {
 
 	        return React.createElement(
 	            'div',
