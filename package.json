@@ -7,7 +7,6 @@
     "start": "node server.js",
     "start:dev": "npm run build & node server.js",
     "build": "webpack --watch",
-    "build-test": "echo 'cannot build tests'",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register 'test/unit/**/*.@(js|jsx)'"
   },
   "repository": {
@@ -30,6 +29,7 @@
     "moment": "^2.10.6",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-redux": "^4.4.0",
     "redux": "^3.3.1",
     "request": "^2.67.0",
     "soap": "^0.11.1"
