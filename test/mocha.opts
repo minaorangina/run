@@ -1,3 +1,0 @@
---require test/utils/dom.js
---require chai
---reporter nyan
