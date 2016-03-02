@@ -5,14 +5,12 @@ import chai from 'chai';
 import TestUtils from 'react-addons-test-utils';
 import { createRenderer } from 'react-addons-test-utils';
 
-const assert = chai.assert;
+const expect = chai.expect;
 
-const testAppContainer = () => {
+describe('test', function () {
 
-    assert.ok("1", "1", "Equality found");
-};
+    it('returns 1', function () {
 
-export { testAppContainer };
-
-
-// console.log(TestUtils);
+        expect(1).to.equal(1);
+    })
+})
