@@ -19791,7 +19791,7 @@
 	                    return React.createElement(
 	                        'div',
 	                        { key: i },
-	                        React.createElement('img', { src: 'static/bus.gif', width: '20px' }),
+	                        React.createElement('img', { src: 'static/img/bus.gif', width: '20px' }),
 	                        arrival.lineName,
 	                        ' to ',
 	                        arrival.destinationName,
@@ -42523,7 +42523,7 @@
 	                    return React.createElement(
 	                        'div',
 	                        { key: i },
-	                        React.createElement('img', { src: 'static/dlr.jpg', width: '20px' }),
+	                        React.createElement('img', { src: 'static/img/dlr.jpg', width: '20px' }),
 	                        arrival.lineName,
 	                        ' to ',
 	                        arrival.destinationName,
@@ -42617,7 +42617,7 @@
 	                        return React.createElement(
 	                            'div',
 	                            { key: i },
-	                            React.createElement('img', { src: 'static/rail.png', width: '20px' }),
+	                            React.createElement('img', { src: 'static/img/rail.png', width: '20px' }),
 	                            ' ',
 	                            destination,
 	                            ' @ ',

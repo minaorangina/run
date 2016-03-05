@@ -4,7 +4,7 @@
     "display": "standalone",
     "icons": [
         {
-            "src": "./public/running.png",
+            "src": "./public/img/running.png",
             "sizes": "128x128",
             "type": "image/png",
             "density": "0.75"
