@@ -1,7 +1,11 @@
 'use strict';
 
+var webpack = require('webpack');
+
 module.exports = {
-    entry: "./public/src/app.jsx",
+    entry: [
+        './public/src/app.jsx'
+    ],
     output: {
         path: __dirname,
         filename: "./public/bundle.js"
