@@ -5,8 +5,8 @@
   "main": "start.js",
   "scripts": {
     "start": "node start.js",
-    "dev": "webpack --progress --colors --inline & node start.js",
-    "build": "webpack --watch",
+    "dev": "webpack --progress --colors --inline --watch & node start.js",
+    "build": "webpack",
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/test_helpers.js 'test/unit/**/*.@(js|jsx)'"
   },
   "repository": {
