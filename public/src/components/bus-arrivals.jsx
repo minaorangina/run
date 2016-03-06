@@ -1,16 +1,18 @@
-"use strict";
-var React = require('react');
-var moment = require('moment');
-var $ = require('jquery');
+'use strict';
 
-var BusArrivals = React.createClass({
+import React     from 'react';
+import moment    from 'moment';
+import $         from 'jquery';
 
-    componentWillMount: function () {
+
+const BusArrivals = React.createClass({
+
+    componentWillMount () {
 
         this.getBusArrivals();
     },
 
-    getBusArrivals: function () {
+    getBusArrivals () {
         var self = this;
 
         $.ajax({
@@ -26,7 +28,7 @@ var BusArrivals = React.createClass({
         });
     },
 
-    render: function () {
+    render () {
 
         var busArrivals = this.props.arrivals;
 
@@ -61,4 +63,4 @@ var BusArrivals = React.createClass({
     }
 });
 
-module.exports = BusArrivals;
+export default BusArrivals;

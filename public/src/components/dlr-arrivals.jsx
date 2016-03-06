@@ -1,16 +1,18 @@
-"use strict";
-var React = require('react');
-var moment = require('moment');
-var $ = require('jquery');
+'use strict';
 
-var DLRArrivals = React.createClass({
+import React     from 'react';
+import moment    from 'moment';
+import $         from 'jquery';
 
-    componentWillMount: function () {
+
+const DLRArrivals = React.createClass({
+
+    componentWillMount () {
 
         this.getDLRArrivals();
     },
 
-    getDLRArrivals: function () {
+    getDLRArrivals () {
         var self = this;
 
         $.ajax({
@@ -26,7 +28,7 @@ var DLRArrivals = React.createClass({
         });
     },
 
-    render: function () {
+    render () {
 
         var DLRArrivals = this.props.arrivals;
 
@@ -51,4 +53,4 @@ var DLRArrivals = React.createClass({
     }
 })
 
-module.exports = DLRArrivals;
+export default DLRArrivals;
