@@ -3,8 +3,9 @@
 import React from 'react';
 import { createRenderer } from 'react-addons-test-utils';
 
-export default function shallowRenderer (componentClass) {
+export default function shallowRenderer (component) {
 
-    let instantiatedComponent = React.createElement(componentClass);
-    return createRenderer().render(instantiatedComponent);
+    let shallowRenderer = createRenderer();
+    shallowRenderer.render(component);
+    return shallowRenderer.getRenderOutput();
 }

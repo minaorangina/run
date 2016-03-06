@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import React               from 'react';
 import BusArrivals         from './bus-arrivals.jsx';
@@ -14,7 +14,9 @@ const AppContainer = React.createClass({
         return {
             busArrivals: [],
             DLRArrivals: [],
-            trainArrivals: {arrivals: []},
+            trainArrivals: {
+                arrivals: []
+            },
             toHome: true
         };
     },
