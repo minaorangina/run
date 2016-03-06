@@ -1,16 +1,18 @@
-"use strict";
-var React = require('react');
-var moment = require('moment');
-var $ = require('jquery');
+'use strict';
 
-var TrainArrivals = React.createClass({
+import React     from 'react';
+import moment    from 'moment';
+import $         from 'jquery';
 
-    componentWillMount: function () {
+
+const TrainArrivals = React.createClass({
+
+    componentWillMount () {
 
         this.getTrainArrivals();
     },
 
-    shouldComponentUpdate: function (nextProps) {
+    shouldComponentUpdate (nextProps) {
 
         var currentTrains = this.props.arrivals;
         var nextTrains = nextProps.arrivals;
@@ -30,7 +32,7 @@ var TrainArrivals = React.createClass({
         }
     },
 
-    getTrainArrivals: function () {
+    getTrainArrivals () {
         var self = this;
         var direction = this.props.toHome ? 'toHome' : 'fromHome';
 
@@ -46,7 +48,7 @@ var TrainArrivals = React.createClass({
         });
     },
 
-    render: function () {
+    render () {
 
         return (
             <div className='train'>
@@ -77,4 +79,4 @@ var TrainArrivals = React.createClass({
     }
 });
 
-module.exports = TrainArrivals;
+export default TrainArrivals;

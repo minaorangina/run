@@ -1,12 +1,15 @@
 "use strict";
-var React = require('react');
-var BusArrivals = require('./bus-arrivals.jsx');
-var DLRArrivals = require('./dlr-arrivals.jsx');
-var TrainArrivals = require('./train-arrivals.jsx');
 
-var AppContainer = React.createClass({
+import React               from 'react';
+import BusArrivals         from './bus-arrivals.jsx';
+import DLRArrivals         from './dlr-arrivals.jsx';
+import TrainArrivals       from './train-arrivals.jsx';
+import DirectionButtons    from './direction-buttons.jsx';
 
-    getInitialState: function () {
+
+const AppContainer = React.createClass({
+
+    getInitialState () {
 
         return {
             busArrivals: [],
@@ -16,33 +19,31 @@ var AppContainer = React.createClass({
         };
     },
 
-    updateState: function (transport, data) {
+    updateState (transport, data) {
 
         this.setState({
             [transport]: data
         });
     },
 
-    changeDirection: function () {
+    changeDirection () {
 
         this.setState({
             toHome: !this.state.toHome
         });
     },
 
-    render: function () {
+    render () {
 
         return (
             <div>
                 <BusArrivals arrivals={ this.state.busArrivals } updateState={ this.updateState } toHome={ this.state.toHome } />
                 <DLRArrivals arrivals={ this.state.DLRArrivals } updateState={ this.updateState } toHome={ this.state.toHome } />
                 <TrainArrivals arrivals={ this.state.trainArrivals } updateState={ this.updateState } toHome={ this.state.toHome } />
-                <button onClick={ this.changeDirection }>
-                    Switch direction
-                </button>
+                <DirectionButtons />
             </div>
         );
     }
 });
 
-module.exports = AppContainer;
+export default AppContainer;
