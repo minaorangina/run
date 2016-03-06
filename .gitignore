@@ -1,6 +1,5 @@
 node_modules/
 npm-debug.log
-test/
 .gitattributes
 public/.bundle.js
 *.env

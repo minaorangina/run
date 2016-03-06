@@ -7,7 +7,7 @@
     "start": "node start.js",
     "dev": "webpack --progress --colors --inline --watch & node start.js",
     "build": "webpack",
-    "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/test_helpers.js 'test/unit/**/*.@(js|jsx)'"
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/utils/test_helpers.js 'test/unit/**/*.@(js|jsx)'"
   },
   "repository": {
     "type": "git",
