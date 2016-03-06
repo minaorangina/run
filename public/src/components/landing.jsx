@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 const Landing = React.createClass({
 
@@ -8,12 +9,11 @@ const Landing = React.createClass({
 
         return (
             <div>
-                <h1>
-                    Home or Away?
-                </h1>
+                <RaisedButton label={ "Home" } />
+                <RaisedButton label={ "Away" } />
             </div>
         );
     }
-})
+});
 
 export default Landing
