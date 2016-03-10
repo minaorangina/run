@@ -60,7 +60,7 @@ const TrainArrivals = React.createClass({
                         {
                             this.props.arrivals.arrivals.map(function (arrival, i) {
 
-                                var destination = arrival.destination.location[0].locationName;
+                                var destination = arrivals.destination;
                                 var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
                                 return <div key={ i }><img src="static/img/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>

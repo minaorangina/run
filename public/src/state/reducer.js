@@ -1,35 +1,54 @@
 'use strict';
 
+import store from '../app.jsx';
+import { setState, getArrivals } from './actions.js';
 import $ from 'jquery';
 
 
 const initialState = {
-    direction: "home"
+    direction: "home",
+    arrivals: {
+        bus: {
+            timeToStation: 230,
+            lineName: "DLR",
+            destinationName: "Woolwich"
+        },
+        train: {
+            destination: "Erith",
+            arrivals: [{
+                timeToStation: 400,
+                std: 300
+            }]
+        }
+    }
 };
 
 export default function reducer (state = initialState, action) {
 
     switch (action.type) {
 
-        case "FETCH_ARRIVALS":
-            var self = this;
+        case "GET_ARRIVALS_REQUEST":
+            let self = this;
 
-            $.ajax({
-                url: '/getTfLArrivals?mode=' + action.mode,
+            console.log("inside reducer");
 
-                success: function (data) {
-                    // "SET_STATE"
-                    // store.dispatch({ type: "SET_STATE", data: data, mode: action.mode });
-                    setTimeout(self.getDLRArrivals, 10000);
-                }
-            });
+            let fakeData = {
+                timeToStation: 230,
+                lineName: "DLR",
+                destinationName: "Woolwich"
+            };
+
+            let stateCopy = Object.assign({}, state);
+            console.log("statecopy", stateCopy);
+            return stateCopy.arrivals[action.mode] = fakeData;
+
             break;
 
         case "SET_STATE":
-
-            // set some state
+            console.log("setting state??");
+            state.arrivals[action.mode] = action.state;
             break;
-            
+
         default:
             return state;
     }
