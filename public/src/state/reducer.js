@@ -51,7 +51,7 @@ export default function reducer (state = initialState, action) {
             break;
 
         default:
-            console.log("default");
+            console.log("defaulttttttt");
             return state;
     }
 }
