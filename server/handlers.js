@@ -57,7 +57,7 @@ var handlers = {
                         return 0;
                     }
                 })
-                .slice(0, 5)
+                .slice(0, 5);
 
                 reply(results);
             }

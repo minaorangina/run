@@ -13,7 +13,7 @@ var routes = [
         path: '/static/{someFile*}',
         handler: {
             directory: {
-                path: '.',
+                path: '../dist',
                 redirectToSlash: false,
                 index: true
             }

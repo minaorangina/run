@@ -2,7 +2,7 @@
   "name": "run",
   "version": "1.0.0",
   "description": "Run or walk for your transport?",
-  "main": "server/start.js",
+  "main": "./server/start.js",
   "scripts": {
     "start": "node ./server/start.js",
     "dev": "webpack --config webpack.dev.config.js & npm start",
