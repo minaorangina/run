@@ -7,7 +7,7 @@ import { getArrivals }           from '../state/actions.js';
 import $                         from 'jquery';
 import DLRContainer              from './dlr-container.jsx';
 import BusContainer              from './bus-container.jsx';
-import TrainArrivals             from './train-arrivals.jsx';
+import TrainContainer           from './train-container.jsx';
 
 
 export const Arrivals = React.createClass({
@@ -23,6 +23,7 @@ export const Arrivals = React.createClass({
             <div>
                 <BusContainer { ...this.props } />
                 <DLRContainer { ...this.props } />
+                <TrainContainer { ...this.props } />
             </div>
         );
     }
