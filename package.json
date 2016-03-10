@@ -7,7 +7,7 @@
     "start": "node ./server/start.js",
     "dev": "webpack --config webpack.dev.config.js & npm start",
     "build": "webpack --config webpack.production.config.js",
-    "test": "tape --require babel-register 'test/tape/**/*.js'",
+    "test": "tape --require babel-register --require ignore-styles --require ./test/utils/test_helpers.js 'test/tape/**/*.es6'",
     "test:mocha": "node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/utils/test_helpers.js 'test/unit/**/*.@(js|jsx)'"
   },
   "repository": {

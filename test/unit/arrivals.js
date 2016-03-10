@@ -22,9 +22,9 @@ describe('AppContainer', function () {
     });
 
 
-    it('renders `DLRArrivals` correctly', function () {
+    it('renders `DLRContainer` correctly', function () {
 
-        const _dlr = scryRenderedDOMComponentsWithClass(component, 'dlr-arrivals');
+        const _dlr = scryRenderedDOMComponentsWithClass(component, 'dlr-container');
 
         expect(_dlr.length).to.equal(1);
     });
