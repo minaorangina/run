@@ -1,31 +1,37 @@
 'use strict';
 
-import React  from 'react';
-import moment from 'moment';
+import React     from 'react';
+import { store } from '../app.jsx';
+import moment    from 'moment';
+import { Sorry } from './sorry.jsx';
 
 const DLR = React.createClass({
 
     render () {
 
         let props = this.props;
-        console.log("props:", props.arrivals.dlr);
+        console.log("getDLRState", store.getState());
+        console.log("PROPS:", props.arrivals);
 
         return (
             <div className='dlr'>
                 <h3>West Ham</h3>
-                <div className={ props.arrivals.dlr.length === 0 ? "" : "display-none" }>
-                    Ain't got no departures!
-                </div>
-                <ul>
-                    {
-                        props.arrivals.dlr.map(function (arrival, i) {
+                {
+                    props.arrivals === undefined ?
 
-                            var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
+                        <Sorry />
+                    :
+                    <ul>
+                        {
+                            props.arrivals.dlr.map(function (arrival, i) {
 
-                            return <div key={ i }><img src="static/img/dlr.jpg" width="20px"></img>{ arrival.lineName } to { arrival.destinationName } -> { time }</div>
-                        })
-                    }
-                </ul>
+                                var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
+
+                                return <div key={ i }><img src="static/img/dlr.jpg" width="20px"></img>{ arrival.lineName } to { arrival.destinationName } -> { time }</div>
+                            })
+                        }
+                    </ul>
+                }
             </div>
         );
     }

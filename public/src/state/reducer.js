@@ -29,7 +29,6 @@ export default function reducer (state = initialState, action) {
 
         case "GET_ARRIVALS_REQUEST":
 
-            console.log("inside reducer");
 
             let fakeData = [{
                 timeToStation: 230,
@@ -38,7 +37,6 @@ export default function reducer (state = initialState, action) {
             }];
 
             let stateCopy = Object.assign({}, state);
-            console.log("statecopy", stateCopy);
             return stateCopy.arrivals[action.mode] = fakeData;
 
         case "SET_STATE":

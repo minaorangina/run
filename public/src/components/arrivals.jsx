@@ -8,7 +8,7 @@ import $                         from 'jquery';
 import DLR                       from './dlr.jsx';
 
 
-export const DLRArrivals = React.createClass({
+export const Arrivals = React.createClass({
 
     componentWillMount () {
 
@@ -34,4 +34,4 @@ function mapStateToProps (state) {
 }
 
 
-export const DLRArrivalsContainer = connect(mapStateToProps)(DLRArrivals);
+export const ArrivalsContainer = connect(mapStateToProps)(Arrivals);

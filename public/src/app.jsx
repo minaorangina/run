@@ -10,9 +10,6 @@ import AppContainer       from './components/app-container.jsx';
 require('./scss/main.scss');
 
 export const store = makeStore();
-console.log(">>>>", store.getState());
-
-
 
 
 ReactDOM.render(
