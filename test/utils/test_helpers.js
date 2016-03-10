@@ -10,9 +10,9 @@ function doNothing () {
     return null;
 }
 
-// require('ignore-styles');
+require('ignore-styles');
 
-require.extensions['.scss'] = doNothing;
+// require.extensions['.scss'] = doNothing;
 
 
 global.document = doc;
