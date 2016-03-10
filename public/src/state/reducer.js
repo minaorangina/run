@@ -8,17 +8,21 @@ import $ from 'jquery';
 const initialState = {
     direction: "home",
     arrivals: {
-        bus: {
-            timeToStation: 230,
-            lineName: "DLR",
-            destinationName: "Woolwich"
-        },
+        bus: [
+            {
+                timeToStation: 230,
+                lineName: "DLR",
+                destinationName: "Woolwich"
+            }
+        ],
         train: {
             destination: "Erith",
-            arrivals: [{
-                timeToStation: 400,
-                std: 300
-            }]
+            arrivals: [
+                {
+                    timeToStation: 400,
+                    std: 300
+                }
+            ]
         }
     }
 };

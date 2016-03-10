@@ -5,7 +5,9 @@ import { connect }               from 'react-redux';
 import { store }                 from '../app.jsx';
 import { getArrivals }           from '../state/actions.js';
 import $                         from 'jquery';
-import DLR                       from './dlr.jsx';
+import DLRContainer              from './dlr-container.jsx';
+import BusContainer              from './bus-container.jsx';
+import TrainArrivals             from './train-arrivals.jsx';
 
 
 export const Arrivals = React.createClass({
@@ -19,7 +21,8 @@ export const Arrivals = React.createClass({
 
         return (
             <div>
-                <DLR { ...this.props } />
+                <BusContainer { ...this.props } />
+                <DLRContainer { ...this.props } />
             </div>
         );
     }
