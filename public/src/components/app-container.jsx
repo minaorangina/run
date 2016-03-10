@@ -9,21 +9,6 @@ import DirectionButtons         from './direction-buttons.jsx';
 
 const AppContainer = React.createClass({
 
-
-    updateState (transport, data) {
-
-        this.setState({
-            [transport]: data
-        });
-    },
-
-    changeDirection () {
-
-        this.setState({
-            toHome: !this.state.toHome
-        });
-    },
-
     render () {
 
         return (

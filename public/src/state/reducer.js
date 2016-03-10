@@ -28,21 +28,18 @@ export default function reducer (state = initialState, action) {
     switch (action.type) {
 
         case "GET_ARRIVALS_REQUEST":
-            let self = this;
 
             console.log("inside reducer");
 
-            let fakeData = {
+            let fakeData = [{
                 timeToStation: 230,
                 lineName: "DLR",
                 destinationName: "Woolwich"
-            };
+            }];
 
             let stateCopy = Object.assign({}, state);
             console.log("statecopy", stateCopy);
             return stateCopy.arrivals[action.mode] = fakeData;
-
-            break;
 
         case "SET_STATE":
             console.log("setting state??");
@@ -50,6 +47,7 @@ export default function reducer (state = initialState, action) {
             break;
 
         default:
+            console.log("default");
             return state;
     }
 }

@@ -1,13 +1,14 @@
 'use strict';
 
-import React from 'react';
+import React  from 'react';
+import moment from 'moment';
 
 const DLR = React.createClass({
 
     render () {
 
         let props = this.props;
-        console.log("props:", props);
+        console.log("props:", props.arrivals.dlr);
 
         return (
             <div className='dlr'>
@@ -17,7 +18,7 @@ const DLR = React.createClass({
                 </div>
                 <ul>
                     {
-                        props.arrivals.map(function (arrival, i) {
+                        props.arrivals.dlr.map(function (arrival, i) {
 
                             var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 

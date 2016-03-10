@@ -85,8 +85,6 @@
 	var store = exports.store = (0, _store2.default)();
 	console.log(">>>>", store.getState());
 
-	store.dispatch((0, _actions.getArrivals)("dlr"));
-
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
@@ -21139,21 +21137,18 @@
 	    switch (action.type) {
 
 	        case "GET_ARRIVALS_REQUEST":
-	            var self = this;
 
 	            console.log("inside reducer");
 
-	            var fakeData = {
+	            var fakeData = [{
 	                timeToStation: 230,
 	                lineName: "DLR",
 	                destinationName: "Woolwich"
-	            };
+	            }];
 
 	            var stateCopy = Object.assign({}, state);
 	            console.log("statecopy", stateCopy);
 	            return stateCopy.arrivals[action.mode] = fakeData;
-
-	            break;
 
 	        case "SET_STATE":
 	            console.log("setting state??");
@@ -21161,6 +21156,7 @@
 	            break;
 
 	        default:
+	            console.log("default");
 	            return state;
 	    }
 	}
@@ -31032,28 +31028,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 	var AppContainer = _react2.default.createClass({
 	    displayName: 'AppContainer',
-	    updateState: function updateState(transport, data) {
-
-	        this.setState(_defineProperty({}, transport, data));
-	    },
-	    changeDirection: function changeDirection() {
-
-	        this.setState({
-	            toHome: !this.state.toHome
-	        });
-	    },
 	    render: function render() {
 
 	        return _react2.default.createElement(
 	            'div',
 	            null,
-	            _react2.default.createElement(_busArrivals2.default, { arrivals: this.state.busArrivals, updateState: this.updateState, toHome: this.state.toHome }),
-	            _react2.default.createElement(_dlrArrivals.DLRArrivalsContainer, { arrivals: this.state.DLRArrivals, updateState: this.updateState, toHome: this.state.toHome }),
-	            _react2.default.createElement(_trainArrivals2.default, { arrivals: this.state.trainArrivals, updateState: this.updateState, toHome: this.state.toHome }),
+	            _react2.default.createElement(_dlrArrivals.DLRArrivalsContainer, null),
 	            _react2.default.createElement(_directionButtons2.default, null)
 	        );
 	    }
@@ -43992,9 +43974,9 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _moment = __webpack_require__(184);
+	var _app = __webpack_require__(1);
 
-	var _moment2 = _interopRequireDefault(_moment);
+	var _actions = __webpack_require__(178);
 
 	var _jquery = __webpack_require__(181);
 
@@ -44008,7 +43990,10 @@
 
 	var DLRArrivals = exports.DLRArrivals = _react2.default.createClass({
 	    displayName: 'DLRArrivals',
-	    componentWillMount: function componentWillMount() {},
+	    componentWillMount: function componentWillMount() {
+
+	        _app.store.dispatch((0, _actions.getArrivals)("dlr"));
+	    },
 	    render: function render() {
 
 	        return _react2.default.createElement(
@@ -44047,6 +44032,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _moment = __webpack_require__(184);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var DLR = _react2.default.createClass({
@@ -44054,7 +44043,7 @@
 	    render: function render() {
 
 	        var props = this.props;
-	        console.log("props:", props);
+	        console.log("props:", props.arrivals.dlr);
 
 	        return _react2.default.createElement(
 	            'div',
@@ -44072,9 +44061,9 @@
 	            _react2.default.createElement(
 	                'ul',
 	                null,
-	                props.arrivals.map(function (arrival, i) {
+	                props.arrivals.dlr.map(function (arrival, i) {
 
-	                    var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
+	                    var time = _moment2.default.duration(arrival.timeToStation, 'seconds').humanize(true);
 
 	                    return _react2.default.createElement(
 	                        'div',

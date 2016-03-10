@@ -2,7 +2,8 @@
 
 import React                     from 'react';
 import { connect }               from 'react-redux';
-import moment                    from 'moment';
+import { store }                 from '../app.jsx';
+import { getArrivals }           from '../state/actions.js';
 import $                         from 'jquery';
 import DLR                       from './dlr.jsx';
 
@@ -11,7 +12,7 @@ export const DLRArrivals = React.createClass({
 
     componentWillMount () {
 
-
+        store.dispatch(getArrivals("dlr"));
     },
 
     render () {

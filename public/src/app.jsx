@@ -12,7 +12,7 @@ require('./scss/main.scss');
 export const store = makeStore();
 console.log(">>>>", store.getState());
 
-store.dispatch(getArrivals("dlr"));
+
 
 
 ReactDOM.render(
