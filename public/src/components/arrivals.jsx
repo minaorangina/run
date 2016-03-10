@@ -19,7 +19,6 @@ export const Arrivals = React.createClass({
 
         return (
             <div>
-                <h1>DLR goes here</h1>
                 <DLR { ...this.props } />
             </div>
         );

@@ -37,7 +37,9 @@ export default function reducer (state = initialState, action) {
             }];
 
             let stateCopy = Object.assign({}, state);
-            return stateCopy.arrivals[action.mode] = fakeData;
+
+            stateCopy.arrivals[action.mode] = fakeData;
+            return stateCopy;
 
         case "SET_STATE":
             console.log("setting state??");
