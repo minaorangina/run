@@ -7,7 +7,7 @@ import { getArrivals }    from './state/actions.js';
 import makeStore          from './state/store.js';
 import AppContainer       from './components/app-container.jsx';
 
-require('./scss/main.scss');
+require('../scss/main.scss');
 
 export const store = makeStore();
 
