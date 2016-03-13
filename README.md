@@ -15,5 +15,5 @@ Simple as that :smile:
 
 ## TODO
 - [ ] Add Redux
-- [ ] Swap babelify for webpack
-- [ ] Add styles
+- [x] Swap babelify for webpack
+- [x] Add styles
