@@ -14,6 +14,6 @@ Instead, this is for someone who knows *exactly* where they're going, but **does
 Simple as that :smile:
 
 ## TODO
-[ ] Add Redux
-[ ] Swap babelify for webpack
-[ ] Add styles
+- [ ] Add Redux
+- [x] Swap babelify for webpack
+- [x] Add styles
