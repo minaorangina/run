@@ -1,6 +1,6 @@
 # Problems encountered, solutions found
 
-## A record problems/bugs encountered during the build, for future learning.
+A record problems/bugs encountered during the build, for future learning.
 
 ### Getting the access token in the correct format for SOAP
 http://stackoverflow.com/questions/28399266/typeerror-when-trying-to-call-national-rail-soap-api-via-node
