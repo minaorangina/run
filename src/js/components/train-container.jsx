@@ -45,7 +45,7 @@ const TrainContainer = React.createClass({
                                     var destination = train.destination;
                                     var time = moment.duration(arrival.timeToStation, 'seconds').humanize(true);
 
-                                    return <div key={ i }><img src="static/img/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>
+                                    return <div key={ i }><img src="img/rail.png" width="20px"></img> { destination } @ { arrival.std } -> </div>
 
                                 })
                             }

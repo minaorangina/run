@@ -1,15 +1,18 @@
 'use strict';
 
-var WebpackOnBuildPlugin = require('on-build-webpack');
-var child_process = require('child_process');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
     entry: [
-        './public/src/app.jsx'
+        "./src/js/app.jsx",
+        "webpack/hot/dev-server",
+        "webpack-dev-server/client?http://localhost:8080/"
     ],
     output: {
-        path: __dirname,
-        filename: "./dist/bundle.js"
+        path: path.join(__dirname, 'dist'),
+        publicPath: "/static/",
+        filename: 'bundle.js'
     },
     module: {
         loaders: [
@@ -27,8 +30,7 @@ module.exports = {
             }
         ]
     },
-    inline    : true,
-    progress  : true,
-    colors    : true,
-    watch     : true,
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };

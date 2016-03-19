@@ -15,4 +15,5 @@ tape('App Container', (t) => {
     const _dlr = scryRenderedDOMComponentsWithClass(component, 'dlr-container');
 
     t.equal(_dlr.length, 1, "DLRContainer renders correctly");
+    t.end();
 });
