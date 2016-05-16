@@ -1,21 +1,13 @@
-'use strict';
+import React from 'react';
+import ArrivalsContainer from './arrivals-container.js';
 
-import React                 from 'react';
-import { ArrivalsContainer } from './arrivals.jsx';
-import DirectionButtons      from './direction-buttons.jsx';
+const AppContainer = () => {
 
-
-const AppContainer = React.createClass({
-
-    render () {
-
-        return (
-            <div>
-                <ArrivalsContainer />
-                <DirectionButtons />
-            </div>
-        );
-    }
-});
+    return (
+        <div>
+            <ArrivalsContainer />
+        </div>
+    );
+};
 
 export default AppContainer;

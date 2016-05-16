@@ -10,7 +10,7 @@ var routes = [
     },
     {
         method: 'GET',
-        path: '/static/{someFile*}',
+        path: '/{someFile*}',
         handler: {
             directory: {
                 path: '../dist',

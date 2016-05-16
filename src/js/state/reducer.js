@@ -1,9 +1,8 @@
 'use strict';
 
-import store from '../app.jsx';
-import { setState, getArrivals } from './actions.js';
-import $ from 'jquery';
-
+import update from 'react-addons-update';
+import axios from 'axios';
+import { GET_ARRIVALS_REQUEST, GET_ARRIVALS_SUCCESS, GET_ARRIVALS_FAILURE, SET_STATE } from './actions.js';
 
 const initialState = {
     direction: "home",
@@ -24,15 +23,22 @@ const initialState = {
                 }
             ]
         }
-    }
+    },
+    isFetching: false,
+    error: undefined
 };
 
 export default function reducer (state = initialState, action) {
 
     switch (action.type) {
 
-        case "GET_ARRIVALS_REQUEST":
+        case GET_ARRIVALS_REQUEST:
 
+            return update(state, {
+                isFetching: { $set: action.isFetching }
+            });
+
+        case GET_ARRIVALS_SUCCESS:
 
             let fakeData = [{
                 timeToStation: 230,
@@ -40,14 +46,25 @@ export default function reducer (state = initialState, action) {
                 destinationName: "Woolwich"
             }];
 
-            let stateCopy = Object.assign({}, state);
+            return update(state, {
+                arrivals: { [action.mode]: { $set: fakeData } },
+                isFetching: { $set: action.isFetching }
+            });
 
-            stateCopy.arrivals[action.mode] = fakeData;
-            return stateCopy;
+        case GET_ARRIVALS_FAILURE:
 
-        case "SET_STATE":
+            return update(state, {
+                isFetching: { $set: action.isFetching },
+                error: { $set: action.error }
+            });
+
+        case SET_STATE:
+
             console.log("setting state??");
             state.arrivals[action.mode] = action.state;
+            return update(state, {
+                arrivals: { [action.mode]: { $set: action.state } }
+            });
             break;
 
         default:

@@ -9,15 +9,17 @@ var compiler = webpack(config);
 var options = {
     contentBase: 'dist/',
     hot: true,
-    publicPath: "/assets/",
     filename: 'bundle.js',
     stats: {
         colors: true
+    },
+    proxy: {
+        "*": "http://localhost:9009"
     }
 };
 
 var server = new WebpackDevServer(compiler, options);
 
 server.listen(8080, 'localhost', function () {
-    console.log('webpack-dev-server now running');
+    console.log('webpack-dev-server now running on 8080');
 });

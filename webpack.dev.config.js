@@ -11,18 +11,14 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: "/static/",
         filename: 'bundle.js'
     },
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader: "babel-loader",
-                exclude: /node_modules/,
-                query: {
-                    presets: ['react', 'es2015']
-                }
+                loader: "react-hot-loader!babel-loader",
+                exclude: /node_modules/
             },
             {
                 test: /\.scss$/,
