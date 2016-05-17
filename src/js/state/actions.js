@@ -12,11 +12,12 @@ export function getArrivals (mode) {
     return (dispatch) => {
         dispatch(getArrivalsRequest(mode));
 
-        axios.get('/getTfLArrivals?direction=home')
+        axios.get('/getArrivals?direction=home&mode=' + mode)
             .then((data) => {
                 dispatch(getArrivalsSuccess(data));
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(getArrivalsFailure(error));
             });
     }

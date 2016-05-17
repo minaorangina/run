@@ -9,18 +9,14 @@ import AppContainer       from './components/app-container.jsx';
 
 require('../scss/main.scss');
 
-
-function hydrateApp (nextState, replace, callback) {
-    store.dispatch(getArrivals('train'));
-    store.dispatch(getArrivals('dlr'));
-    store.dispatch(getArrivals('bus'));
-    // callback();
-}
+store.dispatch(getArrivals('train'));
+store.dispatch(getArrivals('dlr'));
+store.dispatch(getArrivals('bus'));
 
 ReactDOM.render(
 
     <Provider store={ store }>
-        <AppContainer onEnter={ hydrateApp } />
+        <AppContainer />
     </Provider>,
     document.getElementsByClassName("container")[0]
 );

@@ -15,8 +15,8 @@ function getTrainArrivals (request, reply) {
 
         var toHome = {
             numRows: 9,
-            crs: 'WWA',
-            filterCrs: 'ERH',
+            crs: 'LBG',
+            filterCrs: 'WWA',
             filterType: 'to',
             timeOffset: 0,
             timeWindow: 120
@@ -24,8 +24,8 @@ function getTrainArrivals (request, reply) {
 
         var fromHome = {
             numRows: 9,
-            crs: 'ERH',
-            filterCrs: 'WWA',
+            crs: 'WWA',
+            filterCrs: 'ERH',
             filterType: 'to',
             timeOffset: 0,
             timeWindow: 120
@@ -34,30 +34,25 @@ function getTrainArrivals (request, reply) {
         var args = request.url.query.direction === 'toHome' ? toHome : fromHome;
 
         client.addSoapHeader(accessToken);
+        console.log(client.GetDepBoardWithDetails.toString());
         client.GetDepBoardWithDetails(args, function (err, result) {
 
             if (err) {
                 console.log('Error getting departures...');
-                console.log(err);
-                throw err;
+                console.log(Object.keys(err));
+                console.log(err.response.toJSON());
+                return reply(err);
             }
             var stationBoard = result.GetStationBoardResult;
-            if (stationBoard.trainServices) {
-                console.log(stationBoard);
 
-                var results = {
-                    destination: stationBoard.filterLocationName,
-                    arrivals: stationBoard.trainServices.service
-                };
+            // console.log(stationBoard);
 
-                reply(results);
-            } else {
+            var results = {
+                destination: stationBoard.filterLocationName,
+                arrivals: stationBoard.trainServices ? stationBoard.trainServices.service : []
+            };
 
-                reply({
-                    destination: stationBoard.filterLocationName,
-                    arrivals: []
-                });
-            }
+            reply(results);
         });
     });
 }

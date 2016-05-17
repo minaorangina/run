@@ -21,13 +21,20 @@ var routes = [
     },
     {
         method: 'GET',
-        path: '/getTfLArrivals',
-        handler: handlers.getTfLArrivals
-    },
-    {
-        method: 'GET',
-        path: '/getTrainArrivals',
-        handler: handlers.getTrainArrivals
+        path: '/getArrivals',
+        handler: function (request, reply) {
+
+            var mode = request.query.mode;
+
+            if (mode === 'train') {
+
+                handlers.getTrainArrivals(request, reply);
+            }
+            if (mode === 'dlr' || mode === 'bus') {
+
+                handlers.getTfLArrivals(request, reply)
+            }
+        }
     }
 ];
 module.exports = routes;

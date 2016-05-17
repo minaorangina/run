@@ -1,4 +1,5 @@
 var request = require('request');
+var getTrainArrivals = require('./lib/getTrainArrivals.js');
 
 var credentials = '&app_id=' + process.env.APP_ID + '&app_key=' + process.env.APP_KEY;
 
@@ -16,7 +17,12 @@ var handlers = {
     getTfLArrivals: function (request, reply) {
 
         var query = request.query;
+
         var stopPoint;
+
+        if (!query.mode) {
+            reply(new Error("Transport mode not supplied in request"));
+        }
 
         if (query.mode === 'dlr') {
 
@@ -25,7 +31,6 @@ var handlers = {
         } else if (query.mode === 'bus') {
 
             stopPoint = stBarnabasChurch;
-
         }
 
 
@@ -33,9 +38,9 @@ var handlers = {
 
             var results = JSON.parse(body);
 
-            if (!results) {
+            if (!results || results.httpStatusCode === 404) {
 
-                throw new Error("Could not get arrivals from TfL");
+                reply(new Error("Could not get arrivals from TfL"));
 
             } else {
 
@@ -95,12 +100,11 @@ var handlers = {
                 .slice(0, 2);
             }
 
-
             reply(results);
         });
     },
 
-    getTrainArrivals: require('./lib/getTrainArrivals.js')
+    getTrainArrivals: getTrainArrivals
 };
 
 module.exports = handlers;

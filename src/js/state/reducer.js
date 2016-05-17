@@ -47,7 +47,7 @@ export default function reducer (state = initialState, action) {
             }];
 
             return update(state, {
-                arrivals: { [action.mode]: { $set: fakeData } },
+                arrivals: { [action.mode]: { $set: action.data } },
                 isFetching: { $set: action.isFetching }
             });
 
