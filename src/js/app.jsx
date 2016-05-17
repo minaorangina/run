@@ -12,7 +12,7 @@ export const socket = io();
 
 // store.dispatch(getArrivals('train'));
 store.dispatch(getArrivals('dlr', 'toHome'));
-// store.dispatch(getArrivals('bus'));
+store.dispatch(getArrivals('bus', 'toHome'));
 
 ReactDOM.render(
 

@@ -9,6 +9,11 @@ function socketHandler (io) {
         getTfLArrivals(io, 'dlr', direction);
 
     });
+
+    io.on('bus', (direction) => {
+        console.log("let's get the bus!");
+        getTfLArrivals(io, 'bus', direction);
+    });
 }
 
 module.exports = socketHandler;

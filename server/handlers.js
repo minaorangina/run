@@ -19,9 +19,11 @@ var handlers = {
         var stopPoint;
 
         if (!mode) {
-            reply(new Error("Transport mode not supplied in request"));
+            io.emit('error', new Error("Transport mode not supplied"));
         }
-
+        if (!direction) {
+            io.emit('error', new Error("Direction not supplied"));
+        }
         if (mode === 'dlr') {
 
             stopPoint = westHamDLR;
@@ -38,7 +40,7 @@ var handlers = {
 
             if (!results || results.httpStatusCode === 404) {
 
-                reply(new Error("Could not get arrivals from TfL"));
+                io.emit('error', new Error("Could not get arrivals from TfL"));
 
             } else {
 
@@ -61,44 +63,9 @@ var handlers = {
                     }
                 })
                 .slice(0, 5);
-
-                io.emit('dlr:arrivals', results);
+                console.log(mode);
+                io.emit(mode + ':arrivals', results);
             }
-        });
-    },
-
-    getDLRArrivals: function (request, reply) {
-
-
-
-        tfl.get('StopPoint/' + westHamDLR + '/Arrivals', function (err, response, body) {
-
-            var results = body;
-
-            if (results) {
-
-                results = JSON.parse(body).filter(function (arrival) {
-
-                    return arrival.destinationNaptanId === woolwichDLR;
-                })
-                .filter(function (arrival) {
-
-                    return arrival.timeToStation !== 0;
-                })
-                .sort(function (a, b) {
-
-                    if (a.expectedArrival < b.expectedArrival) {
-                        return -1;
-                    } else if (a.expectedArrival > b.expectedArrival) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                })
-                .slice(0, 2);
-            }
-
-            reply(results);
         });
     },
 

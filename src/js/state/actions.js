@@ -4,8 +4,8 @@ export const GET_ARRIVALS = "GET_ARRIVALS";
 export const GET_ARRIVALS_REQUEST = "GET_ARRIVALS_REQUEST";
 export const GET_ARRIVALS_SUCCESS = "GET_ARRIVALS_SUCCESS";
 export const GET_ARRIVALS_FAILURE = "GET_ARRIVALS_FAILURE";
-export const SET_STATE = "SET_STATE";
-import axios from 'axios';
+export const GENERIC_FAILURE = "GENERIC_FAILURE";
+
 import { socket } from '../app.jsx';
 
 export function getArrivals (mode, direction) {
@@ -20,9 +20,21 @@ export function getArrivals (mode, direction) {
 
             dispatch(getArrivalsSuccess('dlr', arrivals));
         });
+        socket.on('bus:arrivals', (arrivals) => {
+
+            dispatch(getArrivalsSuccess('bus', arrivals));
+        });
         socket.on('dlr:failure', (error) => {
 
             dispatch(getArrivalsFailure('dlr', error));
+        });
+        socket.on('bus:failure', (error) => {
+
+            dispatch(getArrivalsFailure('bus', error));
+        });
+        socket.on('error', (error) => {
+
+            dispatch(genericFailure(error));
         });
     };
 }
@@ -56,11 +68,11 @@ export function getArrivalsFailure (mode, error) {
     };
 }
 
-export function setState (state, mode) {
+export function genericFailure (error) {
 
     return {
-        type: SET_STATE,
-        state,
-        mode
+        type: GENERIC_FAILURE,
+        error,
+        isFetching: false
     };
 }
