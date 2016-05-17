@@ -5,9 +5,9 @@ import Arrivals from './arrivals.jsx';
 const mapStateToProps = (state) => {
 
     return {
-        bus: state.arrivals.bus,
-        train: state.arrivals.train,
-        dlr: state.arrivals.dlr
+        bus: state.bus.arrivals,
+        train: state.train.arrivals,
+        dlr: state.dlr.arrivals
     };
 };
 

@@ -6,23 +6,17 @@ import { GET_ARRIVALS_REQUEST, GET_ARRIVALS_SUCCESS, GET_ARRIVALS_FAILURE, SET_S
 
 const initialState = {
     direction: "home",
-    arrivals: {
-        bus: [
-            {
-                timeToStation: 230,
-                lineName: "DLR",
-                destinationName: "Woolwich"
-            }
-        ],
-        train: {
-            destination: "Erith",
-            arrivals: [
-                {
-                    timeToStation: 400,
-                    std: 300
-                }
-            ]
-        }
+    bus: {
+        arrivals: [],
+        error: undefined
+    },
+    dlr: {
+        arrivals: [],
+        error: undefined
+    },
+    train: {
+        arrivals: [],
+        error: undefined
     },
     isFetching: false,
     error: undefined
@@ -32,43 +26,43 @@ export default function reducer (state = initialState, action) {
 
     switch (action.type) {
 
-        case GET_ARRIVALS_REQUEST:
+    case GET_ARRIVALS_REQUEST:
 
-            return update(state, {
-                isFetching: { $set: action.isFetching }
-            });
+        return update(state, {
+            isFetching: { $set: action.isFetching }
+        });
 
-        case GET_ARRIVALS_SUCCESS:
+    case GET_ARRIVALS_SUCCESS:
 
-            let fakeData = [{
-                timeToStation: 230,
-                lineName: "DLR",
-                destinationName: "Woolwich"
-            }];
+        let fakeData = [{
+            timeToStation: 230,
+            lineName: "DLR",
+            destinationName: "Woolwich"
+        }];
+        console.log(action.mode);
+        return update(state, {
+            [action.mode]: { arrivals: { $set: action.data } },
+            isFetching: { $set: action.isFetching }
+        });
 
-            return update(state, {
-                arrivals: { [action.mode]: { $set: action.data } },
-                isFetching: { $set: action.isFetching }
-            });
+    case GET_ARRIVALS_FAILURE:
 
-        case GET_ARRIVALS_FAILURE:
+        return update(state, {
+            [action.mode]: { error: { $set: action.error } },
+            isFetching: { $set: action.isFetching }
+        });
 
-            return update(state, {
-                isFetching: { $set: action.isFetching },
-                error: { $set: action.error }
-            });
+    case SET_STATE:
 
-        case SET_STATE:
+        console.log("setting state??");
+        state.arrivals[action.mode] = action.state;
+        return update(state, {
+            arrivals: { [action.mode]: { $set: action.state } }
+        });
 
-            console.log("setting state??");
-            state.arrivals[action.mode] = action.state;
-            return update(state, {
-                arrivals: { [action.mode]: { $set: action.state } }
-            });
-            break;
 
-        default:
-            console.log("defaulttttttt");
-            return state;
+    default:
+        console.log("defaulttttttt");
+        return state;
     }
 }

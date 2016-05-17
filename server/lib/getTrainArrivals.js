@@ -15,7 +15,7 @@ function getTrainArrivals (request, reply) {
 
         var toHome = {
             numRows: 9,
-            crs: 'LBG',
+            crs: 'ERH',
             filterCrs: 'WWA',
             filterType: 'to',
             timeOffset: 0,
@@ -31,11 +31,12 @@ function getTrainArrivals (request, reply) {
             timeWindow: 120
         };
 
-        var args = request.url.query.direction === 'toHome' ? toHome : fromHome;
+        var args = request.query.direction === 'toHome' ? toHome : fromHome;
 
         client.addSoapHeader(accessToken);
-        console.log(client.GetDepBoardWithDetails.toString());
+        console.log(args);
         client.GetDepBoardWithDetails(args, function (err, result) {
+
 
             if (err) {
                 console.log('Error getting departures...');

@@ -13,14 +13,15 @@ export function getArrivals (mode) {
         dispatch(getArrivalsRequest(mode));
 
         axios.get('/getArrivals?direction=home&mode=' + mode)
-            .then((data) => {
-                dispatch(getArrivalsSuccess(data));
+            .then((response) => {
+
+                dispatch(getArrivalsSuccess(mode, response.data));
             })
             .catch((error) => {
                 console.log(error);
-                dispatch(getArrivalsFailure(error));
+                dispatch(getArrivalsFailure(mode, error.data));
             });
-    }
+    };
 }
 
 export function getArrivalsRequest (mode) {
