@@ -24,16 +24,6 @@ export function getArrivals (mode, direction) {
 
             dispatch(getArrivalsFailure('dlr', error));
         });
-
-        // axios.get('/getArrivals?direction=home&mode=' + mode)
-            // .then((response) => {
-            //
-            //     dispatch(getArrivalsSuccess(mode, response.data));
-            // })
-            // .catch((error) => {
-            //     console.log(error);
-            //     dispatch(getArrivalsFailure(mode, error.data));
-            // });
     };
 }
 
