@@ -15,7 +15,7 @@ var woolwichDLR = '940GZZDLWLA';
 var handlers = {
 
     getTfLArrivals: function (io, mode, direction) {
-
+        console.log("happening");
         var stopPoint;
 
         if (!mode) {
@@ -63,7 +63,7 @@ var handlers = {
                     }
                 })
                 .slice(0, 5);
-                console.log(mode);
+
                 io.emit(mode + ':arrivals', results);
             }
         });
