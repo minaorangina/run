@@ -16,6 +16,6 @@ Simple as that :smile:
 ###[I'm keeping track of any problems or bugs encountered here](https://github.com/minaorangina/run/blob/master/problems-solutions.md)
 
 ## TODO
-- [ ] Add Redux
+- [x] Add Redux
 - [x] Swap babelify for webpack
 - [x] Add styles
