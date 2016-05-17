@@ -6,21 +6,34 @@ export const GET_ARRIVALS_SUCCESS = "GET_ARRIVALS_SUCCESS";
 export const GET_ARRIVALS_FAILURE = "GET_ARRIVALS_FAILURE";
 export const SET_STATE = "SET_STATE";
 import axios from 'axios';
+import { socket } from '../app.jsx';
 
-export function getArrivals (mode) {
+export function getArrivals (mode, direction) {
 
     return (dispatch) => {
+
         dispatch(getArrivalsRequest(mode));
 
-        axios.get('/getArrivals?direction=home&mode=' + mode)
-            .then((response) => {
+        socket.emit(mode, direction);
 
-                dispatch(getArrivalsSuccess(mode, response.data));
-            })
-            .catch((error) => {
-                console.log(error);
-                dispatch(getArrivalsFailure(mode, error.data));
-            });
+        socket.on('dlr:arrivals', (arrivals) => {
+
+            dispatch(getArrivalsSuccess('dlr', arrivals));
+        });
+        socket.on('dlr:failure', (error) => {
+
+            dispatch(getArrivalsFailure('dlr', error));
+        });
+
+        // axios.get('/getArrivals?direction=home&mode=' + mode)
+            // .then((response) => {
+            //
+            //     dispatch(getArrivalsSuccess(mode, response.data));
+            // })
+            // .catch((error) => {
+            //     console.log(error);
+            //     dispatch(getArrivalsFailure(mode, error.data));
+            // });
     };
 }
 

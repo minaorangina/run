@@ -1,7 +1,9 @@
 var Hapi = require('hapi');
 var Path = require('path');
 var inert = require('inert');
+var socket = require('socket.io');
 var routes = require('./routes.js');
+var socketHandler = require('./socketHandler.js');
 
 var server = new Hapi.Server({
 
@@ -21,6 +23,9 @@ server.connection({
 });
 
 server.route(routes);
+// console.log(server.listener);
+var io = socket.listen(server.listener);
+io.on('connection', socketHandler);
 
 server.start(function () {
 

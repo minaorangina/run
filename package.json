@@ -47,8 +47,9 @@
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "request": "^2.67.0",
-    "soap": "^0.15.0",
     "sass-loader": "^3.1.2",
+    "soap": "^0.15.0",
+    "socket.io": "^1.4.6",
     "style-loader": "^0.13.0"
   },
   "devDependencies": {

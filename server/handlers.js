@@ -14,21 +14,19 @@ var woolwichDLR = '940GZZDLWLA';
 
 var handlers = {
 
-    getTfLArrivals: function (request, reply) {
-
-        var query = request.query;
+    getTfLArrivals: function (io, mode, direction) {
 
         var stopPoint;
 
-        if (!query.mode) {
+        if (!mode) {
             reply(new Error("Transport mode not supplied in request"));
         }
 
-        if (query.mode === 'dlr') {
+        if (mode === 'dlr') {
 
             stopPoint = westHamDLR;
 
-        } else if (query.mode === 'bus') {
+        } else if (mode === 'bus') {
 
             stopPoint = stBarnabasChurch;
         }
@@ -64,7 +62,7 @@ var handlers = {
                 })
                 .slice(0, 5);
 
-                reply(results);
+                io.emit('dlr:arrivals', results);
             }
         });
     },
