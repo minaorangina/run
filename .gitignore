@@ -3,5 +3,5 @@ npm-debug.log
 .gitattributes
 public/.bundle.js
 *.env
-env.sh
+*.sh
 .nvmrc
