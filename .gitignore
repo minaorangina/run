@@ -4,3 +4,4 @@ npm-debug.log
 public/.bundle.js
 *.env
 env.sh
+.nvmrc

@@ -28,3 +28,10 @@ removed presets query from webpack config, now all babel config exist in `.babel
 
 ### DLR component only receiving correct props once (on initial mount)
 To do with assignment quirk in reducer
+
+
+### Cannot run dev server
+```bash
+ React Hot Loader: The Webpack loader is now exported separately. If you use Babel, we recommend that you remove "react-hot-loader" from the "loaders" section of your Webpack configuration altogether...
+```
+* Configuration for loaders has changed: (https://teamtreehouse.com/community/anyone-else-getting-an-error-when-including-react-hot-loader-in-the-webpack-config)
