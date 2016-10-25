@@ -21,17 +21,26 @@ describe('AppContainer', function () {
         component = renderIntoDocument(<AppContainer />);
     });
 
-    it('renders `ArrivalsContainer` correctly', function () {
 
-        const _ArrivalsContainer = scryRenderedDOMComponentsWithClass(component, 'arrivals-container');
+    it('renders `DLRContainer` correctly', function () {
 
-        expect(_ArrivalsContainer.length).to.equal(1);
+        const _dlr = scryRenderedDOMComponentsWithClass(component, 'dlr-container');
+
+        expect(_dlr.length).to.equal(1);
     });
 
-    it('renders DirectionButtons correctly', function () {
+    it('renders `BusArrivals` correctly', function () {
 
-        const _directionButtons = shallowRenderer(<DirectionButtons />);
+        const _bus = scryRenderedDOMComponentsWithClass(component, 'bus-arrivals');
 
-        expect(_directionButtons.props.children.length).to.equal(2);
+        expect(_bus.length).to.equal(1);
     });
+
+    it('renders `TrainArrivals` correctly', function () {
+
+        const _train = scryRenderedDOMComponentsWithClass(component, 'train-arrivals');
+
+        expect(_train.length).to.equal(1);
+    });
+
 });
