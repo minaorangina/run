@@ -1,11 +1,9 @@
-'use strict';
-
 import React              from 'react';
 import ReactDOM           from 'react-dom';
 import { Provider }       from 'react-redux';
-import { store }          from './state/store.js';
-import { getArrivals }    from './state/actions.js';
-import AppContainer       from './components/app-container.jsx';
+import { store }          from './store.js';
+import { getArrivals }    from './actions.js';
+import AppContainer       from './containers/app.jsx';
 
 require('../scss/main.scss');
 export const socket = io();

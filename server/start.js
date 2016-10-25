@@ -23,11 +23,9 @@ server.connection({
 });
 
 server.route(routes);
-// console.log(server.listener);
-var io = socket.listen(server.listener);
-io.on('connection', socketHandler);
+
 
 server.start(function () {
 
-    console.log("Server running at port:", server.info.uri);
+    console.info("Server running at port:", server.info.uri);
 });

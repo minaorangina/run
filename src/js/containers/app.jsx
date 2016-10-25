@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrivalsContainer from './arrivals-container.js';
+import ArrivalsContainer from './arrivals.js';
 
 const AppContainer = () => {
 

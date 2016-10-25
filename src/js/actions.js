@@ -1,12 +1,10 @@
-'use strict';
-
 export const GET_ARRIVALS = "GET_ARRIVALS";
 export const GET_ARRIVALS_REQUEST = "GET_ARRIVALS_REQUEST";
 export const GET_ARRIVALS_SUCCESS = "GET_ARRIVALS_SUCCESS";
 export const GET_ARRIVALS_FAILURE = "GET_ARRIVALS_FAILURE";
 export const GENERIC_FAILURE = "GENERIC_FAILURE";
 
-import { socket } from '../app.jsx';
+import { socket } from './app.jsx';
 
 export function getArrivals (mode, direction) {
 
@@ -53,8 +51,7 @@ export function getArrivalsSuccess (mode, data) {
     return {
         type: GET_ARRIVALS_SUCCESS,
         mode,
-        data,
-        isFetching: false
+        data
     };
 }
 
@@ -63,8 +60,7 @@ export function getArrivalsFailure (mode, error) {
     return {
         type: GET_ARRIVALS_FAILURE,
         mode,
-        error,
-        isFetching: false
+        error
     };
 }
 

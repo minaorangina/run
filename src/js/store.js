@@ -1,5 +1,3 @@
-
-
 // store-making separated out for testing ease
 
 import { createStore, applyMiddleware, compose } from 'redux';
