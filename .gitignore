@@ -1,6 +1,7 @@
 node_modules/
 npm-debug.log
+bundle.js
 .gitattributes
-public/bundle.js
+.nvmrc
+*.sh
 *.env
-env.sh
