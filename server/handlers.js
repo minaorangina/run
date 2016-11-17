@@ -9,8 +9,10 @@ var tfl = request.defaults({
 });
 
 var stBarnabasChurch = '490012633S';
+var mileEnd = '490000146G';
 var westHamDLR = '940GZZDLWHM';
 var woolwichDLR = '940GZZDLWLA';
+var canningTownDLR = '';
 
 var handlers = {
 
@@ -28,48 +30,67 @@ var handlers = {
         }
         if (mode === 'dlr') {
 
-            stopPoint = westHamDLR;
+            stopPoint = (direction === 'home' ? westHamDLR : woolwichDLR);
 
         } else if (mode === 'bus') {
 
-            stopPoint = stBarnabasChurch;
+            stopPoint = (direction === 'home' ? stBarnabasChurch : mileEnd);
+            console.log("BUS STOP POINT", stopPoint);
         }
 
-        tfl.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
-            var results = JSON.parse(body);
+        pollAPI(io, tfl, stopPoint, mode, direction);
 
-            if (!results || results.httpStatusCode === 404) {
-
-                io.emit('error', new Error("Could not get arrivals from TfL"));
-
-            } else {
-
-                if (stopPoint === westHamDLR) {
-
-                    results = results.filter(function (arrival) {
-
-                        return arrival.destinationNaptanId === woolwichDLR;
-                    });
-                }
-
-                results = results.sort(function (a, b) {
-
-                    if (a.expectedArrival < b.expectedArrival) {
-                        return -1;
-                    } else if (a.expectedArrival > b.expectedArrival) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                })
-                .slice(0, 5);
-                io.emit(mode + ':arrivals', results);
-            }
-        });
     },
 
     getTrainArrivals: getTrainArrivals
 };
+
+function pollAPI (io, api, stopPoint, mode, direction) {
+
+    api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
+
+        var results = JSON.parse(body);
+
+        if (!results || results.httpStatusCode === 404) {
+
+            io.emit('error', new Error("Could not get arrivals from TfL"));
+            return;
+        }
+        if (mode === 'dlr') {
+
+            if (direction === 'home') {
+
+                results = results.filter(function (arrival) {
+
+                    return arrival.destinationNaptanId === woolwichDLR;
+                });
+            }
+            if (direction === 'away') {
+
+                results = results.filter(function (arrival) {
+
+                    return arrival.destinationNaptanId === canningTownDLR;
+                });
+            }
+        }
+        results = results.sort(function (a, b) {
+
+            if (a.expectedArrival < b.expectedArrival) {
+                return -1;
+            } else if (a.expectedArrival > b.expectedArrival) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        .slice(0, 5);
+        io.emit(mode + ':arrivals', results);
+
+        setTimeout(() => {
+            pollAPI(io, api, stopPoint, mode, direction);
+        }, 10000);
+    });
+}
 
 module.exports = handlers;
