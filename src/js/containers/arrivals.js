@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
     return {
         bus: state.bus.arrivals,
         train: state.train.arrivals,
-        dlr: state.dlr.arrivals
+        dlr: state.dlr.arrivals,
+        direction: state.direction
     };
 };
 

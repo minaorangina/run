@@ -7,7 +7,6 @@ const TfL = ({ mode, data }) => {
     return (
         <div className={ modeLowerCase }>
             <h3>
-
                 { mode } from { data[0] && data[0].stationName }
             </h3>
             {
