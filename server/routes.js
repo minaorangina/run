@@ -18,23 +18,6 @@ var routes = [
                 index: true
             }
         }
-    },
-    {
-        method: 'GET',
-        path: '/getArrivals',
-        handler: function (request, reply) {
-
-            var mode = request.query.mode;
-
-            if (mode === 'train') {
-
-                handlers.getTrainArrivals(request, reply);
-            }
-            if (mode === 'dlr' || mode === 'bus') {
-
-                handlers.getTfLArrivals(request, reply)
-            }
-        }
     }
 ];
 module.exports = routes;

@@ -20,9 +20,11 @@ var handlers = {
 
         if (!mode) {
             io.emit('error', new Error("Transport mode not supplied"));
+            return;
         }
         if (!direction) {
             io.emit('error', new Error("Direction not supplied"));
+            return;
         }
         if (mode === 'dlr') {
 
@@ -32,7 +34,6 @@ var handlers = {
 
             stopPoint = stBarnabasChurch;
         }
-
 
         tfl.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
@@ -63,7 +64,6 @@ var handlers = {
                     }
                 })
                 .slice(0, 5);
-
                 io.emit(mode + ':arrivals', results);
             }
         });

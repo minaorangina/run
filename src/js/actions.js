@@ -15,11 +15,11 @@ export function getArrivals (mode, direction) {
         socket.emit(mode, direction);
 
         socket.on('dlr:arrivals', (arrivals) => {
-
+            console.log("got arrivals");
             dispatch(getArrivalsSuccess('dlr', arrivals));
         });
         socket.on('bus:arrivals', (arrivals) => {
-
+            console.log("got arrivals");
             dispatch(getArrivalsSuccess('bus', arrivals));
         });
         socket.on('dlr:failure', (error) => {
