@@ -12,12 +12,12 @@ var stBarnabasChurch = '490012633S';
 var mileEnd = '490000146G';
 var westHamDLR = '940GZZDLWHM';
 var woolwichDLR = '940GZZDLWLA';
-var canningTownDLR = '';
+var canningTownDLR = '940GZZDLCGT';
 
 var handlers = {
 
     getTfLArrivals: function (io, mode, direction) {
-        console.log("happening");
+
         var stopPoint;
 
         if (!mode) {
@@ -35,7 +35,6 @@ var handlers = {
         } else if (mode === 'bus') {
 
             stopPoint = (direction === 'home' ? stBarnabasChurch : mileEnd);
-            console.log("BUS STOP POINT", stopPoint);
         }
 
         if (INTERVAL_ID) {
@@ -43,7 +42,6 @@ var handlers = {
         }
 
         pollAPI(io, tfl, stopPoint, mode, direction);
-
     },
 
     getTrainArrivals: getTrainArrivals
@@ -52,7 +50,7 @@ var handlers = {
 function pollAPI (io, api, stopPoint, mode, direction) {
 
     getDataFromAPI(io, api, stopPoint, mode, direction);
-    
+
     INTERVAL_ID = setInterval(() => {
         getDataFromAPI(io, api, stopPoint, mode, direction);
     }, 10000);
@@ -75,13 +73,6 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                     results = results.filter(function (arrival) {
 
                         return arrival.destinationNaptanId === woolwichDLR;
-                    });
-                }
-                if (direction === 'away') {
-
-                    results = results.filter(function (arrival) {
-
-                        return arrival.destinationNaptanId === canningTownDLR;
                     });
                 }
             }
