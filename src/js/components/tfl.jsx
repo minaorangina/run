@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 const TfL = ({ mode, data }) => {
-    console.log(data);
+    
     let modeLowerCase = mode.toLowerCase();
     return (
         <div className={ modeLowerCase }>

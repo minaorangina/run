@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { store } from '../store';
+import { reverseDirection } from '../actions';
 import Arrivals from '../components/arrivals.jsx';
 
 const mapStateToProps = (state) => {
-
     return {
         bus: state.bus.arrivals,
         train: state.train.arrivals,
@@ -13,14 +14,17 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-
     return {
-        // change direction
+        changeDirection: () => {
+            let newDirection = store.getState().direction === 'home' ? 'away' : 'home';
+            dispatch(reverseDirection(newDirection));
+        }
     };
 };
 
 const ArrivalsContainer = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Arrivals);
 
 export default ArrivalsContainer;

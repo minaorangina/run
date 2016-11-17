@@ -3,6 +3,7 @@ export const GET_ARRIVALS_REQUEST = "GET_ARRIVALS_REQUEST";
 export const GET_ARRIVALS_SUCCESS = "GET_ARRIVALS_SUCCESS";
 export const GET_ARRIVALS_FAILURE = "GET_ARRIVALS_FAILURE";
 export const GENERIC_FAILURE = "GENERIC_FAILURE";
+export const REVERSE_DIRECTION = "REVERSE_DIRECTION";
 
 import { socket } from './app.jsx';
 
@@ -15,7 +16,7 @@ export function getArrivals (mode, direction) {
         socket.emit(mode, direction);
 
         socket.on('dlr:arrivals', (arrivals) => {
-        
+
             dispatch(getArrivalsSuccess('dlr', arrivals));
         });
         socket.on('bus:arrivals', (arrivals) => {
@@ -70,5 +71,13 @@ export function genericFailure (error) {
         type: GENERIC_FAILURE,
         error,
         isFetching: false
+    };
+}
+
+export function reverseDirection (newDirection) {
+
+    return {
+        type: REVERSE_DIRECTION,
+        newDirection
     };
 }

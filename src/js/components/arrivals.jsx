@@ -2,7 +2,7 @@ import React from 'react';
 import TfL from './tfl.jsx';
 
 
-const Arrivals = ({ train, dlr, bus, direction }) => {
+const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
 
     let renderArrivals = (direction) => {
         if (direction === 'home') {
@@ -26,6 +26,7 @@ const Arrivals = ({ train, dlr, bus, direction }) => {
     return (
         <div>
             { renderArrivals(direction) }
+            <button onClick={ () => changeDirection() }>Change direction</button>
         </div>
     );
 };
