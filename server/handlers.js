@@ -7,7 +7,7 @@ var tfl = request.defaults({
     baseUrl: 'https://api.tfl.gov.uk',
     qs: credentials
 });
-
+var INTERVAL_ID = '';
 var stBarnabasChurch = '490012633S';
 var mileEnd = '490000146G';
 var westHamDLR = '940GZZDLWHM';
@@ -38,6 +38,9 @@ var handlers = {
             console.log("BUS STOP POINT", stopPoint);
         }
 
+        if (INTERVAL_ID) {
+            clearInterval(INTERVAL_ID);
+        }
 
         pollAPI(io, tfl, stopPoint, mode, direction);
 
@@ -48,49 +51,54 @@ var handlers = {
 
 function pollAPI (io, api, stopPoint, mode, direction) {
 
-    api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
+    getDataFromAPI(io, api, stopPoint, mode, direction);
+    
+    INTERVAL_ID = setInterval(() => {
+        getDataFromAPI(io, api, stopPoint, mode, direction);
+    }, 10000);
 
-        var results = JSON.parse(body);
+    function getDataFromAPI (io, api, stopPoint, mode, direction) {
 
-        if (!results || results.httpStatusCode === 404) {
+        api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
-            io.emit('error', new Error("Could not get arrivals from TfL"));
-            return;
-        }
-        if (mode === 'dlr') {
+            var results = JSON.parse(body);
 
-            if (direction === 'home') {
+            if (!results || results.httpStatusCode === 404) {
 
-                results = results.filter(function (arrival) {
-
-                    return arrival.destinationNaptanId === woolwichDLR;
-                });
+                io.emit('error', new Error("Could not get arrivals from TfL"));
+                return;
             }
-            if (direction === 'away') {
+            if (mode === 'dlr') {
 
-                results = results.filter(function (arrival) {
+                if (direction === 'home') {
 
-                    return arrival.destinationNaptanId === canningTownDLR;
-                });
+                    results = results.filter(function (arrival) {
+
+                        return arrival.destinationNaptanId === woolwichDLR;
+                    });
+                }
+                if (direction === 'away') {
+
+                    results = results.filter(function (arrival) {
+
+                        return arrival.destinationNaptanId === canningTownDLR;
+                    });
+                }
             }
-        }
-        results = results.sort(function (a, b) {
+            results = results.sort(function (a, b) {
 
-            if (a.expectedArrival < b.expectedArrival) {
-                return -1;
-            } else if (a.expectedArrival > b.expectedArrival) {
-                return 1;
-            } else {
-                return 0;
-            }
-        })
-        .slice(0, 5);
-        io.emit(mode + ':arrivals', results);
-
-        setTimeout(() => {
-            pollAPI(io, api, stopPoint, mode, direction);
-        }, 10000);
-    });
+                if (a.expectedArrival < b.expectedArrival) {
+                    return -1;
+                } else if (a.expectedArrival > b.expectedArrival) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
+            .slice(0, 5);
+            io.emit(mode + ':arrivals', results);
+        });
+    }
 }
 
 module.exports = handlers;
