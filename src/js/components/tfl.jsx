@@ -1,13 +1,18 @@
 import React from 'react';
 import moment from 'moment';
 
+const normaliseStationName = (name) => {
+
+    return name.replace(' DLR Station', '');
+};
+
 const TfL = ({ mode, data }) => {
-    
+
     let modeLowerCase = mode.toLowerCase();
     return (
         <div className={ modeLowerCase }>
             <h3>
-                { mode } from { data[0] && data[0].stationName }
+                { mode }: { data[0] && normaliseStationName(data[0].stationName) } { data.length === 0 && 'Got nothing...' }
             </h3>
             {
                 data.map((arrival, i) => {
@@ -16,7 +21,7 @@ const TfL = ({ mode, data }) => {
                     return (
                         <div key={ i } className="arrival-item">
                             {modeLowerCase === 'bus' && `${arrival.lineName} `}
-                            {modeLowerCase === 'dlr' && `${arrival.destinationName.replace(' DLR Station', '')} `}
+                            {modeLowerCase === 'dlr' && `${normaliseStationName(arrival.destinationName)} `}
                             <span className="time">{ time }</span>
                             {
                                 modeLowerCase === 'dlr' &&

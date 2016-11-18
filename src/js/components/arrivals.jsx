@@ -4,10 +4,13 @@ import TfL from './tfl.jsx';
 
 const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
 
+    let headerText = (direction === 'home' ? 'Going home' : 'Going to work');
+    let buttonText = (direction === 'home' ? 'Go to work' : 'Get home');
+
     let renderArrivals = (direction) => {
         if (direction === 'home') {
             return (
-                <div>
+                <div className="arrivals-container">
                     <TfL mode="Bus" data={ bus } />
                     <TfL mode="DLR" data={ dlr } />
                 </div>
@@ -15,7 +18,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         }
         if (direction === 'away') {
             return (
-                <div>
+                <div className="arrivals-container">
                     <TfL mode="DLR" data={ dlr } />
                     <TfL mode="Bus" data={ bus } />
                 </div>
@@ -25,8 +28,9 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
 
     return (
         <div>
+            <h2>{ headerText }</h2>
             { renderArrivals(direction) }
-            <button onClick={ () => changeDirection() }>Change direction</button>
+            <button onClick={ () => changeDirection() }>{ buttonText }</button>
         </div>
     );
 };
