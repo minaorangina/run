@@ -4,7 +4,6 @@ import {
     GET_ARRIVALS_REQUEST,
     GET_ARRIVALS_SUCCESS,
     GET_ARRIVALS_FAILURE,
-    REVERSE_DIRECTION,
     GENERIC_FAILURE } from './actions.js';
 
 export const initialState = {
@@ -39,6 +38,7 @@ export function reducer (state = initialState, action) {
 
         return update(state, {
             [action.mode]: { arrivals: { $set: action.data } },
+            direction: { $set: action.direction },
             isFetching: { $set: false }
         });
 
@@ -56,17 +56,7 @@ export function reducer (state = initialState, action) {
             isFetching: { $set: false }
         });
 
-    case REVERSE_DIRECTION:
-
-        return update(state, {
-            direction: { $set: action.newDirection },
-            bus: { arrivals: { $set: [] } },
-            dlr: { arrivals: { $set: [] } },
-            train: { arrivals: { $set: [] } }
-        });
-
     default:
-
         return state;
     }
 }

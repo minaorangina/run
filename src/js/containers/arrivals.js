@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { store } from '../store';
-import { reverseDirection } from '../actions';
+import { getArrivals } from '../actions';
 import Arrivals from '../components/arrivals.jsx';
+
 
 const mapStateToProps = (state) => {
     return {
@@ -16,8 +17,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         changeDirection: () => {
+
             let newDirection = store.getState().direction === 'home' ? 'away' : 'home';
-            dispatch(reverseDirection(newDirection));
+            dispatch(getArrivals('dlr', newDirection));
+            dispatch(getArrivals('bus', newDirection));
         }
     };
 };

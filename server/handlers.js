@@ -87,7 +87,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                 }
             })
             .slice(0, 5);
-            io.emit(mode + ':arrivals', results);
+            io.emit(mode + ':arrivals', { data: results, direction: direction });
         });
     }
 }
