@@ -38,6 +38,7 @@ export function reducer (state = initialState, action) {
 
         return update(state, {
             [action.mode]: { arrivals: { $set: action.data } },
+            direction: { $set: action.direction },
             isFetching: { $set: false }
         });
 
@@ -56,7 +57,6 @@ export function reducer (state = initialState, action) {
         });
 
     default:
-
         return state;
     }
 }

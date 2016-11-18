@@ -2,7 +2,7 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import reducer from './reducer.js';
+import { reducer } from './reducer.js';
 
 export function makeStore (initialState) {
 

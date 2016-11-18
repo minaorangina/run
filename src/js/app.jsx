@@ -9,8 +9,9 @@ require('../scss/main.scss');
 export const socket = io();
 
 // store.dispatch(getArrivals('train'));
-store.dispatch(getArrivals('dlr', 'toHome'));
-store.dispatch(getArrivals('bus', 'toHome'));
+let direction = store.getState().direction;
+store.dispatch(getArrivals('dlr', direction));
+store.dispatch(getArrivals('bus', direction));
 
 ReactDOM.render(
 

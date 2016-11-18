@@ -16,11 +16,11 @@ export function getArrivals (mode, direction) {
 
         socket.on('dlr:arrivals', (arrivals) => {
 
-            dispatch(getArrivalsSuccess('dlr', arrivals));
+            dispatch(getArrivalsSuccess('dlr', arrivals.direction, arrivals.data));
         });
         socket.on('bus:arrivals', (arrivals) => {
 
-            dispatch(getArrivalsSuccess('bus', arrivals));
+            dispatch(getArrivalsSuccess('bus', arrivals.direction, arrivals.data));
         });
         socket.on('dlr:failure', (error) => {
 
@@ -46,11 +46,12 @@ export function getArrivalsRequest (mode) {
     };
 }
 
-export function getArrivalsSuccess (mode, data) {
+export function getArrivalsSuccess (mode, direction, data) {
 
     return {
         type: GET_ARRIVALS_SUCCESS,
         mode,
+        direction,
         data
     };
 }

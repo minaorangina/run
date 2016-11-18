@@ -1,25 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { store } from '../store';
+import { getArrivals } from '../actions';
 import Arrivals from '../components/arrivals.jsx';
 
-const mapStateToProps = (state) => {
 
+const mapStateToProps = (state) => {
     return {
         bus: state.bus.arrivals,
         train: state.train.arrivals,
-        dlr: state.dlr.arrivals
+        dlr: state.dlr.arrivals,
+        direction: state.direction
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-
     return {
-        // change direction
+        changeDirection: () => {
+
+            let newDirection = store.getState().direction === 'home' ? 'away' : 'home';
+            dispatch(getArrivals('dlr', newDirection));
+            dispatch(getArrivals('bus', newDirection));
+        }
     };
 };
 
 const ArrivalsContainer = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Arrivals);
 
 export default ArrivalsContainer;

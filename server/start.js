@@ -16,6 +16,7 @@ var server = new Hapi.Server({
     }
 });
 
+
 server.register(inert, function () {});
 
 server.connection({
@@ -23,9 +24,11 @@ server.connection({
 });
 
 server.route(routes);
+var io = socket(server.listener);
 
+io.on('connection', socketHandler);
 
 server.start(function () {
 
-    console.info("Server running at port:", server.info.uri);
+    console.info("Server running at port:", server.info.uri); //eslint-disable-line no-console
 });
