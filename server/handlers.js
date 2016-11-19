@@ -8,7 +8,7 @@ var tfl = request.defaults({
     qs: credentials
 });
 var INTERVAL_ID = '';
-var NUM_ARRIVALS = 5;
+var NUM_ARRIVALS = 3;
 var stBarnabasChurch = '490012633S';
 var mileEnd = '490000146G';
 var westHamDLR = '940GZZDLWHM';
