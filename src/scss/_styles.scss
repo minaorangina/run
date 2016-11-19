@@ -20,7 +20,6 @@ button {
     display: block;
     margin: 0 auto;
     width: 90%;
-    background-color: red;
     font-size: 1.5em;
     line-height: 1.8em;
     border-style: none;
@@ -29,4 +28,11 @@ button {
     bottom: 10%;
     left: 50%;
     transform: translate(-50%, 75%);
+}
+
+button.home {
+  background-color: #56a6d9;
+}
+button.away {
+  background-color: #47c8c3;
 }

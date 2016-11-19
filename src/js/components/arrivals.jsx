@@ -30,7 +30,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         <div>
             <h2>{ headerText }</h2>
             { renderArrivals(direction) }
-            <button onClick={ () => changeDirection() }>{ buttonText }</button>
+            <button className={ direction === 'home' ? 'home' : 'away' } onClick={ () => changeDirection() }>{ buttonText }</button>
         </div>
     );
 };
