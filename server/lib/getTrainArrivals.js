@@ -15,8 +15,8 @@ function getTrainArrivals (request, reply) {
 
         var toHome = {
             numRows: 9,
-            crs: 'ERH',
-            filterCrs: 'WWA',
+            crs: process.env.AWAY_TRAIN,
+            filterCrs: process.env.HOME_TRAIN,
             filterType: 'to',
             timeOffset: 0,
             timeWindow: 120
@@ -24,8 +24,8 @@ function getTrainArrivals (request, reply) {
 
         var fromHome = {
             numRows: 9,
-            crs: 'WWA',
-            filterCrs: 'ERH',
+            crs: process.env.HOME_TRAIN,
+            filterCrs: process.env.AWAY_TRAIN,
             filterType: 'to',
             timeOffset: 0,
             timeWindow: 120
