@@ -35,3 +35,7 @@ To do with assignment quirk in reducer
  React Hot Loader: The Webpack loader is now exported separately. If you use Babel, we recommend that you remove "react-hot-loader" from the "loaders" section of your Webpack configuration altogether...
 ```
 * Configuration for loaders has changed: (https://teamtreehouse.com/community/anyone-else-getting-an-error-when-including-react-hot-loader-in-the-webpack-config)
+
+### Warning: Unknown prop `ariaHidden` on <i> tag.
+aria-* and data-* attributes do not need to be camel cased, unlike all other DOM properties/attributes in React
+[DOM Elements in React](https://facebook.github.io/react/docs/dom-elements.html)
