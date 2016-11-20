@@ -1,6 +1,6 @@
 
 h2 {
-  text-align: center;
+    text-align: center;
 }
 
 h2, h3 {
@@ -12,11 +12,17 @@ h2, h3 {
 }
 
 .card {
-  // border: 1px solid black;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.23);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.24);
-  padding: 5px;
-  margin-bottom: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.24);
+    padding: 5px;
+    margin-bottom: 5px;
+
+    &.home {
+        background-color: rgba(71,200,195, 0.3);
+    }
+    &.away {
+        background-color: rgba(85, 166, 216, 0.3);
+    }
 }
 
 .arrival-item {
@@ -31,20 +37,19 @@ h2, h3 {
 button {
     display: block;
     margin: 0 auto;
-    width: 90%;
-    font-size: 1.5em;
+    width: 20%;
+    font-size: 0.9em;
     line-height: 1.8em;
     border-style: none;
-    border-radius: 4px;
+    border-radius: 50px;
     position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translate(-50%, 75%);
-}
+    top: 10px;
+    right: 10px;
 
-button.home {
-  background-color: #56a6d9;
-}
-button.away {
-  background-color: #47c8c3;
+    &.home {
+        background-color: #56a6d9;
+    }
+    &.away {
+        background-color: #47c8c3;
+    }
 }

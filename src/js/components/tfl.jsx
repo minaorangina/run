@@ -6,11 +6,11 @@ const normaliseStationName = (name) => {
     return name.replace(' DLR Station', '');
 };
 
-const TfL = ({ mode, data }) => {
+const TfL = ({ mode, data, direction }) => {
 
     let modeLowerCase = mode.toLowerCase();
     return (
-        <div className={ `card ${modeLowerCase}` }>
+        <div className={ `card ${modeLowerCase} ${direction || ''}` }>
             <h3>
                 { mode }: { data[0] && normaliseStationName(data[0].stationName) } { data.length === 0 && 'Got nothing...' }
             </h3>
