@@ -10,7 +10,7 @@ const TfL = ({ mode, data }) => {
 
     let modeLowerCase = mode.toLowerCase();
     return (
-        <div className={ modeLowerCase }>
+        <div className={ `card ${modeLowerCase}` }>
             <h3>
                 { mode }: { data[0] && normaliseStationName(data[0].stationName) } { data.length === 0 && 'Got nothing...' }
             </h3>
