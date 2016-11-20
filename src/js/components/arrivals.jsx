@@ -31,7 +31,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
             <h3>{ headerText }</h3>
             { renderArrivals(direction) }
             <button className={ direction === 'home' ? 'home' : 'away' } onClick={ () => changeDirection() }>
-              <i ariaHidden='true' className={ buttonIcon } />
+              <i aria-hidden='true' className={ buttonIcon } />
             </button>
         </div>
     );
