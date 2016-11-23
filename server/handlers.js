@@ -8,6 +8,7 @@ var tfl = request.defaults({
     qs: credentials
 });
 var INTERVAL_ID = '';
+var NUM_ARRIVALS = 3;
 var stBarnabasChurch = '490012633S';
 var mileEnd = '490000146G';
 var westHamDLR = '940GZZDLWHM';
@@ -36,11 +37,9 @@ var handlers = {
 
             stopPoint = (direction === 'home' ? stBarnabasChurch : mileEnd);
         }
-
         if (INTERVAL_ID) {
             clearInterval(INTERVAL_ID);
         }
-
         pollAPI(io, tfl, stopPoint, mode, direction);
     },
 
@@ -49,13 +48,13 @@ var handlers = {
 
 function pollAPI (io, api, stopPoint, mode, direction) {
 
-    getDataFromAPI(io, api, stopPoint, mode, direction);
+    getDataFromAPI();
 
     INTERVAL_ID = setInterval(() => {
         getDataFromAPI(io, api, stopPoint, mode, direction);
     }, 10000);
 
-    function getDataFromAPI (io, api, stopPoint, mode, direction) {
+    function getDataFromAPI () {
 
         api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
@@ -86,7 +85,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                     return 0;
                 }
             })
-            .slice(0, 5);
+            .slice(0, NUM_ARRIVALS);
             io.emit(mode + ':arrivals', { data: results, direction: direction });
         });
     }
