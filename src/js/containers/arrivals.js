@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { store } from '../store';
 import { getArrivals } from '../actions';
 import Arrivals from '../components/arrivals.jsx';
+import { setBackgroundColour } from '../helpers';
 
 
 const mapStateToProps = (state) => {
+
+    setBackgroundColour(state.direction);
     return {
         bus: state.bus.arrivals,
         train: state.train.arrivals,
