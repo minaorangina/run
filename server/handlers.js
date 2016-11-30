@@ -9,11 +9,10 @@ var tfl = request.defaults({
 });
 var INTERVAL_ID = '';
 var NUM_ARRIVALS = 3;
-var stBarnabasChurch = '490012633S';
-var mileEnd = '490000146G';
-var westHamDLR = '940GZZDLWHM';
-var woolwichDLR = '940GZZDLWLA';
-var canningTownDLR = '940GZZDLCGT';
+var HOME_BUS = process.env.HOME_BUS;
+var AWAY_BUS = process.env.AWAY_BUS;
+var HOME_DLR = process.env.HOME_DLR;
+var AWAY_DLR = process.env.AWAY_DLR;
 
 var handlers = {
 
@@ -31,11 +30,11 @@ var handlers = {
         }
         if (mode === 'dlr') {
 
-            stopPoint = (direction === 'home' ? westHamDLR : woolwichDLR);
+            stopPoint = (direction === 'home' ? HOME_DLR : AWAY_DLR);
 
         } else if (mode === 'bus') {
 
-            stopPoint = (direction === 'home' ? stBarnabasChurch : mileEnd);
+            stopPoint = (direction === 'home' ? HOME_BUS : AWAY_BUS);
         }
         if (INTERVAL_ID) {
             clearInterval(INTERVAL_ID);
@@ -55,7 +54,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
     }, 10000);
 
     function getDataFromAPI () {
-
+        
         api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
             var results = JSON.parse(body);
@@ -71,7 +70,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
 
                     results = results.filter(function (arrival) {
 
-                        return arrival.destinationNaptanId === woolwichDLR;
+                        return arrival.destinationNaptanId === AWAY_DLR;
                     });
                 }
             }
