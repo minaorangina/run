@@ -1,15 +1,13 @@
 'use strict';
 
 import React                                     from 'react';
-import { renderIntoDocument }                    from 'react-addons-test-utils';
-import { scryRenderedDOMComponentsWithTag }      from 'react-addons-test-utils';
-import { scryRenderedDOMComponentsWithClass }    from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithClass
+}                                                from 'react-addons-test-utils';
 
 import { expect }          from 'chai';
-import shallowRenderer     from '../utils/shallowRenderer.js';
-
-import AppContainer        from '../../public/src/components/app-container.jsx';
-import DirectionButtons    from '../../public/src/components/direction-buttons.jsx';
+import AppContainer        from '../../src/js/containers/app.jsx';
 
 
 describe('AppContainer', function () {
