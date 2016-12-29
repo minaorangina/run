@@ -1,10 +1,11 @@
+import { socket } from './socket';
+
 export const GET_ARRIVALS = "GET_ARRIVALS";
 export const GET_ARRIVALS_REQUEST = "GET_ARRIVALS_REQUEST";
 export const GET_ARRIVALS_SUCCESS = "GET_ARRIVALS_SUCCESS";
 export const GET_ARRIVALS_FAILURE = "GET_ARRIVALS_FAILURE";
 export const GENERIC_FAILURE = "GENERIC_FAILURE";
 
-import { socket } from './app.jsx';
 
 export function getArrivals (mode, direction) {
 

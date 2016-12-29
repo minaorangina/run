@@ -6,7 +6,6 @@ import { getArrivals }    from './actions.js';
 import AppContainer       from './containers/app.jsx';
 
 require('../scss/main.scss');
-export const socket = io();
 
 // store.dispatch(getArrivals('train'));
 let direction = store.getState().direction;
