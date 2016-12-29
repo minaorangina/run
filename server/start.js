@@ -5,6 +5,11 @@ var socket = require('socket.io');
 var routes = require('./routes.js');
 var socketHandler = require('./socketHandler.js');
 
+if (!process.env.APP_ID) {
+    console.error('Please set app environment variables');
+    process.exit(1);
+}
+
 var server = new Hapi.Server({
 
     connections: {
