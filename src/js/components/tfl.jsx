@@ -8,7 +8,7 @@ const normaliseStationName = (name) => {
 
 const TfL = ({ mode, data, direction }) => {
 
-    let modeLowerCase = mode.toLowerCase();
+    const modeLowerCase = mode.toLowerCase();
     return (
         <div className={ `card ${modeLowerCase} ${direction || ''}` }>
             <h3>
@@ -16,7 +16,7 @@ const TfL = ({ mode, data, direction }) => {
             </h3>
             {
                 data.map((arrival, i) => {
-                    let time = moment.duration(arrival.timeToStation, 'seconds')
+                    const time = moment.duration(arrival.timeToStation, 'seconds')
                                      .humanize(true);
                     return (
                         <div key={ i } className="arrival-item">

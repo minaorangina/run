@@ -8,7 +8,7 @@ import AppContainer       from './containers/app.jsx';
 require('../scss/main.scss');
 
 // store.dispatch(getArrivals('train'));
-let direction = store.getState().direction;
+const direction = store.getState().direction;
 store.dispatch(getArrivals('dlr', direction));
 store.dispatch(getArrivals('bus', direction));
 

@@ -1,18 +1,18 @@
-var request = require('request');
-var getTrainArrivals = require('./lib/getTrainArrivals.js');
+const request = require('request');
+const getTrainArrivals = require('./lib/getTrainArrivals.js');
 
-var credentials = '&app_id=' + process.env.APP_ID + '&app_key=' + process.env.APP_KEY;
+const credentials = '&app_id=' + process.env.APP_ID + '&app_key=' + process.env.APP_KEY;
 
-var tfl = request.defaults({
+const tfl = request.defaults({
     baseUrl: 'https://api.tfl.gov.uk',
     qs: credentials
 });
-var INTERVAL_ID = '';
-var NUM_ARRIVALS = 3;
-var HOME_BUS = process.env.HOME_BUS;
-var AWAY_BUS = process.env.AWAY_BUS;
-var HOME_DLR = process.env.HOME_DLR;
-var AWAY_DLR = process.env.AWAY_DLR;
+let INTERVAL_ID = '';
+const NUM_ARRIVALS = 3;
+const HOME_BUS = process.env.HOME_BUS;
+const AWAY_BUS = process.env.AWAY_BUS;
+const HOME_DLR = process.env.HOME_DLR;
+const AWAY_DLR = process.env.AWAY_DLR;
 
 var handlers = {
 
@@ -42,7 +42,7 @@ var handlers = {
         pollAPI(io, tfl, stopPoint, mode, direction);
     },
 
-    getTrainArrivals: getTrainArrivals
+    getTrainArrivals
 };
 
 function pollAPI (io, api, stopPoint, mode, direction) {
@@ -54,7 +54,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
     }, 10000);
 
     function getDataFromAPI () {
-        
+
         api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
             var results = JSON.parse(body);

@@ -1,16 +1,16 @@
-var Hapi = require('hapi');
-var Path = require('path');
-var inert = require('inert');
-var socket = require('socket.io');
-var routes = require('./routes.js');
-var socketHandler = require('./socketHandler.js');
+const Hapi = require('hapi');
+const Path = require('path');
+const inert = require('inert');
+const socket = require('socket.io');
+const routes = require('./routes.js');
+const socketHandler = require('./socketHandler.js');
 
 if (!process.env.APP_ID) {
     console.error('Please set app environment variables');
     process.exit(1);
 }
 
-var server = new Hapi.Server({
+const server = new Hapi.Server({
 
     connections: {
         routes: {

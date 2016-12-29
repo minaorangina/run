@@ -4,10 +4,10 @@ import TfL from './tfl.jsx';
 
 const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
 
-    let headerText = (direction === 'home' ? 'Going home' : 'Going to work');
-    let buttonIcon = (direction === 'home' ? 'fa fa-briefcase' : 'fa fa-home');
+    const headerText = (direction === 'home' ? 'Going home' : 'Going to work');
+    const buttonIcon = (direction === 'home' ? 'fa fa-briefcase' : 'fa fa-home');
 
-    let renderArrivals = (direction) => {
+    const renderArrivals = (direction) => {
         if (direction === 'home') {
             return (
                 <div className="arrivals-container">

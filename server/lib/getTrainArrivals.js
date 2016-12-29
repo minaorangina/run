@@ -1,8 +1,8 @@
 "use strict";
-var soap = require('soap');
+const soap = require('soap');
 
-var url = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2015-05-14';
-var accessToken = '<AccessToken><TokenValue>' + process.env.TOKEN + '</TokenValue></AccessToken>';
+const url = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2015-05-14';
+const accessToken = '<AccessToken><TokenValue>' + process.env.TOKEN + '</TokenValue></AccessToken>';
 
 function getTrainArrivals (request, reply) {
 
@@ -13,7 +13,7 @@ function getTrainArrivals (request, reply) {
             throw err;
         }
 
-        var toHome = {
+        const toHome = {
             numRows: 9,
             crs: process.env.AWAY_TRAIN,
             filterCrs: process.env.HOME_TRAIN,
@@ -22,7 +22,7 @@ function getTrainArrivals (request, reply) {
             timeWindow: 120
         };
 
-        var fromHome = {
+        const fromHome = {
             numRows: 9,
             crs: process.env.HOME_TRAIN,
             filterCrs: process.env.AWAY_TRAIN,
@@ -31,7 +31,7 @@ function getTrainArrivals (request, reply) {
             timeWindow: 120
         };
 
-        var args = request.query.direction === 'toHome' ? toHome : fromHome;
+        const args = request.query.direction === 'toHome' ? toHome : fromHome;
 
         client.addSoapHeader(accessToken);
         console.log(args);
@@ -44,11 +44,11 @@ function getTrainArrivals (request, reply) {
                 console.log(err.response.toJSON());
                 return reply(err);
             }
-            var stationBoard = result.GetStationBoardResult;
+            const stationBoard = result.GetStationBoardResult;
 
             // console.log(stationBoard);
 
-            var results = {
+            const results = {
                 destination: stationBoard.filterLocationName,
                 arrivals: stationBoard.trainServices ? stationBoard.trainServices.service : []
             };

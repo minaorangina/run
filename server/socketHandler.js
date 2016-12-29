@@ -1,4 +1,4 @@
-var getTfLArrivals = require('./handlers.js').getTfLArrivals;
+const getTfLArrivals = require('./handlers.js').getTfLArrivals;
 
 function socketHandler (io) {
 
