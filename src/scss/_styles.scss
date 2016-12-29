@@ -33,21 +33,24 @@ h2, h3 {
 }
 
 button {
+    outline: none;
     display: block;
     margin: 0 auto;
     width: 20%;
     font-size: 2.6em;
-    color: white;
-    border-style: none;
-    border-radius: 50px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
+    border-style: solid;
+    border-radius: 20px;
     position: absolute;
-    top: 5px;
     right: 13px;
+    bottom: 10px;
 
-    &.home {
-        background-color: #56a6d9;
-    }
-    &.away {
-        background-color: #47c8c3;
-    }
+    // &.home {
+    //     color: #56a6d9;
+    // }
+    // &.away {
+    //     color: #47c8c3;
+    // }
 }
