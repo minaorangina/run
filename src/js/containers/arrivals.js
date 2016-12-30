@@ -6,7 +6,6 @@ import { setBackgroundColour } from '../helpers';
 
 
 const mapStateToProps = ({ bus, dlr, train, direction }) => {
-    console.log("container", train);
     setBackgroundColour(direction);
     return {
         bus,

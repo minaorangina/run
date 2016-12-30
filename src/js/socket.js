@@ -29,7 +29,6 @@ export function registerListeners (dispatch) {
     });
 
     socket.on('train:error', (error) => {
-        console.log("ERROR?", error);
         dispatch(getArrivalsFailure('train', error));
     });
 

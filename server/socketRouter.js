@@ -12,7 +12,6 @@ function socketRouter (io) {
     });
 
     io.on('train', (direction) => {
-        console.log(`got train ${direction}`);
         getTrainArrivals(io, 'train', direction);
     });
 }
