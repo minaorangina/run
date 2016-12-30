@@ -12,7 +12,7 @@ const TfL = ({ mode, data, direction }) => {
     return (
         <div className={ `card ${modeLowerCase} ${direction || ''}` }>
             <h3>
-                { mode }: { data[0] && normaliseStationName(data[0].stationName) } { data.length === 0 && 'Got nothing...' }
+                { mode }: { data.length > 0 && `from ${normaliseStationName(data[0].stationName)}` } { data.length === 0 && 'Got nothing...' }
             </h3>
             {
                 data.map((arrival, i) => {
@@ -25,7 +25,7 @@ const TfL = ({ mode, data, direction }) => {
                             <span className="time">{ time }</span>
                             {
                                 modeLowerCase === 'dlr' &&
-                                <div className="platform">{ arrival.platformName }</div>
+                                <div className="info">{ arrival.platformName }</div>
                             }
                         </div>
                     );

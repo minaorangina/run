@@ -42,11 +42,9 @@ function getTrainArrivals (io, mode, direction) {
                 return;
             }
             const stationBoard = result.GetStationBoardResult;
-            const results = {
-                destination: stationBoard.filterLocationName,
-                arrivals: stationBoard.trainServices ? stationBoard.trainServices.service : []
-            };
-            io.emit(mode + ':arrivals', { data: results, direction });
+            const data = stationBoard.trainServices ? stationBoard.trainServices.service : [];
+            const origin = direction === 'home' ? process.env.HOME_TRAIN_STATION_NAME : process.env.AWAY_TRAIN_STATION_NAME;
+            io.emit(mode + ':arrivals', { data, direction, origin, destination: stationBoard.filterLocationName });
         });
     });
 }

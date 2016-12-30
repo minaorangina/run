@@ -26,13 +26,15 @@ export function getArrivalsRequest (mode) {
     };
 }
 
-export function getArrivalsSuccess (mode, direction, data) {
+export function getArrivalsSuccess (mode, direction, data, origin, destination) {
 
     return {
         type: GET_ARRIVALS_SUCCESS,
         mode,
         direction,
-        data
+        data,
+        origin,
+        destination
     };
 }
 

@@ -50,9 +50,9 @@ function pollAPI (io, api, stopPoint, mode, direction) {
 
         api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
 
-            var results = JSON.parse(body);
+            let data = JSON.parse(body);
 
-            if (!results || results.httpStatusCode === 404) {
+            if (!data || data.httpStatusCode === 404) {
 
                 io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
                 return;
@@ -61,13 +61,13 @@ function pollAPI (io, api, stopPoint, mode, direction) {
 
                 if (direction === 'home') {
 
-                    results = results.filter(function (arrival) {
+                    data = data.filter(function (arrival) {
 
                         return arrival.destinationNaptanId === AWAY_DLR;
                     });
                 }
             }
-            results = results.sort(function (a, b) {
+            data = data.sort(function (a, b) {
 
                 if (a.expectedArrival < b.expectedArrival) {
                     return -1;
@@ -78,7 +78,9 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                 }
             })
             .slice(0, NUM_ARRIVALS);
-            io.emit(mode + ':arrivals', { data: results, direction });
+            const origin = data[0].stationName;
+            const destination = data[0].destinationName;
+            io.emit(mode + ':arrivals', { data, direction, origin, destination });
         });
     }
 }

@@ -12,16 +12,16 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         if (direction === 'home') {
             return (
                 <div className="arrivals-container">
-                    <TfL mode="Bus" data={ bus } direction={ direction }  />
-                    <TfL mode="DLR" data={ dlr } direction={ direction }  />
-                    <Train data={ train } />
+                    <TfL mode="Bus" data={ bus.arrivals } direction={ direction }  />
+                    <TfL mode="DLR" data={ dlr.arrivals } direction={ direction }  />
+                    <Train data={ train.arrivals } origin={ train.origin } destination={ train.destination } direction={ direction } />
                 </div>
             );
         }
         if (direction === 'away') {
             return (
                 <div className="arrivals-container">
-                    <Train data={ train } />
+                    <Train data={ train.arrivals } destination={ train.destination } />
                     <TfL mode="DLR" data={ dlr } direction={ direction }  />
                     <TfL mode="Bus" data={ bus } direction={ direction }  />
                 </div>

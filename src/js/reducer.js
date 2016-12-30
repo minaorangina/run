@@ -1,4 +1,4 @@
-import update from 'react-addons-update';
+import update from 'immutability-helper';
 
 import {
     GET_ARRIVALS_REQUEST,
@@ -10,14 +10,20 @@ export const initialState = {
     direction: "home",
     bus: {
         arrivals: [],
+        origin: '',
+        destination: '',
         error: undefined
     },
     dlr: {
         arrivals: [],
+        origin: '',
+        destination: '',
         error: undefined
     },
     train: {
         arrivals: [],
+        origin: '',
+        destination: '',
         error: undefined
     },
     isFetching: false,
@@ -37,11 +43,15 @@ export function reducer (state = initialState, action) {
     case GET_ARRIVALS_SUCCESS:
 
         return update(state, {
-            [action.mode]: { arrivals: { $set: action.data } },
+            [action.mode]: {
+                arrivals: { $set: action.data },
+                origin: { $set: action.origin },
+                destination: { $set: action.destination }
+            },
             direction: { $set: action.direction },
             isFetching: { $set: false }
         });
-
+        
     case GET_ARRIVALS_FAILURE:
 
         return update(state, {
