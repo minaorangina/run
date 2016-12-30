@@ -21,6 +21,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         if (direction === 'away') {
             return (
                 <div className="arrivals-container">
+                    <Train data={ train } />
                     <TfL mode="DLR" data={ dlr } direction={ direction }  />
                     <TfL mode="Bus" data={ bus } direction={ direction }  />
                 </div>
