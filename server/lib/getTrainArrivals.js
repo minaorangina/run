@@ -13,7 +13,7 @@ function getTrainArrivals (io, mode, direction) {
             io.emit(`${mode}:error`, new Error(`Error creating soap client ${err.message}`));
         }
 
-        const toHome = {
+        const fromHome = {
             numRows: 9,
             crs: process.env.AWAY_TRAIN,
             filterCrs: process.env.HOME_TRAIN,
@@ -22,7 +22,7 @@ function getTrainArrivals (io, mode, direction) {
             timeWindow: 120
         };
 
-        const fromHome = {
+        const toHome = {
             numRows: 9,
             crs: process.env.HOME_TRAIN,
             filterCrs: process.env.AWAY_TRAIN,
