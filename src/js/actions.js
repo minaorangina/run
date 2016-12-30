@@ -1,4 +1,4 @@
-import { socket } from './socket';
+import { socket, registerListeners } from './socket';
 
 export const GET_ARRIVALS = "GET_ARRIVALS";
 export const GET_ARRIVALS_REQUEST = "GET_ARRIVALS_REQUEST";
@@ -11,30 +11,9 @@ export function getArrivals (mode, direction) {
 
     return (dispatch) => {
 
-        dispatch(getArrivalsRequest(mode));
-
         socket.emit(mode, direction);
-
-        socket.on('dlr:arrivals', (arrivals) => {
-
-            dispatch(getArrivalsSuccess('dlr', arrivals.direction, arrivals.data));
-        });
-        socket.on('bus:arrivals', (arrivals) => {
-
-            dispatch(getArrivalsSuccess('bus', arrivals.direction, arrivals.data));
-        });
-        socket.on('dlr:failure', (error) => {
-
-            dispatch(getArrivalsFailure('dlr', error));
-        });
-        socket.on('bus:failure', (error) => {
-
-            dispatch(getArrivalsFailure('bus', error));
-        });
-        socket.on('error', (error) => {
-
-            dispatch(genericFailure(error));
-        });
+        dispatch(getArrivalsRequest(mode));
+        registerListeners(dispatch);
     };
 }
 

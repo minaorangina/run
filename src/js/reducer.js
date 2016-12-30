@@ -50,7 +50,7 @@ export function reducer (state = initialState, action) {
         });
 
     case GENERIC_FAILURE:
-
+        console.error(action.error);
         return update(state, {
             error: { $set: action.error },
             isFetching: { $set: false }

@@ -7,8 +7,8 @@ import AppContainer       from './containers/app.jsx';
 
 require('../scss/main.scss');
 
-// store.dispatch(getArrivals('train'));
-const direction = store.getState().direction;
+const { direction } = store.getState();
+store.dispatch(getArrivals('train', direction));
 store.dispatch(getArrivals('dlr', direction));
 store.dispatch(getArrivals('bus', direction));
 
@@ -17,5 +17,5 @@ ReactDOM.render(
     <Provider store={ store }>
         <AppContainer />
     </Provider>,
-    document.getElementsByClassName("container")[0]
+    document.querySelector(".container")
 );

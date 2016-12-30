@@ -3,7 +3,7 @@ const Path = require('path');
 const inert = require('inert');
 const socket = require('socket.io');
 const routes = require('./routes.js');
-const socketHandler = require('./socketHandler.js');
+const socketRouter = require('./socketRouter.js');
 
 if (!process.env.APP_ID) {
     console.error('Please set app environment variables');
@@ -31,7 +31,7 @@ server.connection({
 server.route(routes);
 var io = socket(server.listener);
 
-io.on('connection', socketHandler);
+io.on('connection', socketRouter);
 
 server.start(function () {
 

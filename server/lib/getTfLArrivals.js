@@ -1,6 +1,4 @@
 const request = require('request');
-const getTrainArrivals = require('./lib/getTrainArrivals.js');
-
 const credentials = '&app_id=' + process.env.APP_ID + '&app_key=' + process.env.APP_KEY;
 
 const tfl = request.defaults({
@@ -14,35 +12,30 @@ const AWAY_BUS = process.env.AWAY_BUS;
 const HOME_DLR = process.env.HOME_DLR;
 const AWAY_DLR = process.env.AWAY_DLR;
 
-var handlers = {
+module.exports = function getTfLArrivals (io, mode, direction) {
 
-    getTfLArrivals: function (io, mode, direction) {
+    let stopPoint;
 
-        var stopPoint;
+    if (!mode) {
+        io.emit(`${mode}:error`, new Error("Transport mode not supplied"));
+        return;
+    }
+    if (!direction) {
+        io.emit(`${mode}:error`, new Error("Direction not supplied"));
+        return;
+    }
+    if (mode === 'dlr') {
 
-        if (!mode) {
-            io.emit('error', new Error("Transport mode not supplied"));
-            return;
-        }
-        if (!direction) {
-            io.emit('error', new Error("Direction not supplied"));
-            return;
-        }
-        if (mode === 'dlr') {
+        stopPoint = (direction === 'home' ? HOME_DLR : AWAY_DLR);
 
-            stopPoint = (direction === 'home' ? HOME_DLR : AWAY_DLR);
+    } else if (mode === 'bus') {
 
-        } else if (mode === 'bus') {
-
-            stopPoint = (direction === 'home' ? HOME_BUS : AWAY_BUS);
-        }
-        if (INTERVAL_ID) {
-            clearInterval(INTERVAL_ID);
-        }
-        pollAPI(io, tfl, stopPoint, mode, direction);
-    },
-
-    getTrainArrivals
+        stopPoint = (direction === 'home' ? HOME_BUS : AWAY_BUS);
+    }
+    if (INTERVAL_ID) {
+        clearInterval(INTERVAL_ID);
+    }
+    pollAPI(io, tfl, stopPoint, mode, direction);
 };
 
 function pollAPI (io, api, stopPoint, mode, direction) {
@@ -61,7 +54,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
 
             if (!results || results.httpStatusCode === 404) {
 
-                io.emit('error', new Error("Could not get arrivals from TfL"));
+                io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
                 return;
             }
             if (mode === 'dlr') {
@@ -85,9 +78,7 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                 }
             })
             .slice(0, NUM_ARRIVALS);
-            io.emit(mode + ':arrivals', { data: results, direction: direction });
+            io.emit(mode + ':arrivals', { data: results, direction });
         });
     }
 }
-
-module.exports = handlers;

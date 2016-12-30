@@ -4,13 +4,13 @@ const soap = require('soap');
 const url = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2015-05-14';
 const accessToken = '<AccessToken><TokenValue>' + process.env.TOKEN + '</TokenValue></AccessToken>';
 
-function getTrainArrivals (request, reply) {
+function getTrainArrivals (io, mode, direction) {
 
     soap.createClient(url, function (err, client) {
 
         if (err) {
-            console.log('Error creating client...');
-            throw err;
+            console.error('Error creating client...');
+            io.emit(`${mode}:error`, new Error(`Error creating soap client ${err.message}`));
         }
 
         const toHome = {
@@ -31,29 +31,22 @@ function getTrainArrivals (request, reply) {
             timeWindow: 120
         };
 
-        const args = request.query.direction === 'toHome' ? toHome : fromHome;
-
+        const args = direction === 'home' ? toHome : fromHome;
         client.addSoapHeader(accessToken);
-        console.log(args);
         client.GetDepBoardWithDetails(args, function (err, result) {
 
-
             if (err) {
-                console.log('Error getting departures...');
-                console.log(Object.keys(err));
-                console.log(err.response.toJSON());
-                return reply(err);
+                console.error('Error getting departures...');
+                console.error(`${mode}:error`, err.response.toJSON());
+                io.emit(`${mode}:error`, err.response.toJSON());
+                return;
             }
             const stationBoard = result.GetStationBoardResult;
-
-            // console.log(stationBoard);
-
             const results = {
                 destination: stationBoard.filterLocationName,
                 arrivals: stationBoard.trainServices ? stationBoard.trainServices.service : []
             };
-
-            reply(results);
+            io.emit(mode + ':arrivals', { data: results, direction });
         });
     });
 }

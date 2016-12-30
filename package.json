@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node ./server/start.js",
-    "start:dev": "nodemon ./server/start.js",
+    "start-dev": "nodemon ./server/start.js",
     "dev": "node ./src/utils/dev-server.js",
     "postinstall": "webpack --config ./webpack.production.config.js",
     "build": "webpack --config webpack.dev.config.js",
@@ -44,13 +44,12 @@
     "react": "^15.3.2",
     "react-addons-update": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-hot-loader": "^3.0.0-beta.6",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "request": "^2.75.0",
     "sass-loader": "^4.0.2",
-    "soap": "^0.17.0",
+    "soap": "0.11.4",
     "socket.io": "^1.5.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2"
@@ -64,6 +63,7 @@
     "jsdom": "^9.8.0",
     "mocha": "^3.1.2",
     "react-addons-test-utils": "^15.3.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "tap-spec": "^4.1.1",
     "webpack-dev-server": "^1.16.2"
   }
