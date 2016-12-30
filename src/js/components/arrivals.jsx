@@ -1,5 +1,6 @@
 import React from 'react';
 import TfL from './tfl.jsx';
+import Train from './train.jsx';
 
 
 const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
@@ -13,6 +14,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
                 <div className="arrivals-container">
                     <TfL mode="Bus" data={ bus } direction={ direction }  />
                     <TfL mode="DLR" data={ dlr } direction={ direction }  />
+                    <Train data={ train } />
                 </div>
             );
         }
