@@ -78,8 +78,8 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                 }
             })
             .slice(0, NUM_ARRIVALS);
-            const origin = data[0].stationName;
-            const destination = data[0].destinationName;
+            const origin = data.length > 0 ? data[0].stationName : null;
+            const destination = data.length > 0 ? data[0].destinationName : null;
             io.emit(mode + ':arrivals', { data, direction, origin, destination });
         });
     }

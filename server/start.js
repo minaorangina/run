@@ -1,39 +1,22 @@
-const Hapi = require('hapi');
-const Path = require('path');
-const inert = require('inert');
+const http = require('http');
+const express = require('express');
+const morgan = require('morgan');
 const socket = require('socket.io');
-const routes = require('./routes.js');
 const socketRouter = require('./socketRouter.js');
 
 if (!process.env.APP_ID) {
-    console.error('Please set app environment variables');
+    console.error('Please set environment variables');
     process.exit(1);
 }
 
-const server = new Hapi.Server({
+const app = express();
+app.use(express.static('dist'));
+app.use(morgan('combined'));
 
-    connections: {
-        routes: {
-            files: {
-                relativeTo: Path.join(__dirname, '../dist')
-            }
-        }
-    }
-});
-
-
-server.register(inert, function () {});
-
-server.connection({
-    port: Number(process.env.PORT || 9009)
-});
-
-server.route(routes);
-var io = socket(server.listener);
-
+const server = http.createServer(app);
+const io = socket.listen(server);
 io.on('connection', socketRouter);
 
-server.start(function () {
-
-    console.info("Server running at port:", server.info.uri); //eslint-disable-line no-console
+server.listen(9009, function () {
+    console.info('🌍 Server is listening on port 9009. Ready to accept requests!');
 });
