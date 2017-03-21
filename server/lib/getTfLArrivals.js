@@ -52,9 +52,12 @@ function pollAPI (io, api, stopPoint, mode, direction) {
     function getDataFromAPI (url) {
 
         api.get(url, function (err, response, body) {
-
+            if (!body) {
+                io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
+                return;
+            }
             let data = JSON.parse(body);
-            if (!data || parseInt(data.httpStatusCode, 10) >= 400 ) {
+            if (parseInt(data.httpStatusCode, 10) >= 400 ) {
                 console.error(data.httpStatusCode, data.message);
                 io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
                 return;
