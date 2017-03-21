@@ -7,7 +7,7 @@ export default function Train ({ data, origin, destination }) {
             if (arrival.etd === 'Cancelled') {
                 return `${baseClass} cancelled`;
             }
-            if (arrival.etd === 'Delayed') {
+            if (arrival.etd !== 'On time') {
                 return `${baseClass} delayed`;
             }
             return baseClass;
