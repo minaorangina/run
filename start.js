@@ -4,7 +4,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const socket = require('socket.io');
-const socketRouter = require('./server/socketRouter.js');
+const socketRouter = require('./server/socketRouter');
 
 if (!process.env.APP_ID) {
     console.error('Please set environment variables');
@@ -12,7 +12,7 @@ if (!process.env.APP_ID) {
 }
 
 const app = express();
-app.use(express.static(path.resolve(`${__dirname}/dist`)));
+app.use(express.static('dist'));
 app.use(morgan('combined'));
 
 const server = http.createServer(app);
