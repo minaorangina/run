@@ -15,7 +15,7 @@ app.use(express.static('../dist'));
 app.use(morgan('combined'));
 
 const server = http.createServer(app);
-const port = process.env.port || 9009;
+const port = process.env.PORT || 9009;
 const io = socket.listen(server);
 io.on('connection', socketRouter);
 
