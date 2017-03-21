@@ -11,7 +11,7 @@ if (!process.env.APP_ID) {
 }
 
 const app = express();
-app.use(express.static('dist'));
+app.use(express.static('../dist'));
 app.use(morgan('combined'));
 
 const server = http.createServer(app);
