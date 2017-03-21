@@ -6,7 +6,6 @@ import Train from './train.js';
 const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
 
     const headerText = (direction === 'home' ? 'Going home' : 'Going to work');
-    const buttonIcon = (direction === 'home' ? 'fa fa-briefcase' : 'fa fa-home');
 
     const renderArrivals = (direction) => {
         if (direction === 'home') {
@@ -28,13 +27,17 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
             );
         }
     };
-
+    console.log( direction === 'home' ? 'ion-android-home' : 'ion-briefcase' );
     return (
         <div>
-            <h3 className="header">{ headerText }</h3>
+
+            <h3 className="header">
+            <i className={ direction === 'home' ? 'ion-android-home' : 'ion-briefcase' } />
+            { headerText }
+            </h3>
             { renderArrivals(direction) }
             <button className={ direction === 'home' ? 'home' : 'away' } onClick={ () => changeDirection() }>
-              <i aria-hidden='true' className={ buttonIcon } />
+              <i aria-hidden='true' className="ion-arrow-swap"/>
             </button>
         </div>
     );
