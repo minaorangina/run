@@ -32,7 +32,7 @@ export default function Train ({ data, origin, destination }) {
     );
 }
 Train.propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.object,
     direction: PropTypes.string,
     origin: PropTypes.string,
     destination: PropTypes.string
