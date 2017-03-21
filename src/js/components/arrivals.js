@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import TfL from './tfl.js';
 import Train from './train.js';
 
@@ -41,3 +41,11 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
 };
 
 export default Arrivals;
+
+Arrivals.propTypes = {
+    train: PropTypes.object,
+    dlr: PropTypes.object,
+    bus: PropTypes.object,
+    changeDirection: PropTypes.func,
+    direction: PropTypes.string
+};

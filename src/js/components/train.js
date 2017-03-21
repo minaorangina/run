@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default function Train ({ data, direction, origin, destination }) {
 
@@ -20,3 +20,9 @@ export default function Train ({ data, direction, origin, destination }) {
         </div>
     );
 }
+Train.propTypes = {
+    data: PropTypes.array,
+    direction: PropTypes.string,
+    origin: PropTypes.string,
+    destination: PropTypes.string
+};

@@ -47,14 +47,13 @@ function pollAPI (io, api, stopPoint, mode, direction) {
 
     getDataFromAPI(url);
 
-    // INTERVAL_ID = setInterval(getDataFromAPI, 10000);
+    INTERVAL_ID = setInterval(getDataFromAPI, 10000);
 
     function getDataFromAPI (url) {
-        
+
         api.get(url, function (err, response, body) {
 
             let data = JSON.parse(body);
-            console.log('data!!!', Object.keys(data));
             if (!data || parseInt(data.httpStatusCode, 10) >= 400 ) {
                 console.error(data.httpStatusCode, data.message);
                 io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));

@@ -10,7 +10,7 @@ require('../scss/main.scss');
 const { direction } = store.getState();
 store.dispatch(getArrivals('train', direction));
 store.dispatch(getArrivals('dlr', direction));
-// store.dispatch(getArrivals('bus', direction));
+store.dispatch(getArrivals('bus', direction));
 
 ReactDOM.render(
 
