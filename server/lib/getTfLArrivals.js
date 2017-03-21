@@ -40,32 +40,32 @@ module.exports = function getTfLArrivals (io, mode, direction) {
 
 function pollAPI (io, api, stopPoint, mode, direction) {
 
-    getDataFromAPI();
+    const url = mode === 'dlr' ?
+                `Line/${mode}/Arrivals/${stopPoint}?direction=${direction === 'home' ? 'outbound' : 'inbound'}` :
+                `StopPoint/${stopPoint}/Arrivals`;
 
-    INTERVAL_ID = setInterval(() => {
-        getDataFromAPI(io, api, stopPoint, mode, direction);
-    }, 10000);
 
-    function getDataFromAPI () {
+    getDataFromAPI(url);
 
-        api.get('StopPoint/' + stopPoint + '/Arrivals', function (err, response, body) {
+    // INTERVAL_ID = setInterval(getDataFromAPI, 10000);
+
+    function getDataFromAPI (url) {
+        
+        api.get(url, function (err, response, body) {
 
             let data = JSON.parse(body);
-
-            if (!data || data.httpStatusCode === 404) {
-
+            console.log('data!!!', Object.keys(data));
+            if (!data || parseInt(data.httpStatusCode, 10) >= 400 ) {
+                console.error(data.httpStatusCode, data.message);
                 io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
                 return;
             }
-            if (mode === 'dlr') {
+            if (mode === 'dlr' && direction === 'home') {
 
-                if (direction === 'home') {
+                data = data.filter(function (arrival) {
 
-                    data = data.filter(function (arrival) {
-
-                        return arrival.destinationNaptanId === AWAY_DLR;
-                    });
-                }
+                    return arrival.destinationNaptanId === AWAY_DLR;
+                });
             }
             data = data.sort(function (a, b) {
 
