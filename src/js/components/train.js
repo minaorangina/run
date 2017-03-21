@@ -1,12 +1,23 @@
 import React, { PropTypes } from 'react';
 
-export default function Train ({ data, direction, origin, destination }) {
+export default function Train ({ data, origin, destination }) {
 
     const arrivals = data.length > 0 && data.map((arrival, i) => {
+        const classnames = baseClass => {
+            if (arrival.etd === 'Cancelled') {
+                return `${baseClass} cancelled`;
+            }
+            if (arrival.etd === 'Delayed') {
+                return `${baseClass} delayed`;
+            }
+            return baseClass;
+        };
         return (
-            <div className="arrival-item" key={ i }>
+            <div className="arrival-item-container" key={ i }>
+                <div className={ classnames('arrival-item') } >
                 { `${arrival.std} to ${destination}` }
-                <div className="info">{ arrival.etd }</div>
+                </div>
+                <div className={ classnames('info') }>{ arrival.etd }</div>
             </div>
         );
     });

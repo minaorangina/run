@@ -23,13 +23,26 @@ h2, h3 {
     margin: 10px 0;
 }
 
-.arrival-item {
+.arrival-item-container {
     margin: 10px;
+}
+
+.arrival-item {
+    &.cancelled {
+        text-decoration: line-through;
+    }
 }
 
 .info {
     font-size: 0.8em;
     font-style: italic;
+    &.delayed {
+        color: rgb(190, 148, 21);
+    }
+    &.cancelled {
+        color: rgb(158, 7, 16);
+        font-weight: bold;
+    }
 }
 
 .ion-android-home, .ion-briefcase {

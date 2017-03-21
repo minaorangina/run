@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 
 const normaliseStationName = (name) => {
@@ -13,7 +13,7 @@ const TfL = ({ mode, data, direction }) => {
         const time = moment.duration(arrival.timeToStation, 'seconds')
                          .humanize(true);
         return (
-            <div key={ i } className="arrival-item">
+            <div key={ i } className="arrival-item-container">
                 {modeLowerCase === 'bus' && `${arrival.lineName} `}
                 {modeLowerCase === 'dlr' && `${normaliseStationName(arrival.destinationName)} `}
                 <span className="time">{ time }</span>
@@ -36,3 +36,9 @@ const TfL = ({ mode, data, direction }) => {
 };
 
 export default TfL;
+
+TfL.propTypes = {
+    mode: PropTypes.string,
+    data: PropTypes.object,
+    direction: PropTypes.string
+};
