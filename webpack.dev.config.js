@@ -10,7 +10,7 @@ module.exports = {
         "webpack-dev-server/client?http://localhost:8080/"
     ],
     output: {
-        path: path.join(__dirname, 'server/dist'),
+        path: path.join(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     module: {

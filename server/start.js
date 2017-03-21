@@ -11,13 +11,14 @@ if (!process.env.APP_ID) {
 }
 
 const app = express();
-app.use(express.static('dist'));
+app.use(express.static('../dist'));
 app.use(morgan('combined'));
 
 const server = http.createServer(app);
+const port = process.env.port || 9009;
 const io = socket.listen(server);
 io.on('connection', socketRouter);
 
-server.listen(9009, function () {
-    console.info('🌍 Server is listening on port 9009. Ready to accept requests!');
+server.listen(port, function () {
+    console.info(`🌍 Server is listening on port ${port}. Ready to accept requests!`);
 });
