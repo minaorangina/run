@@ -1,6 +1,6 @@
 import React from 'react';
-import TfL from './tfl.jsx';
-import Train from './train.jsx';
+import TfL from './tfl.js';
+import Train from './train.js';
 
 
 const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { store } from '../store';
 import { getArrivals } from '../actions';
-import Arrivals from '../components/arrivals.jsx';
+import Arrivals from '../components/arrivals.js';
 import { setBackgroundColour } from '../helpers';
 
 
