@@ -2,13 +2,13 @@
   "name": "run",
   "version": "1.0.0",
   "description": "Run or walk for your transport?",
-  "main": "./server/start.js",
+  "main": "start.js",
   "engines": {
     "node": "6.9.1"
   },
   "scripts": {
-    "start": "node ./server/start.js",
-    "start-dev": "nodemon ./server/start.js",
+    "start": "node start.js",
+    "start-dev": "nodemon start.js",
     "dev": "node ./src/utils/dev-server.js",
     "postinstall": "webpack --config ./webpack.production.config.js",
     "build": "webpack --config webpack.dev.config.js",
