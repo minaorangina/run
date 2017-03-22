@@ -27,7 +27,6 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
             );
         }
     };
-    console.log( direction === 'home' ? 'ion-android-home' : 'ion-briefcase' );
     return (
         <div>
 
