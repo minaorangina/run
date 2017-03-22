@@ -10,7 +10,7 @@
     "start": "node start.js",
     "start-dev": "nodemon start.js",
     "dev": "node ./src/utils/dev-server.js",
-    "postinstall": "webpack --config ./webpack.production.config.js",
+    "postinstall": "webpack --config webpack.production.config.js",
     "build": "webpack --config webpack.dev.config.js",
     "env": "source ./env.sh",
     "lint": "eslint src/**/*.js server/**/*.js test/**/*.js",
