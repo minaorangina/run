@@ -1,19 +1,19 @@
 "use strict";
-var soap = require('soap');
+const soap = require('soap');
 
-var url = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2015-05-14';
-var accessToken = '<AccessToken><TokenValue>' + process.env.TOKEN + '</TokenValue></AccessToken>';
+const url = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2015-05-14';
+const accessToken = '<AccessToken><TokenValue>' + process.env.TOKEN + '</TokenValue></AccessToken>';
 
-function getTrainArrivals (request, reply) {
+function getTrainArrivals (io, mode, direction) {
 
     soap.createClient(url, function (err, client) {
 
         if (err) {
-            console.log('Error creating client...');
-            throw err;
+            console.error('Error creating client...');
+            io.emit(`${mode}:error`, new Error(`Error creating soap client ${err.message}`));
         }
 
-        var toHome = {
+        const fromHome = {
             numRows: 9,
             crs: process.env.AWAY_TRAIN,
             filterCrs: process.env.HOME_TRAIN,
@@ -22,7 +22,7 @@ function getTrainArrivals (request, reply) {
             timeWindow: 120
         };
 
-        var fromHome = {
+        const toHome = {
             numRows: 9,
             crs: process.env.HOME_TRAIN,
             filterCrs: process.env.AWAY_TRAIN,
@@ -30,30 +30,20 @@ function getTrainArrivals (request, reply) {
             timeOffset: 0,
             timeWindow: 120
         };
-
-        var args = request.query.direction === 'toHome' ? toHome : fromHome;
-
+    
+        const args = direction === 'home' ? toHome : fromHome;
         client.addSoapHeader(accessToken);
-        console.log(args);
         client.GetDepBoardWithDetails(args, function (err, result) {
-
-
             if (err) {
-                console.log('Error getting departures...');
-                console.log(Object.keys(err));
-                console.log(err.response.toJSON());
-                return reply(err);
+                console.error('Error getting departures...');
+                console.error(`${mode}:error`, err.response.toJSON());
+                io.emit(`${mode}:error`, err.response.toJSON());
+                return;
             }
-            var stationBoard = result.GetStationBoardResult;
-
-            // console.log(stationBoard);
-
-            var results = {
-                destination: stationBoard.filterLocationName,
-                arrivals: stationBoard.trainServices ? stationBoard.trainServices.service : []
-            };
-
-            reply(results);
+            const stationBoard = result.GetStationBoardResult;
+            const data = stationBoard.trainServices ? stationBoard.trainServices.service.slice(0, 4) : [];
+            const origin = direction === 'home' ? process.env.HOME_TRAIN_STATION_NAME : process.env.AWAY_TRAIN_STATION_NAME;
+            io.emit(`${mode}:arrivals`, { data, direction, origin, destination: stationBoard.filterLocationName });
         });
     });
 }

@@ -1,19 +1,17 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { store } from '../store';
 import { getArrivals } from '../actions';
-import Arrivals from '../components/arrivals.jsx';
+import Arrivals from '../components/arrivals.js';
 import { setBackgroundColour } from '../helpers';
 
 
-const mapStateToProps = (state) => {
-
-    setBackgroundColour(state.direction);
+const mapStateToProps = ({ bus, dlr, train, direction }) => {
+    setBackgroundColour(direction);
     return {
-        bus: state.bus.arrivals,
-        train: state.train.arrivals,
-        dlr: state.dlr.arrivals,
-        direction: state.direction
+        bus,
+        train,
+        dlr,
+        direction
     };
 };
 
@@ -21,9 +19,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         changeDirection: () => {
 
-            let newDirection = store.getState().direction === 'home' ? 'away' : 'home';
+            const newDirection = store.getState().direction === 'home' ? 'away' : 'home';
             dispatch(getArrivals('dlr', newDirection));
             dispatch(getArrivals('bus', newDirection));
+            dispatch(getArrivals('train', newDirection));
         }
     };
 };

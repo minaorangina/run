@@ -23,31 +23,48 @@ h2, h3 {
     margin: 10px 0;
 }
 
-.arrival-item {
+.arrival-item-container {
     margin: 10px;
 }
 
-.platform {
+.arrival-item {
+    &.cancelled {
+        text-decoration: line-through;
+    }
+}
+
+.info {
     font-size: 0.8em;
     font-style: italic;
+    &.delayed {
+        color: rgb(228, 151, 19);
+        font-weight: bold;
+    }
+    &.cancelled {
+        color: rgb(158, 7, 16);
+        font-weight: bold;
+    }
+}
+
+.ion-android-home, .ion-briefcase {
+    font-size: 32px;
+    &::after {
+        content: ' ';
+    }
 }
 
 button {
+    outline: none;
     display: block;
     margin: 0 auto;
     width: 20%;
     font-size: 2.6em;
     color: white;
-    border-style: none;
-    border-radius: 50px;
-    position: absolute;
-    top: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
+    border-style: solid;
+    border-radius: 20px;
+    position: fixed;
     right: 13px;
-
-    &.home {
-        background-color: #56a6d9;
-    }
-    &.away {
-        background-color: #47c8c3;
-    }
+    bottom: 10px;
 }

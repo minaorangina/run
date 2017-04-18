@@ -1,6 +1,5 @@
 'use strict';
 
-import React from 'react';
 import { createRenderer } from 'react-addons-test-utils';
 
 export default function shallowRenderer (component) {

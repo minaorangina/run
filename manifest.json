@@ -1,0 +1,12 @@
+{
+  "name": "Run?",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "img/running.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

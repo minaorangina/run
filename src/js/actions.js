@@ -1,39 +1,19 @@
+import { socket, registerListeners } from './socket';
+
 export const GET_ARRIVALS = "GET_ARRIVALS";
 export const GET_ARRIVALS_REQUEST = "GET_ARRIVALS_REQUEST";
 export const GET_ARRIVALS_SUCCESS = "GET_ARRIVALS_SUCCESS";
 export const GET_ARRIVALS_FAILURE = "GET_ARRIVALS_FAILURE";
 export const GENERIC_FAILURE = "GENERIC_FAILURE";
 
-import { socket } from './app.jsx';
 
 export function getArrivals (mode, direction) {
 
     return (dispatch) => {
 
-        dispatch(getArrivalsRequest(mode));
-
         socket.emit(mode, direction);
-
-        socket.on('dlr:arrivals', (arrivals) => {
-
-            dispatch(getArrivalsSuccess('dlr', arrivals.direction, arrivals.data));
-        });
-        socket.on('bus:arrivals', (arrivals) => {
-
-            dispatch(getArrivalsSuccess('bus', arrivals.direction, arrivals.data));
-        });
-        socket.on('dlr:failure', (error) => {
-
-            dispatch(getArrivalsFailure('dlr', error));
-        });
-        socket.on('bus:failure', (error) => {
-
-            dispatch(getArrivalsFailure('bus', error));
-        });
-        socket.on('error', (error) => {
-
-            dispatch(genericFailure(error));
-        });
+        dispatch(getArrivalsRequest(mode));
+        registerListeners(dispatch);
     };
 }
 
@@ -46,13 +26,15 @@ export function getArrivalsRequest (mode) {
     };
 }
 
-export function getArrivalsSuccess (mode, direction, data) {
+export function getArrivalsSuccess (mode, direction, data, origin, destination) {
 
     return {
         type: GET_ARRIVALS_SUCCESS,
         mode,
         direction,
-        data
+        data,
+        origin,
+        destination
     };
 }
 

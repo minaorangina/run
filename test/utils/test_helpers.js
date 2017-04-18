@@ -6,9 +6,6 @@ import jsdom from 'jsdom';
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
 const win = doc.defaultView;
 
-function doNothing () {
-    return null;
-}
 
 // require('ignore-styles');
 

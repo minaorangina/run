@@ -5,7 +5,7 @@ const path = require('path');
 
 module.exports = {
     entry: [
-        "./src/js/app.jsx",
+        "./src/js/app.js",
         "webpack/hot/dev-server",
         "webpack-dev-server/client?http://localhost:8080/"
     ],

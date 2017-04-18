@@ -7,13 +7,13 @@ This is *not* a transport planning app.
 
 Instead, this is for someone who knows *exactly* where they're going, but **doesn't want to miss their connection**.
 
-1. You see all the live departures on your commuting route *at a glance*.  
+1. You see all the live departures on your commuting route at a glance.  
 2. You work out if you need to run or not.
 3. You proceed at your chosen pace.
 
 Simple as that :smile:
 
-### Uses Node v4.4.7
+### Uses Node v6.9.1
 
 ###[I'm keeping track of any problems or bugs encountered here](https://github.com/minaorangina/run/blob/master/problems-solutions.md)
 
@@ -21,3 +21,5 @@ Simple as that :smile:
 - [x] Add Redux
 - [x] Swap babelify for webpack
 - [x] Add styles
+- [ ] Upgrade to Webpack 2
+- [ ] App reverses your travelling direction when launching
