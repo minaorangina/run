@@ -15,7 +15,7 @@ Simple as that :smile:
 
 ### Uses Node v6.9.1
 
-###[I'm keeping track of any problems or bugs encountered here](https://github.com/minaorangina/run/blob/master/problems-solutions.md)
+#### I'm keeping track of any problems or bugs encountered [here](https://github.com/minaorangina/run/blob/master/problems-solutions.md)
 
 ## TODO
 - [x] Add Redux
@@ -24,4 +24,4 @@ Simple as that :smile:
 - [x] Upgrade to Webpack 2
 - [ ] App reverses your travelling direction when launching
 - [ ] When no internet (e.g. you're in a tunnel), app displays estimated departures based on last known data
-- [ ] Display last updated 
+- [ ] Display last updated
