@@ -30,7 +30,7 @@ function getTrainArrivals (io, mode, direction) {
             timeOffset: 0,
             timeWindow: 120
         };
-
+        console.log(process.env.HOME_TRAIN, accessToken);
         const args = direction === 'home' ? toHome : fromHome;
         client.addSoapHeader(accessToken);
         client.GetDepBoardWithDetails(args, function (err, result) {
