@@ -21,5 +21,7 @@ Simple as that :smile:
 - [x] Add Redux
 - [x] Swap babelify for webpack
 - [x] Add styles
-- [ ] Upgrade to Webpack 2
+- [x] Upgrade to Webpack 2
 - [ ] App reverses your travelling direction when launching
+- [ ] When no internet (e.g. you're in a tunnel), app displays estimated departures based on last known data
+- [ ] Display last updated 
