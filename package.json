@@ -9,10 +9,10 @@
   "scripts": {
     "start": "node start.js",
     "start-dev": "nodemon start.js",
+    "build-hot": "node_modules/.bin/webpack-dev-server --config webpack.dev.config.js",
     "dev": "node ./src/utils/dev-server.js",
     "postinstall": "webpack --config webpack.production.config.js",
     "build": "webpack --config webpack.dev.config.js",
-    "env": "source ./env.sh",
     "lint": "eslint src/**/*.js server/**/*.js test/**/*.js",
     "test": "tape --require babel-register --require ignore-styles --require ./test/utils/test_helpers.js 'test/tape/**/*.es6'",
     "test:mocha": "node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/utils/test_helpers.js 'test/unit/**/*.@(js|jsx)'"
@@ -53,7 +53,7 @@
     "soap": "0.11.4",
     "socket.io": "^1.5.0",
     "style-loader": "^0.13.1",
-    "webpack": "1.13.2"
+    "webpack": "^2.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
@@ -66,6 +66,6 @@
     "react-addons-test-utils": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.6",
     "tap-spec": "^4.1.1",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^2.4.2"
   }
 }

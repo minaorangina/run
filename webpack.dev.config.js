@@ -9,22 +9,27 @@ module.exports = {
         "webpack/hot/dev-server",
         "webpack-dev-server/client?http://localhost:8080/"
     ],
+    entry: './src/js/app.js',
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js'
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'bundle.js'
     },
     module: {
-        loaders: [
-            {
-                test: /\.jsx?$/,
-                loader: "babel-loader",
-                exclude: /node_modules/
-            },
-            {
-                test: /\.scss$/,
-                loaders: ["style-loader", "css-loader", "sass-loader"]
-            }
+        rules: [
+            { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
+            { test: /\.s?css$/, use: ['style-loader', 'css-loader', 'sass-loader'] }
         ]
+    },
+    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
+      compress: true,
+      port: 9000,
+      hot: true,
+      proxy: {
+        '*': {
+          target: 'http://localhost:9009'
+        }
+      }
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
