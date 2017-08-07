@@ -11,31 +11,64 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         if (direction === 'home') {
             return (
                 <div className="arrivals-container">
-                    <TfL mode="Bus" data={ bus.arrivals } direction={ direction }  />
-                    <TfL mode="DLR" data={ dlr.arrivals } direction={ direction }  />
-                    <Train data={ train.arrivals } origin={ train.origin } destination={ train.destination } direction={ direction } />
+                    <TfL
+                        mode="Bus"
+                        data={ bus.arrivals }
+                        direction={ direction }
+                        last_updated={ bus.last_updated }
+                    />
+                    <TfL
+                        mode="DLR"
+                        data={ dlr.arrivals }
+                        direction={ direction }
+                        last_updated={ dlr.last_updated }
+                    />
+                    <Train
+                        data={ train.arrivals }
+                        origin={ train.origin }
+                        destination={ train.destination }
+                        direction={ direction }
+                        last_updated={ train.last_updated }
+                    />
                 </div>
             );
         }
         if (direction === 'away') {
             return (
                 <div className="arrivals-container">
-                    <Train data={ train.arrivals } origin={ train.origin } destination={ train.destination } />
-                    <TfL mode="DLR" data={ dlr.arrivals } direction={ direction }  />
-                    <TfL mode="Bus" data={ bus.arrivals } direction={ direction }  />
+                    <Train
+                        data={ train.arrivals }
+                        origin={ train.origin }
+                        destination={ train.destination }
+                        last_updated={ train.last_updated }
+                    />
+                    <TfL
+                        mode="DLR"
+                        data={ dlr.arrivals }
+                        direction={ direction }
+                        last_updated={ dlr.last_updated }
+                    />
+                    <TfL
+                        mode="Bus"
+                        data={ bus.arrivals }
+                        direction={ direction }
+                        last_updated={ bus.last_updated }
+                    />
                 </div>
             );
         }
     };
     return (
         <div>
-
             <h3 className="header">
             <i className={ direction === 'home' ? 'ion-android-home' : 'ion-briefcase' } />
-            { headerText }
+                { headerText }
             </h3>
             { renderArrivals(direction) }
-            <button className={ direction === 'home' ? 'home' : 'away' } onClick={ () => changeDirection() }>
+            <button
+                className={ direction === 'home' ? 'home' : 'away' }
+                onClick={ () => changeDirection() }
+            >
               <i aria-hidden='true' className="ion-arrow-swap"/>
             </button>
         </div>

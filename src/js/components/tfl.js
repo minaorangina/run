@@ -6,7 +6,7 @@ const normaliseStationName = (name) => {
     return name.replace(' DLR Station', '');
 };
 
-const TfL = ({ mode, data, direction }) => {
+const TfL = ({ mode, data, direction, last_updated }) => {
 
     const modeLowerCase = mode.toLowerCase();
     let arrivals = data.map((arrival, i) => {
@@ -30,6 +30,7 @@ const TfL = ({ mode, data, direction }) => {
             <h3>
                 { mode }: { data.length > 0 && `from ${normaliseStationName(data[0].stationName)}` } { data.length === 0 && 'Got nothing...' }
             </h3>
+            <p className="last-updated">Last updated: { moment(last_updated).format('HH.mm') }</p>
             { arrivals }
         </div>
     );
@@ -40,5 +41,6 @@ export default TfL;
 TfL.propTypes = {
     mode: PropTypes.string,
     data: PropTypes.object,
-    direction: PropTypes.string
+    direction: PropTypes.string,
+    last_updated: PropTypes.string
 };

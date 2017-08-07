@@ -1,3 +1,4 @@
+/*eslint-disable*/
 'use strict';
 
 const webpack = require('webpack');
@@ -11,8 +12,8 @@ module.exports = {
     ],
     entry: './src/js/app.js',
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js'
     },
     module: {
         rules: [
@@ -21,15 +22,15 @@ module.exports = {
         ]
     },
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
-      compress: true,
-      port: 9000,
-      hot: true,
-      proxy: {
-        '*': {
-          target: 'http://localhost:9009'
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
+        hot: true,
+        proxy: {
+          '*': {
+            target: 'http://localhost:9009'
+          }
         }
-      }
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
