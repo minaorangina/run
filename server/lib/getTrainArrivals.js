@@ -30,7 +30,7 @@ function getTrainArrivals (io, mode, direction) {
             timeOffset: 0,
             timeWindow: 120
         };
-    
+
         const args = direction === 'home' ? toHome : fromHome;
         client.addSoapHeader(accessToken);
         client.GetDepBoardWithDetails(args, function (err, result) {
@@ -41,9 +41,9 @@ function getTrainArrivals (io, mode, direction) {
                 return;
             }
             const stationBoard = result.GetStationBoardResult;
-            const data = stationBoard.trainServices ? stationBoard.trainServices.service.slice(0, 4) : [];
+            const data = stationBoard.trainServices ? stationBoard.trainServices.service.slice(0, 6) : [];
             const origin = direction === 'home' ? process.env.HOME_TRAIN_STATION_NAME : process.env.AWAY_TRAIN_STATION_NAME;
-            io.emit(`${mode}:arrivals`, { data, direction, origin, destination: stationBoard.filterLocationName });
+            io.emit(`${mode}:arrivals`, { data, direction, origin, destination: stationBoard.filterLocationName, last_updated: new Date().toISOString() });
         });
     });
 }

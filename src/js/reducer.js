@@ -1,4 +1,3 @@
-import update from 'immutability-helper';
 
 import {
     GET_ARRIVALS_REQUEST,
@@ -12,18 +11,21 @@ export const initialState = {
         arrivals: [],
         origin: '',
         destination: '',
+        last_updated: undefined,
         error: undefined
     },
     dlr: {
         arrivals: [],
         origin: '',
         destination: '',
+        last_updated: undefined,
         error: undefined
     },
     train: {
         arrivals: [],
         origin: '',
         destination: '',
+        last_updated: undefined,
         error: undefined
     },
     isFetching: false,
@@ -35,36 +37,32 @@ export function reducer (state = initialState, action) {
     switch (action.type) {
 
     case GET_ARRIVALS_REQUEST:
-
-        return update(state, {
-            isFetching: { $set: true }
-        });
+        return { ...state, isFetching: true };
 
     case GET_ARRIVALS_SUCCESS:
+        const data = {
+            ...state[action.mode],
+            arrivals: action.data.data,
+            origin: action.data.origin,
+            destination: action.data.destination,
+            direction: action.direction,
+            last_updated: action.data.last_updated
+        };
+        return { ...state, isFetching: false, [action.mode]: data };
 
-        return update(state, {
-            [action.mode]: {
-                arrivals: { $set: action.data },
-                origin: { $set: action.origin },
-                destination: { $set: action.destination }
-            },
-            direction: { $set: action.direction },
-            isFetching: { $set: false }
-        });
-        
     case GET_ARRIVALS_FAILURE:
-
-        return update(state, {
-            [action.mode]: { error: { $set: action.error } },
-            isFetching: { $set: false }
-        });
+        return {
+            ...state,
+            isFetching: false,
+            [action.mode]: { ...state[action.mode], error: action.error }
+        };
 
     case GENERIC_FAILURE:
-        console.error(action.error);
-        return update(state, {
-            error: { $set: action.error },
-            isFetching: { $set: false }
-        });
+        return {
+            ...state,
+            isFetching: false,
+            error: action.error
+        };
 
     default:
         return state;

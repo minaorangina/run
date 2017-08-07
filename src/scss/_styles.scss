@@ -5,8 +5,14 @@ h2 {
 
 h2, h3 {
     margin: 1em 0.5em;
+    display: inline-block;
 }
-
+.last-updated {
+  display: inline-block;
+  text-align: right;
+  color: grey;
+  font-size: 0.8em;
+}
 .header {
     margin: 1.3em 0.5em;
 }
