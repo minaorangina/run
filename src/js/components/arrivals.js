@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import TfL from './tfl.js';
-import Train from './train.js';
+import Card from './card';
 
 
 const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
@@ -11,19 +10,22 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         if (direction === 'home') {
             return (
                 <div className="arrivals-container">
-                    <TfL
+                    <Card
                         mode="Bus"
                         data={ bus.arrivals }
+                        destination={ bus.arrivals.length > 0 ? bus.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ bus.last_updated }
                     />
-                    <TfL
+                    <Card
                         mode="DLR"
                         data={ dlr.arrivals }
+                        destination={ dlr.arrivals.length > 0 ? dlr.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ dlr.last_updated }
                     />
-                    <Train
+                    <Card
+                        mode="Train"
                         data={ train.arrivals }
                         origin={ train.origin }
                         destination={ train.destination }
@@ -36,19 +38,19 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         if (direction === 'away') {
             return (
                 <div className="arrivals-container">
-                    <Train
+                    <Card
                         data={ train.arrivals }
                         origin={ train.origin }
                         destination={ train.destination }
                         last_updated={ train.last_updated }
                     />
-                    <TfL
+                    <Card
                         mode="DLR"
                         data={ dlr.arrivals }
                         direction={ direction }
                         last_updated={ dlr.last_updated }
                     />
-                    <TfL
+                    <Card
                         mode="Bus"
                         data={ bus.arrivals }
                         direction={ direction }

@@ -40,7 +40,7 @@ export function reducer (state = initialState, action) {
     case GET_ARRIVALS_REQUEST:
         return { ...state, isFetching: true };
 
-    case GET_ARRIVALS_SUCCESS:
+    case GET_ARRIVALS_SUCCESS: {
         const data = {
             ...state[action.mode],
             arrivals: action.data.data,
@@ -50,6 +50,7 @@ export function reducer (state = initialState, action) {
             last_updated: action.data.last_updated
         };
         return { ...state, isFetching: false, [action.mode]: data };
+    }
 
     case GET_ARRIVALS_FAILURE:
         return {
