@@ -28,13 +28,13 @@ export default function Train ({ data, origin, destination, last_updated }) {
             <h3>
                 { `Train: ${ data.length === 0 ? 'Got nothing...' : `from ${origin}`}` }
             </h3>
-            <p className="last-updated">Last updated: { moment(last_updated).format('HH.mm') }</p>
+            <p className="last-updated">Last updated: { moment(last_updated).format('HH:mm') }</p>
             { arrivals }
         </div>
     );
 }
 Train.propTypes = {
-    data: PropTypes.object,
+    data: PropTypes.array,
     direction: PropTypes.string,
     origin: PropTypes.string,
     destination: PropTypes.string,

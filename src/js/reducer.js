@@ -4,9 +4,10 @@ import {
     GET_ARRIVALS_SUCCESS,
     GET_ARRIVALS_FAILURE,
     GENERIC_FAILURE } from './actions.js';
+import { getDirection } from './helpers';
 
 export const initialState = {
-    direction: "home",
+    direction: getDirection(),
     bus: {
         arrivals: [],
         origin: '',
