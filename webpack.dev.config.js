@@ -1,5 +1,4 @@
 /*eslint-disable*/
-'use strict';
 
 const webpack = require('webpack');
 const path = require('path');
@@ -33,6 +32,7 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin()
     ]
 };

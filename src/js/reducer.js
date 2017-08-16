@@ -1,12 +1,12 @@
-
 import {
+    SET_DIRECTION,
     GET_ARRIVALS_REQUEST,
     GET_ARRIVALS_SUCCESS,
     GET_ARRIVALS_FAILURE,
     GENERIC_FAILURE } from './actions.js';
 
 export const initialState = {
-    direction: "home",
+    direction: undefined,
     bus: {
         arrivals: [],
         origin: '',
@@ -36,10 +36,13 @@ export function reducer (state = initialState, action) {
 
     switch (action.type) {
 
+    case SET_DIRECTION:
+        return { ...state, direction: action.direction };
+
     case GET_ARRIVALS_REQUEST:
         return { ...state, isFetching: true };
 
-    case GET_ARRIVALS_SUCCESS:
+    case GET_ARRIVALS_SUCCESS: {
         const data = {
             ...state[action.mode],
             arrivals: action.data.data,
@@ -49,6 +52,7 @@ export function reducer (state = initialState, action) {
             last_updated: action.data.last_updated
         };
         return { ...state, isFetching: false, [action.mode]: data };
+    }
 
     case GET_ARRIVALS_FAILURE:
         return {

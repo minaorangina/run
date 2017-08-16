@@ -2,11 +2,15 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { reducer } from './reducer.js';
+import { reducer, initialState as state } from './reducer';
+import { getDirection } from './helpers';
+
+let newState = { ...state };
+newState.direction = getDirection();
 
 export function makeStore (initialState) {
 
-    return createStore(
+    const store = createStore(
         reducer,
         initialState,
         compose(
@@ -14,6 +18,13 @@ export function makeStore (initialState) {
             window.devToolsExtension ? window.devToolsExtension() : f => f
         )
     );
+    if (module.hot) {
+        module.hot.accept('./reducer', () => {
+            const nextReducer = require('./reducer');
+            store.replaceReducer(nextReducer);
+        });
+    }
+    return store;
 }
 
-export const store = makeStore();
+export const store = makeStore(newState);

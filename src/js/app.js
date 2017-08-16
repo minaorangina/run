@@ -3,7 +3,7 @@ import ReactDOM           from 'react-dom';
 import { Provider }       from 'react-redux';
 import { store }          from './store.js';
 import { getArrivals }    from './actions.js';
-import AppContainer       from './containers/app.js';
+import ArrivalsContainer       from './containers/arrivals.js';
 
 require('../scss/main.scss');
 
@@ -15,7 +15,7 @@ store.dispatch(getArrivals('bus', direction));
 ReactDOM.render(
 
     <Provider store={ store }>
-        <AppContainer />
+        <ArrivalsContainer />
     </Provider>,
     document.querySelector(".container")
 );
