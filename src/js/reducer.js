@@ -1,13 +1,12 @@
-
 import {
+    SET_DIRECTION,
     GET_ARRIVALS_REQUEST,
     GET_ARRIVALS_SUCCESS,
     GET_ARRIVALS_FAILURE,
     GENERIC_FAILURE } from './actions.js';
-import { getDirection } from './helpers';
 
 export const initialState = {
-    direction: getDirection(),
+    direction: undefined,
     bus: {
         arrivals: [],
         origin: '',
@@ -36,6 +35,9 @@ export const initialState = {
 export function reducer (state = initialState, action) {
 
     switch (action.type) {
+
+    case SET_DIRECTION:
+        return { ...state, direction: action.direction };
 
     case GET_ARRIVALS_REQUEST:
         return { ...state, isFetching: true };

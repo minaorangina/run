@@ -39,20 +39,24 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
             return (
                 <div className="arrivals-container">
                     <Card
+                        mode="Train"
                         data={ train.arrivals }
                         origin={ train.origin }
                         destination={ train.destination }
+                        direction={ direction }
                         last_updated={ train.last_updated }
                     />
                     <Card
                         mode="DLR"
                         data={ dlr.arrivals }
+                        destination={ bus.arrivals.length > 0 ? bus.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ dlr.last_updated }
                     />
                     <Card
                         mode="Bus"
                         data={ bus.arrivals }
+                        destination={ bus.arrivals.length > 0 ? bus.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ bus.last_updated }
                     />
@@ -69,7 +73,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
             { renderArrivals(direction) }
             <button
                 className={ direction === 'home' ? 'home' : 'away' }
-                onClick={ () => changeDirection() }
+                onClick={ changeDirection }
             >
               <i aria-hidden='true' className="ion-arrow-swap"/>
             </button>
