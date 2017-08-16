@@ -5,10 +5,9 @@ import Arrivals from '../components/arrivals.js';
 import { setBackgroundColour } from '../helpers';
 
 
-const mapStateToProps = ({ bus, dlr, train, direction }) => {
+const mapStateToProps = ({ dlr, train, direction }) => {
     setBackgroundColour(direction);
     return {
-        bus,
         train,
         dlr,
         direction
@@ -20,7 +19,6 @@ const mapDispatchToProps = (dispatch) => {
         changeDirection: () => {
             const newDirection = store.getState().direction === 'home' ? 'away' : 'home';
             dispatch(getArrivals('dlr', newDirection));
-            dispatch(getArrivals('bus', newDirection));
             dispatch(getArrivals('train', newDirection));
             dispatch(setDirection(newDirection));
         }

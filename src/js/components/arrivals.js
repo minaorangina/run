@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Card from './card';
 
 
-const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
+const Arrivals = ({ train, dlr, direction, changeDirection }) => {
 
     const headerText = (direction === 'home' ? 'Going home' : 'Going to work');
 
@@ -10,13 +10,6 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
         if (direction === 'home') {
             return (
                 <div className="arrivals-container">
-                    <Card
-                        mode="Bus"
-                        data={ bus.arrivals }
-                        destination={ bus.arrivals.length > 0 ? bus.arrivals[0].stationName : '' }
-                        direction={ direction }
-                        last_updated={ bus.last_updated }
-                    />
                     <Card
                         mode="DLR"
                         data={ dlr.arrivals }
@@ -52,13 +45,6 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
                         destination={ dlr.arrivals.length > 0 ? dlr.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ dlr.last_updated }
-                    />
-                    <Card
-                        mode="Bus"
-                        data={ bus.arrivals }
-                        destination={ bus.arrivals.length > 0 ? bus.arrivals[0].stationName : '' }
-                        direction={ direction }
-                        last_updated={ bus.last_updated }
                     />
                 </div>
             );
