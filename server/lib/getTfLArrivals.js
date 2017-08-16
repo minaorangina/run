@@ -62,12 +62,16 @@ function pollAPI (io, api, stopPoint, mode, direction) {
                 io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
                 return;
             }
-            if (mode === 'dlr' && direction === 'home') {
-
-                data = data.filter(function (arrival) {
-
-                    return arrival.destinationNaptanId === AWAY_DLR;
-                });
+            if (mode === 'dlr') {
+                if (direction === 'home') {
+                    data = data.filter(function (arrival) {
+                        return arrival.destinationNaptanId === AWAY_DLR;
+                    });
+                } else {
+                    data = data.filter(function (arrival) {
+                        return arrival.destinationNaptanId === HOME_DLR;
+                    });
+                }
             }
             data = data.sort(function (a, b) {
 

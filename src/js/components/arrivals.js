@@ -49,7 +49,7 @@ const Arrivals = ({ train, dlr, bus, direction, changeDirection }) => {
                     <Card
                         mode="DLR"
                         data={ dlr.arrivals }
-                        destination={ bus.arrivals.length > 0 ? bus.arrivals[0].stationName : '' }
+                        destination={ dlr.arrivals.length > 0 ? dlr.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ dlr.last_updated }
                     />
