@@ -16,10 +16,10 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
     }
     return (
         <div className={ `card ${mode.toLowerCase()} ${direction || ''}` }>
+            <p className="last-updated">Last updated: { moment(last_updated).format('HH:mm') }</p>
             <h3>
                 { mode }: { header }
             </h3>
-            <p className="last-updated">Last updated: { moment(last_updated).format('HH:mm') }</p>
             {
                 data.map((arrival, i) => {
                     const time = moment.duration(arrival.timeToStation, 'seconds')
