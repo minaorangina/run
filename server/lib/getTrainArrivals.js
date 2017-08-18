@@ -4,7 +4,17 @@ const soap = require('soap');
 const url = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2015-05-14';
 const accessToken = '<AccessToken><TokenValue>' + process.env.TOKEN + '</TokenValue></AccessToken>';
 
+let INTERVAL_ID = '';
+
 function getTrainArrivals (io, mode, direction) {
+
+    if (INTERVAL_ID) {
+        clearInterval(INTERVAL_ID);
+    }
+    pollAPI(io, mode, direction);
+}
+
+function pollAPI (io, mode, direction) {
 
     soap.createClient(url, function (err, client) {
 
@@ -13,25 +23,25 @@ function getTrainArrivals (io, mode, direction) {
             io.emit(`${mode}:error`, new Error(`Error creating soap client ${err.message}`));
         }
 
-        const fromHome = {
+        const away = {
             numRows: 9,
-            crs: process.env.AWAY_TRAIN,
-            filterCrs: process.env.HOME_TRAIN,
+            crs: process.env.AWAYWARDS_ORIGIN_TRAIN,
+            filterCrs: process.env.AWAYWARDS_DESTINATION_TRAIN,
             filterType: 'to',
             timeOffset: 0,
             timeWindow: 120
         };
 
-        const toHome = {
+        const home = {
             numRows: 9,
-            crs: process.env.HOME_TRAIN,
-            filterCrs: process.env.AWAY_TRAIN,
+            crs: process.env.HOMEWARDS_ORIGIN_TRAIN,
+            filterCrs: process.env.AWAYWARDS_ORIGIN_TRAIN,
             filterType: 'to',
             timeOffset: 0,
             timeWindow: 120
         };
 
-        const args = direction === 'home' ? toHome : fromHome;
+        const args = direction === 'home' ? home : away;
         client.addSoapHeader(accessToken);
         client.GetDepBoardWithDetails(args, function (err, result) {
             if (err) {
@@ -42,9 +52,13 @@ function getTrainArrivals (io, mode, direction) {
             }
             const stationBoard = result.GetStationBoardResult;
             const data = stationBoard.trainServices ? stationBoard.trainServices.service.slice(0, 6) : [];
-            const origin = direction === 'home' ? process.env.HOME_TRAIN_STATION_NAME : process.env.AWAY_TRAIN_STATION_NAME;
+            const origin = direction === 'away' ? process.env.AWAYWARDS_ORIGIN_TRAIN_NAME : process.env.AWAYWARDS_DESTINATION_TRAIN_NAME;
             io.emit(`${mode}:arrivals`, { data, direction, origin, destination: stationBoard.filterLocationName, last_updated: new Date().toISOString() });
         });
+
+        INTERVAL_ID = setInterval(() => {
+            getTrainArrivals(io, mode, direction);
+        }, 10000);
     });
 }
 

@@ -7,12 +7,12 @@ const tfl = request.defaults({
 });
 let INTERVAL_ID = '';
 const NUM_ARRIVALS = 3;
-const HOME_BUS = process.env.HOME_BUS;
-const AWAY_BUS = process.env.AWAY_BUS;
-const HOME_DLR = process.env.HOME_DLR;
-const AWAY_DLR = process.env.AWAY_DLR;
+const AWAYWARDS_ORIGIN_DLR = process.env.AWAYWARDS_ORIGIN_DLR;
+const AWAYWARDS_DESTINATION_DLR = process.env.AWAYWARDS_DESTINATION_DLR;
+const HOMEWARDS_ORIGIN_DLR = process.env.HOMEWARDS_ORIGIN_DLR;
+const HOMEWARDS_DESTINATION_DLR = process.env.HOMEWARDS_DESTINATION_DLR;
 
-module.exports = function getTfLArrivals (io, mode, direction) {
+function getTfLArrivals (io, mode, direction) {
 
     let stopPoint;
 
@@ -25,68 +25,51 @@ module.exports = function getTfLArrivals (io, mode, direction) {
         return;
     }
     if (mode === 'dlr') {
-
-        stopPoint = (direction === 'home' ? HOME_DLR : AWAY_DLR);
-
-    } else if (mode === 'bus') {
-
-        stopPoint = (direction === 'home' ? HOME_BUS : AWAY_BUS);
+        stopPoint = (direction === 'away' ? AWAYWARDS_ORIGIN_DLR : HOMEWARDS_ORIGIN_DLR);
     }
     if (INTERVAL_ID) {
         clearInterval(INTERVAL_ID);
     }
     pollAPI(io, tfl, stopPoint, mode, direction);
-};
+}
 
 function pollAPI (io, api, stopPoint, mode, direction) {
 
     const url = mode === 'dlr' ?
-                `Line/${mode}/Arrivals/${stopPoint}?direction=${direction === 'home' ? 'outbound' : 'inbound'}` :
+                `Line/${mode}/Arrivals/${stopPoint}?direction=${direction === 'away' ? 'inbound' : 'outbound'}` :
                 `StopPoint/${stopPoint}/Arrivals`;
 
-
-    getDataFromAPI(url);
-
-    INTERVAL_ID = setInterval(getDataFromAPI, 10000);
-
-    function getDataFromAPI (url) {
-
-        api.get(url, function (err, response, body) {
-            if (!body) {
-                io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
-                return;
+    api.get(url, function (err, response, body) {
+        if (!body) {
+            io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
+            return;
+        }
+        let data = JSON.parse(body);
+        if (parseInt(data.httpStatusCode, 10) >= 400 ) {
+            console.error(data.httpStatusCode, data.message);
+            io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
+            return;
+        }
+        if (mode === 'dlr') {
+            if (direction === 'away') {
+                data = data.filter(function (arrival) {
+                    return arrival.destinationNaptanId === AWAYWARDS_DESTINATION_DLR;
+                });
+            } else {
+                data = data.filter(function (arrival) {
+                    return arrival.destinationNaptanId === HOMEWARDS_DESTINATION_DLR;
+                });
             }
-            let data = JSON.parse(body);
-            if (parseInt(data.httpStatusCode, 10) >= 400 ) {
-                console.error(data.httpStatusCode, data.message);
-                io.emit(`${mode}:error`, new Error("Could not get arrivals from TfL"));
-                return;
-            }
-            if (mode === 'dlr') {
-                if (direction === 'home') {
-                    data = data.filter(function (arrival) {
-                        return arrival.destinationNaptanId === AWAY_DLR;
-                    });
-                } else {
-                    data = data.filter(function (arrival) {
-                        return arrival.destinationNaptanId === HOME_DLR;
-                    });
-                }
-            }
-            data = data.sort(function (a, b) {
+        }
+        data = data.slice(0, NUM_ARRIVALS);
+        const origin = data.length > 0 ? data[0].stationName : null;
+        const destination = data.length > 0 ? data[0].destinationName : null;
+        io.emit(mode + ':arrivals', { data, direction, origin, destination, last_updated: new Date().toISOString() });
+    });
 
-                if (a.expectedArrival < b.expectedArrival) {
-                    return -1;
-                } else if (a.expectedArrival > b.expectedArrival) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            })
-            .slice(0, NUM_ARRIVALS);
-            const origin = data.length > 0 ? data[0].stationName : null;
-            const destination = data.length > 0 ? data[0].destinationName : null;
-            io.emit(mode + ':arrivals', { data, direction, origin, destination, last_updated: new Date().toISOString() });
-        });
-    }
+    INTERVAL_ID = setInterval(() => {
+        getTfLArrivals(io, mode, direction);
+    }, 10000);
 }
+
+module.exports = getTfLArrivals;
