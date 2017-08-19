@@ -11,14 +11,14 @@ const Arrivals = ({ train, dlr, direction, changeDirection }) => {
             return (
                 <div className="arrivals-container">
                     <Card
-                        mode="DLR"
+                        mode="dlr"
                         data={ dlr.arrivals }
                         destination={ dlr.arrivals.length > 0 ? dlr.arrivals[0].stationName : '' }
                         direction={ direction }
                         last_updated={ dlr.last_updated }
                     />
                     <Card
-                        mode="Train"
+                        mode="train"
                         data={ train.arrivals }
                         origin={ train.origin }
                         destination={ train.destination }
@@ -32,7 +32,7 @@ const Arrivals = ({ train, dlr, direction, changeDirection }) => {
             return (
                 <div className="arrivals-container">
                     <Card
-                        mode="Train"
+                        mode="train"
                         data={ train.arrivals }
                         origin={ train.origin }
                         destination={ train.destination }
@@ -40,7 +40,7 @@ const Arrivals = ({ train, dlr, direction, changeDirection }) => {
                         last_updated={ train.last_updated }
                     />
                     <Card
-                        mode="DLR"
+                        mode="dlr"
                         data={ dlr.arrivals }
                         destination={ dlr.arrivals.length > 0 ? dlr.arrivals[0].stationName : '' }
                         direction={ direction }

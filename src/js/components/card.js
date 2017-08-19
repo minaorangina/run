@@ -1,24 +1,31 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 
-const normaliseStationName = (data) => {
-    if (data.length > 0) {
-        return name.replace(' DLR Station', '');
+const normaliseStationName = (stationName, mode) => {
+    console.log(mode)
+    if (mode === 'dlr' && stationName.length > 0) {
+        return stationName.replace(' DLR Station', '');
+    }
+    if (mode === 'train' && stationName !== 'London Bridge') {
+        return stationName.replace('London', '');
     }
 };
 
 const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
     let header;
-    if (mode.toLowerCase() === 'train') {
-        header = `from ${origin}` || 'Got nothing...';
+    if (mode === 'train') {
+        header = `${origin}` || 'Got nothing...';
     } else {
         header = destination || 'Got nothing...';
     }
+    if (mode === 'train') {
+        console.log("DATA", data)
+    }
     return (
-        <div className={ `card ${mode.toLowerCase()} ${direction || ''}` }>
+        <div className={ `card ${mode} ${direction || ''}` }>
             <p className="last-updated">Last updated: { moment(last_updated).format('HH:mm') }</p>
             <h3>
-                { mode }: { header }
+                { mode }: { `from ${normaliseStationName(header, 'dlr')}` }
             </h3>
             {
                 data.map((arrival, i) => {
@@ -30,6 +37,7 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
                             mode={ mode }
                             arrival={ arrival }
                             destination={ destination }
+                            finalDestination={ mode === 'train' && data.length > 0 && `${data[0].destination.location[0].locationName}` }
                             time={ time }
                         />
                     );
@@ -39,25 +47,28 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
     );
 };
 
-const ArrivalItem = ({ mode, arrival, destination, time }) => {
-    if (mode.toLowerCase() === 'train') {
+const ArrivalItem = ({ mode, arrival, finalDestination, time }) => {
+    if (mode === 'train') {
         return (
             <div className="arrival-item-container">
-                 <div className='arrival-item' >
-                 { `${arrival.std} to ${destination}` }
+                 <div className='arrival-item'>
+                 { `${arrival.std} to ${normaliseStationName(finalDestination, mode)}` }
                  </div>
                  <div className='info'>{ arrival.etd }</div>
              </div>
         );
     } else {
+        console.log("ARRIVAL", arrival)
         return (
             <div className="arrival-item-container">
-            { mode.toLowerCase() === 'bus' && `${arrival.lineName} ` }
-            { mode.toLowerCase() === 'dlr' && `${normaliseStationName(arrival.destinationName)} ` }
+            { mode === 'bus' && `${arrival.lineName} ` }
             <span className="time">{ time }</span>
             {
-                mode.toLowerCase() === 'dlr' &&
-                <div className="info">{ arrival.platformName }</div>
+                mode === 'dlr' &&
+                <div className="info">
+                    { arrival.platformName }
+                    {` - ${normaliseStationName(arrival.destinationName, mode)}`}
+                </div>
             }
             </div>
         );
@@ -77,6 +88,6 @@ Card.propTypes = {
 ArrivalItem.propTypes = {
     mode: PropTypes.string,
     arrival: PropTypes.object,
-    destination: PropTypes.string,
+    finalDestination: PropTypes.string,
     time: PropTypes.string
 };

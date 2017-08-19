@@ -14,7 +14,7 @@ h2, h3 {
     display: inline-block;
 }
 .last-updated {
-  display: inline-block;
+  display: block;
   text-align: right;
   color: grey;
   font-size: 0.8em;
@@ -70,8 +70,8 @@ button {
     outline: none;
     display: block;
     margin: 10px 10px 10px auto;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     font-size: 2.6em;
     color: white;
     background-color: rgba(0, 0, 0, 0.8);
