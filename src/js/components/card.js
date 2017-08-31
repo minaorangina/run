@@ -37,7 +37,7 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
                             mode={ mode }
                             arrival={ arrival }
                             destination={ destination }
-                            finalDestination={ mode === 'train' && data.length > 0 && `${data[0].destination.location[0].locationName}` }
+                            finalDestination={ mode === 'train' && data.length > 0 && `${data[i].destination.location[0].locationName}` }
                             time={ time }
                         />
                     );
