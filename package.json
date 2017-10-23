@@ -4,7 +4,7 @@
   "description": "Run or walk for your transport?",
   "main": "start.js",
   "engines": {
-    "node": "6.9.1"
+    "node": "8.7.0"
   },
   "scripts": {
     "start": "node start.js",
