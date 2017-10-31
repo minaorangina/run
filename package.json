@@ -4,7 +4,7 @@
   "description": "Run or walk for your transport?",
   "main": "start.js",
   "engines": {
-    "node": "6.9.1"
+    "node": "8.7.0"
   },
   "scripts": {
     "start": "node start.js",
@@ -40,6 +40,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "immutability-helper": "^2.0.0",
+    "lodash.isequal": "^4.5.0",
     "moment": "^2.15.1",
     "morgan": "^1.7.0",
     "node-sass": "^3.10.1",
