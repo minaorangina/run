@@ -5,6 +5,7 @@ import Card from './card';
 const Arrivals = ({ train, dlr, direction, changeDirection }) => {
 
     const headerText = (direction === 'home' ? 'Going home' : 'Going to work');
+    const headerIcon = (direction === 'home' ? 0x1f3E0 : 0x1f680);
 
     const renderArrivals = (direction) => {
         if (direction === 'home') {
@@ -55,6 +56,7 @@ const Arrivals = ({ train, dlr, direction, changeDirection }) => {
             <h3 className="header">
             <i className={ direction === 'home' ? 'ion-android-home' : 'ion-briefcase' } />
                 { headerText }
+                { String.fromCharCode(headerIcon) }
             </h3>
             { renderArrivals(direction) }
             <button

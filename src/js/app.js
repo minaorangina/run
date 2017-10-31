@@ -5,7 +5,7 @@ import { store }          from './store.js';
 import { getArrivals }    from './actions.js';
 import ArrivalsContainer       from './containers/arrivals.js';
 
-require('../scss/main.scss');
+require('../styles.css');
 
 const { direction } = store.getState();
 store.dispatch(getArrivals('train', direction));
