@@ -7,7 +7,14 @@ function sendBackData (io, { data = [], mode, direction, destination }) {
         if (parsed) {
             androidData = parsed;
         }
-        io.emit(`${mode}:arrivals`, { androidData, direction, origin, destination, last_updated: new Date().toISOString() });
+        io.emit(`${mode}:arrivals`, {
+            android_data: androidData, 
+            data, 
+            direction, 
+            origin, 
+            destination, 
+            last_updated: new Date().toISOString() 
+        });
     })
     .catch(console.error);
 }
