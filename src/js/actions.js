@@ -31,11 +31,11 @@ export function getArrivalsRequest (mode) {
     };
 }
 
-export function getArrivalsSuccess (mode, data) {
+export function getArrivalsSuccess (mode, payload) {
     return {
         type: GET_ARRIVALS_SUCCESS,
         mode,
-        data
+        payload
     };
 }
 

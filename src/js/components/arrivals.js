@@ -24,6 +24,7 @@ const Arrivals = ({ train, dlr, direction, changeDirection }) => {
                         data={ train.arrivals }
                         origin={ train.origin }
                         destination={ train.destination }
+                        terminus={ train.terminus }
                         direction={ direction }
                         last_updated={ train.last_updated }
                     />

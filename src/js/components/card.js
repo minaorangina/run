@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const normaliseStationName = (stationName, mode) => {
-    console.log(mode)
     if (mode === 'dlr' && stationName.length > 0) {
         return stationName.replace(' DLR Station', '');
     }
@@ -18,9 +17,6 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
         header = `${origin}` || 'Got nothing...';
     } else {
         header = destination || 'Got nothing...';
-    }
-    if (mode === 'train') {
-        console.log("DATA", data)
     }
     return (
         <div className={ `card ${mode} ${direction || ''}` }>
@@ -38,7 +34,6 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
                             mode={ mode }
                             arrival={ arrival }
                             destination={ destination }
-                            finalDestination={ mode === 'train' && data.length > 0 && `${data[i].destination.location[0].locationName}` }
                             time={ time }
                         />
                     );
@@ -48,18 +43,17 @@ const Card = ({ mode, origin, destination, data, direction, last_updated }) => {
     );
 };
 
-const ArrivalItem = ({ mode, arrival, finalDestination, time }) => {
+const ArrivalItem = ({ mode, arrival, time }) => {
     if (mode === 'train') {
         return (
             <div className="arrival-item-container">
                  <div className='arrival-item'>
-                 { `${arrival.std} to ${normaliseStationName(finalDestination, mode)}` }
+                 { `${arrival.std} to ${normaliseStationName(arrival.terminus, mode)}` }
                  </div>
                  <div className='info'>{ arrival.etd }</div>
              </div>
         );
     } else {
-        console.log("ARRIVAL", arrival)
         return (
             <div className="arrival-item-container">
             { mode === 'bus' && `${arrival.lineName} ` }
@@ -89,6 +83,6 @@ Card.propTypes = {
 ArrivalItem.propTypes = {
     mode: PropTypes.string,
     arrival: PropTypes.object,
-    finalDestination: PropTypes.string,
+    terminus: PropTypes.string,
     time: PropTypes.string
 };

@@ -25,6 +25,7 @@ export const initialState = {
         arrivals: [],
         origin: '',
         destination: '',
+        terminus: '',
         last_updated: undefined,
         error: undefined
     },
@@ -45,11 +46,11 @@ export function reducer (state = initialState, action) {
     case GET_ARRIVALS_SUCCESS: {
         const data = {
             ...state[action.mode],
-            arrivals: action.data.data,
-            origin: action.data.origin,
-            destination: action.data.destination,
+            arrivals: action.mode === 'train' ? action.payload.android_data : action.payload.data,
+            origin: action.payload.origin,
+            destination: action.payload.destination,
             direction: action.direction,
-            last_updated: action.data.last_updated
+            last_updated: action.payload.last_updated
         };
         return { ...state, isFetching: false, [action.mode]: data };
     }

@@ -8,16 +8,16 @@ export const socket = io(); // eslint-disable-line no-undef
 
 export function registerListeners (dispatch) {
 
-    socket.on('dlr:arrivals', (data) => {
-        dispatch(getArrivalsSuccess('dlr', data));
+    socket.on('dlr:arrivals', (payload) => {
+        dispatch(getArrivalsSuccess('dlr', payload));
     });
 
-    socket.on('bus:arrivals', (data) => {
-        dispatch(getArrivalsSuccess('bus', data));
+    socket.on('bus:arrivals', (payload) => {
+        dispatch(getArrivalsSuccess('bus', payload));
     });
 
-    socket.on('train:arrivals', (data) => {
-        dispatch(getArrivalsSuccess('train', data));
+    socket.on('train:arrivals', (payload) => {
+        dispatch(getArrivalsSuccess('train', payload));
     });
 
     socket.on('dlr:error', (error) => {
