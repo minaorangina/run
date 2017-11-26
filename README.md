@@ -13,7 +13,7 @@ Instead, this is for someone who knows *exactly* where they're going, but **does
 
 Simple as that :smile:
 
-### Uses Node v8.7.0
+### Uses Node v9
 
 #### I'm keeping track of any problems or bugs encountered [here](https://github.com/minaorangina/run/blob/master/problems-solutions.md)
 
