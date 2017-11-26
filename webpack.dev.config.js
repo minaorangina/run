@@ -5,6 +5,7 @@ const path = require('path');
 
 module.exports = {
     entry: [
+        "react-hot-loader/patch",
         "./src/js/app.js",
         "webpack/hot/dev-server",
         "webpack-dev-server/client?http://localhost:8080/"
@@ -12,8 +13,10 @@ module.exports = {
     entry: './src/js/app.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: "/"
     },
+    devtool: 'inline-source-map',
     module: {
         rules: [
             { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
