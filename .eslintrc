@@ -29,8 +29,7 @@
         "array-bracket-spacing": ["error", "never"],
         "object-curly-spacing": ["error", "always"],
         "semi": ["error", "always"],
-        "indent": ["error"],
-        "space-before-function-paren": "error",
+        "indent": ["warn", 2],
         "no-spaced-func": "error",
         "space-unary-ops": [
         "error", {
